@@ -1,0 +1,522 @@
+%% This is file `elsarticle-template-1-num.tex',
+%%
+%% Copyright 2009 Elsevier Ltd
+%%
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for Elsevier's document class `elsarticle'
+%% with numbered style bibliographic references
+%%
+%% $Id: elsarticle-template-1-num.tex 149 2009-10-08 05:01:15Z rishi $
+%% $URL: http://lenova.river-valley.com/svn/elsbst/trunk/elsarticle-template-1-num.tex $
+%%
+% \documentclass[preprint,12pt]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn]{elsarticle}
+%  \documentclass[final,3p,times]{elsarticle}
+ \documentclass[final,3p,times,twocolumn]{elsarticle}
+%% \documentclass[final,5p,times]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn]{elsarticle}
+
+%% if you use PostScript figures in your article
+%% use the graphics package for simple commands
+%% \usepackage{graphics}
+%% or use the graphicx package for more complicated commands
+%% \usepackage{graphicx}
+%% or use the epsfig package if you prefer to use the old commands
+%% \usepackage{epsfig}
+
+\usepackage[utf8]{inputenc} 
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{lscape}
+\usepackage{amsmath}
+\usepackage{multirow}
+% if you have landscape tables
+\usepackage[figuresright]{rotating}
+\usepackage{lineno}
+\usepackage{algorithm} 
+\usepackage{algpseudocode} 
+\usepackage{comment}
+\usepackage{lineno}
+
+\usepackage{natbib}
+\bibliographystyle{abbrvnat}
+\setcitestyle{authoryear,open={(},close={)},citesep={;}} 
+
+\usepackage{calc}
+\setlength{\footskip}{\paperheight
+  -(1in+\voffset+\topmargin+\headheight+\headsep+\textheight)
+  -0.95in}
+
+% for SVG figures
+\usepackage{svg}
+
+% For using LuaLaTeX or XeLaTeX compilers instead of pdflatex (memory limit)
+\usepackage{fontspec} 
+\setmainfont{Times New Roman}
+
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\itshape}{\thesubsection}{1em}{}
+
+
+\begin{document}
+
+\begin{frontmatter}
+
+% \title{Automated Identification of Invasive Aquatic Plants Using Deep Neural Networks on Controlled Image Datasets}
+\title{Improving Out-of-Distribution Aquatic Plant Classification from Limited Controlled Training Data Using Confidence-Aware Re-Evaluation}
+
+\author[label1]{Aaryan Panigrahi}
+\author[label1]{Fengying Dang}
+
+
+\address{Fengying Dang (fdang1@mtu.edu) is the corresponding author}
+\address[label1]{Department of Electrical and Computer Engineering, Michigan Technological University, Houghton, MI 49931, USA}
+
+
+\begin{abstract}
+ % Focus on why the problem is hard - limited data and complex env - current limitations
+Aquatic invasive species (AIS) threaten the resilience of fisheries and aquaculture systems, causing severe ecological damage and economic losses. Accurate early identification is necessary to manage these species. However, collecting high-quality images in underwater environments is difficult and expensive, resulting in limited available data. Consequently, computer vision models trained on small laboratory datasets often fail to generalize to the visual variations found in natural settings. To address this limitation, this study introduces the `You Need To Look Twice' (YNLT) module. Inspired by the human behavior of closely re-examining uncertain details, this confidence-aware module identifies ambiguous image regions and re-evaluates them at higher resolutions. The YNLT module is supported by a ConvNeXt-V2 backbone and a Gated Attention classification head to extract relevant plant features while filtering out background artifacts. The method was evaluated using a dataset of 230 plant images captured in a controlled laboratory. To test generalization to out-of-distribution environments, an additional dataset of 33 crowd-sourced images showing plants in field settings was used. The proposed approach increases classification accuracy from a baseline of 84.78\% to 93.48\% on the laboratory test set. Furthermore, it improves accuracy on the out-of-distribution crowd-sourced images from 47.06\% to 64.71\%. These results indicate that models trained on limited laboratory images can learn to identify invasive plants in more complex environments, providing a practical tool to support fisheries management and prevent ecological damage...
+\end{abstract}
+
+\begin{keyword}
+Aquatic invasive species \sep Computer vision \sep precision agriculture \sep Domain generalization \sep Environmental monitoring
+\end{keyword}
+
+\end{frontmatter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% main text
+\section{Introduction}
+\label{sec:intro}
+
+Invasive species threaten biosecurity, agriculture, and human health, with global control and damage costs estimated in the trillions of dollars~\cite{tasker2024nuanced, macedo2024economic, shen2024typical, vaissiere2022nature, cuthbert2021global}. In the United States, recent estimates place annual losses near \$138 billion, a large fraction of which is attributable to freshwater plants, especially submerged and floating taxa~\cite{pimentel2000environmental, lovell2006economic, warziniack2021economics, macedo2024economic}. In fisheries and aquaculture, dense mats of invasive macrophytes reduce dissolved oxygen, obstruct spawning habitat, clog equipment, and raise operating costs. Early, accurate identification is therefore a practical management need rather than a purely taxonomic one.
+
+Existing identification methods do not scale to routine monitoring. Field identification depends on botanical expertise~\cite{dehez2023investigation}. Molecular assays are accurate but require specialized sampling and laboratory capacity~\cite{angles2019detection, ghahramanzadeh2013efficient, scriver2015development}. Remote sensing covers large areas but lacks the spatial detail needed to separate morphologically similar submerged species~\cite{brooks2019implementing, unitis2018remote, jochems4883509active}. Image-based computer vision is attractive because it uses ordinary cameras~\cite{wang2026realtime}. The difficulty is not the camera; it is the data. High-quality underwater photographs are expensive to collect, so training sets are small and usually captured in the laboratory, while deployment images come from the field.
+
+Prior aquatic plant classifiers show that convolutional networks can work when data are plentiful and classes are visually distinct, as in seagrass benchmarks~\cite{DeepSeaGrass1, Nawaz2025Seagrass, Paul2023LWDS, baos_cnn}. Freshwater monitoring in the Great Lakes is a different problem: native and invasive species often share the same coarse appearance, and only a few dozen labeled laboratory images may be available per study. Transfer learning from ImageNet, and earlier hierarchical SVMs for kelp~\cite{Kelps_SVMs}, reduce the data requirement but still collapse high-resolution botanical detail when images are resized to a standard $224\times 224$ input. The resulting models can look confident on laboratory photos and fail on handheld or in situ images of the same species.
+
+Several computer-vision lines of work already try to ``look closer,'' but they are a poor fit for this regime. Recurrent attention models select a sequence of glimpses with reinforcement learning~\cite{mnih2014recurrent}. Coarse-to-fine and recurrent attention CNNs learn where to zoom for fine-grained recognition~\cite{fu2017look}. Multi-resolution networks and multi-crop test-time augmentation evaluate extra scales or crops for every image~\cite{krizhevsky2012imagenet, huang2018multiscale}. Attention-based fine-grained heads localize discriminative parts, typically on large bird or car datasets~\cite{fu2017look}. Hard-example mining reweights difficult samples during training~\cite{shrivastava2016training}. Uncertainty-aware and selective prediction methods either study calibration~\cite{Guoetal2017, Ovadiaetal2019, hendrycks2017baseline} or abstain when the model is unsure~\cite{geifman2017selective}. Learned zoom, always-on multi-crop, and abstention each assume either abundant labeled data, a budget to process every image at many scales, or the option to refuse a decision. None of those assumptions holds for laboratory-to-field aquatic identification, where missing an invasive plant is costly and the training set contains on the order of a hundred images.
+
+This paper addresses that gap. We train only a small classification head on a frozen ConvNeXt-V2 backbone using 230 laboratory images of 21 Michigan aquatic species, five of them invasive, and we evaluate on 33 crowd-sourced field photographs that were never used for training. The proposed `You Need to Look Twice' (YNLT) module is a confidence-aware second look: if the first downsampled pass is ambiguous, the system extracts multi-scale high-resolution patches and aggregates a weighted vote. A parameter-efficient gated attention head is used to suppress laboratory background features that do not transfer to the field. Errors are treated asymmetrically: failing to flag an invasive species (false negative) is treated as more serious than the reverse.
+
+Our contributions are:
+\begin{enumerate}
+\item A small-data aquatic classification setting that explicitly measures controlled-to-field domain shift, rather than reporting only laboratory accuracy.
+\item YNLT, a test-time module that spends extra computation only when confidence, margin, and entropy indicate an unreliable first look, instead of always cropping or abstaining.
+\item A gated attention classification head, trained with a frozen backbone, that improves out-of-distribution accuracy relative to a linear classifier on the same features.
+\end{enumerate}
+
+The remainder of the paper is organized as follows. Materials and methods are presented in Section~\ref{sec:materials_methods}. Results are reported in Section~\ref{sec:results}. Limitations and computational cost are discussed before the conclusions in Section~\ref{sec:conclu}.
+
+
+\section{Materials and Methods}
+\label{sec:materials_methods}
+
+\subsection{Study area}
+\label{subsec:study_area}
+
+The geographic focus of this study is the state of Michigan, which encompasses portions of four Great Lakes (Lake Superior, Lake Michigan, Lake Huron, and Lake Erie) alongside numerous smaller inland lakes. These freshwater systems support highly diverse ecological communities, including a wide variety of native aquatic plant and fish species. However, the balance of these habitats is increasingly threatened by the introduction and proliferation of aquatic invasive plants. This study focuses on identifying 21 specific aquatic plant species found within this region, five of which are classified as invasive. Figure \ref{fig:map} illustrates the study area and the approximate occurrence distribution of these species.
+
+\begin{figure*}[!h]
+\centering
+\includegraphics[width=1.0\textwidth]{figs/map.pdf}
+\caption{Map of Michigan illustrating the geographic focus of the study. The approximate occurrences of 21 aquatic plant species are plotted based on data from the Global Biodiversity Information Facility (GBIF). The five invasive species are denoted by diamond markers, while the 16 native species are denoted by circular markers. The inset map (bottom left) indicates Michigan's location within the contiguous United States.} 
+\label{fig:map}
+\end{figure*}
+
+\subsection{Dataset details}
+Data collection in underwater environments is a recognized challenge. Consequently, this study utilizes images of aquatic plants captured in a controlled laboratory setting to train the model. To evaluate generalization to unseen conditions and mitigate overfitting, an additional out-of-distribution dataset consisting of crowd-sourced images of hand-held plants was employed.
+
+\subsubsection{Data preparation and distribution}
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=1.0\textwidth]{figs/data_dist.pdf}
+\caption{Bar plot of the distribution of the dataset with images of the aquatic plants in lab settings. It shows the number of high-resolution images available across 21 different plant species, of which 5 are invasive (denoted in red).} 
+\label{fig:data_dist}
+\end{figure*}
+
+The laboratory dataset comprises a total of 230 images across 21 different plant species, 5 of which are invasive. This dataset was split into three partitions for training, validation, and testing. Stratified sampling was used to ensure a proportional distribution of all classes across the partitions. Sixty percent of the images were allocated to the training partition, with 20\% reserved for validation and 20\% for testing. This resulted in 138 images for training, and 46 images each for validation and testing. Figure \ref{fig:data_dist} shows the distribution of these images in descending order. All classes were retained, including those with only a single training instance.
+
+The out-of-distribution dataset consisted of 33 crowd-sourced images spanning 10 of the plant species. These images were divided equally between validation and testing sets. Incorporating an out-of-distribution validation set was essential to monitor generalization and prevent the model from overfitting to the laboratory environment.
+
+\subsubsection{Preprocessing and Augmentation}
+
+\begin{figure*}[!h]
+\centering
+\includegraphics[width=0.9\textwidth]{figs/augmentations.pdf}
+\caption{Various data augmentation techniques applied to the original images. The first row demonstrates basic geometric augmentations. The augmentations in the second row were specifically tuned to improve generalization from a small dataset. The close-up crop allows the model to learn from high-resolution details that would otherwise be lost during downsampling.} 
+\label{fig:augmentations}
+\end{figure*}
+
+Basic preprocessing was conducted to remove reference artifacts, such as coins and scales, commonly present in laboratory photographs. Given the limited training set of 138 images, a comprehensive data augmentation pipeline, illustrated in Figure \ref{fig:augmentations}, was critical.
+
+The laboratory images were captured at high resolutions (3000x4000 pixels), whereas standard pretrained convolutional backbones are optimized for smaller input dimensions (e.g., 224x224 pixels) to limit parameter count and prevent overfitting. Downsampling the original images directly to these dimensions would result in the loss of fine botanical details. To preserve these details and fully utilize the high-resolution data, the model was trained on randomly cropped patches extracted from the original images. These patches, ranging from 20\% to 100\% of the original image area, were subsequently resized to 224x224 pixels. This approach preserves high-resolution features and induces scale invariance, preparing the model for downstream resolution-dependent modules.
+
+Following the random crop, a series of geometric transformations, including rotations, flips, and affine transformations, were applied to simulate varied camera perspectives. Natural color, brightness, and lighting variations were also introduced. These transformations were applied with a probability of 0.5 using the Torchvision library. 
+
+The final augmentation stage involved random erasing, which masks a random rectangular region of the image. This technique prevents the model from relying on specific localized features, thereby encouraging the learning of more robust and generalized plant characteristics. Finally, the augmented images were normalized and converted to tensors prior to model training.
+
+% \subsection{Plant Species Classification Method}
+
+% \begin{figure}[!h]
+% \centering
+% \includegraphics[width=0.5\textwidth]{figs/figs26/SimpleBlocksUpdated.drawio.pdf}
+% \caption{Block diagram of the proposed Plant Species Classification Model. The image is first passed to the classification model, which outputs logits corresponding to each plant species. Based on this output, a candidate prediction as well as a corresponding evaluation of how confused the model is, is carried out. If the model is not confused, then the candidate prediction is finalized. Otherwise the Patching subsystem creates patches and passes them onto the ensemble subsystem, which makes the final prediction after a closer look.} 
+% \label{fig:model_block}
+% \end{figure}
+
+% % \begin{figure*}[!h]
+% % \centering
+% % \includegraphics[width=1.0\textwidth]{figs/figs26/PlantClassification26.drawio.pdf}
+% % \caption{The first stage in our proposed solution is a classification model. The input image is resized and fed to a pretrained ConvNeXt-v2 backbone for feature extraction. The output of the pretrained model is passed on to a our Gated-Attention classification head. This module has 2 parallel tracks - one for the classification features and another to compute the attention weights of those features. The outputs of both of these tracks are multiplied and the last layer outputs logits corresponding to each plant species.} 
+% % \label{fig:model_block}
+% % \end{figure*}
+
+
+% % \begin{figure*}[!h]
+% % \centering
+% % \includegraphics[width=1.0\textwidth]{figs/figs26/PlantClassification26.drawio.pdf}
+% % \caption{The first stage in our proposed solution is a classification model. The input image is resized and fed to a pretrained ConvNeXt-v2 backbone for feature extraction. The output of the pretrained model is passed on to a our Gated-Attention classification head. This module has 2 parallel tracks - one for the classification features and another to compute the attention weights of those features. The outputs of both of these tracks are multiplied and the last layer outputs logits corresponding to each plant species.} 
+% % \label{fig:model_block}
+% % \end{figure*}
+
+
+% \begin{figure*}[!h]
+% \centering
+% \includegraphics[width=1.0\textwidth]{figs/figs26/CombinedClassificatioAndConfusion.drawio.pdf}
+% \caption{First 2 Modules} 
+% \label{fig:model_block}
+% \end{figure*}
+
+\subsection{Plant Species Classification Method}
+
+\begin{figure*}[!h]
+\centering
+\includegraphics[width=1.0\textwidth]{figs/figs26/CombinedClassificatioAndConfusion_simplified.drawio.pdf}
+\caption{Block diagram of the proposed Plant Species Classification pipeline. The system consists of two primary modules: (1) a feature extraction and classification network that outputs initial class logits, and (2) an uncertainty evaluation and ensembling system (YNLT) that assesses prediction confidence and re-evaluates the image using high-resolution patches if necessary.} 
+\label{fig:model_block}
+\end{figure*}
+
+As illustrated in Figure \ref{fig:model_block}, the proposed architecture consists of two primary pathways. The first is the classification module, which processes an input image or patch to generate class-specific logits. The second module is the uncertainty evaluation system, which assesses the confidence of the initial prediction and, if necessary, triggers a high-resolution re-examination to finalize the classification.
+
+\subsubsection{Pretrained ConvNeXt-V2 Backbone}
+
+ConvNeXt-V2 integrates modern architectural advancements inspired by transformer models into a convolutional framework \cite{Wooetal2023}. It incorporates mechanisms such as larger convolutional kernels and global response normalization (GRN) while retaining the spatial inductive biases characteristic of standard convolutional operations. This architecture provides high representational capacity without introducing the excessive parameter count typically associated with pure transformer models. Parameter efficiency is particularly critical for this study, as the limited training dataset significantly increases the risk of overfitting.
+
+A primary advantage of utilizing ConvNeXt-V2 for this specific problem is its rigorous pretraining methodology. The model was pretrained using a Fully Convolutional Masked Autoencoder (FCMAE) framework \cite{Wooetal2023}, followed by supervised training on ImageNet-22k and final fine-tuning on ImageNet-1k. The ImageNet-22k dataset encompasses a vast hierarchical class structure, including several aquatic plant species within the same taxonomic families as those in the target dataset, such as pondweeds and waterlilies. Consequently, the pretrained backbone acts as a highly effective feature extractor, having already learned relevant morphological representations of aquatic flora prior to fine-tuning on the laboratory dataset.
+
+\subsubsection{Gated Attention Classification Head}
+
+The ConvNeXt-V2 backbone extracts a global feature vector of length 768. While a standard linear classifier could map these features directly to the target plant species, it lacks the capacity to suppress irrelevant environmental artifacts encoded within the vector. Conversely, integrating a standard multi-head self-attention module would introduce an excessive number of trainable parameters, severely increasing the risk of overfitting on the limited laboratory dataset.
+
+To resolve this architectural trade-off, a parameter-efficient gated attention head was implemented, drawing on gated linear units~\cite{Dauphinetal2017} and query-dependent gating~\cite{Qiuetal2025}. Let \(h \in \mathbb{R}^{D}\) be the frozen backbone feature, with \(D=768\) for ConvNeXt-V2 Tiny, and let \(d=168\) be the bottleneck width. A classification branch and a gate branch are computed in parallel:
+
+\[
+u = \mathrm{GELU}(W_u h + b_u), \qquad
+g = \sigma\bigl(\tanh(W_g h + b_g)\bigr),
+\]
+where \(\sigma\) is the logistic sigmoid and \(W_u, W_g \in \mathbb{R}^{d \times D}\)~\cite{HendrycksandGimpel2016}. The gated hidden state is the element-wise product \(u \odot g\), followed by dropout and a linear map to \(K=21\) logits. Only these head parameters (261{,}933 weights) are trained.
+
+\subsection{You Need To Look Twice (YNLT) Module}
+
+YNLT follows a simple rule: take a closer look only when the first look is unreliable. Many native and invasive aquatic plants are similar at low resolution and are distinguished by fine leaf or stem structure that is lost when a $3000\times 4000$ photograph is resized to $224\times 224$. Unlike always-on multi-crop testing~\cite{krizhevsky2012imagenet} or selective classifiers that abstain~\cite{geifman2017selective}, YNLT keeps the first prediction when it is confident and otherwise re-evaluates high-resolution patches of the original image.
+
+\subsubsection{Uncertainty Evaluation Subsystem}
+
+Let \(z \in \mathbb{R}^{K}\) be the head logits and
+\[
+p_i = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}, \qquad i=1,\ldots,K.
+\]
+Write \(p_{(1)}\ge p_{(2)}\ge \cdots \ge p_{(K)}\) for the sorted probabilities. Three scalar diagnostics are used~\cite{Guoetal2017, Ovadiaetal2019, hendrycks2017baseline}:
+
+\[
+\mathrm{Conf}(p) = p_{(1)}, \qquad
+\mathrm{Marg}(p) = p_{(1)}-p_{(2)}, \qquad
+H(p) = -\sum_{i=1}^{K} p_i \log p_i,
+\]
+where \(\log\) is the natural logarithm, matching the implementation. For \(K=21\), \(H(p)\) ranges from \(0\) (a point mass) to \(\log 21 \approx 3.04\) (the uniform distribution).
+
+Each diagnostic contributes one count if it crosses a fixed threshold:
+
+\[
+\begin{aligned}
+b_{\mathrm{conf}} &= \mathbf{1}\bigl[\mathrm{Conf}(p) < \tau_{\mathrm{conf}}\bigr], \\
+b_{\mathrm{marg}} &= \mathbf{1}\bigl[\mathrm{Marg}(p) < \tau_{\mathrm{marg}}\bigr], \\
+b_{\mathrm{ent}}  &= \mathbf{1}\bigl[H(p) > \tau_{H}\bigr], \\
+c &= b_{\mathrm{conf}} + b_{\mathrm{marg}} + b_{\mathrm{ent}} \in \{0,1,2,3\}.
+\end{aligned}
+\]
+The operating point used throughout this paper is \(\tau_{\mathrm{conf}}=0.5\), \(\tau_{\mathrm{marg}}=0.2\), \(\tau_{H}=2.0\). A first-pass prediction is sent to high-resolution review if \(c \ge \tau_{c}\) with \(\tau_{c}=1\), except when the predicted class is already invasive: in that case the invasive label is kept, so that YNLT cannot talk the model out of a positive detection.
+
+\subsubsection{High-Resolution Patching Subsystem}
+
+When a prediction is flagged, the $224\times 224$ input is treated as insufficient. Patches are cut from the original high-resolution image at relative scales \(s \in \{0.2, 0.3, 0.4, 0.5\}\) of the shorter side, with fractional overlaps \(\{0.0, 0.1, 0.2, 0.3\}\) respectively. Each patch is resized to $224\times 224$ and scored by the same frozen backbone and head. Uniform patches (for example padding) are discarded. More scales and overlap improve coverage and increase the number of forward passes.
+
+\subsubsection{Ensemble Subsystem}
+
+The Ensemble subsystem executes the actual ``second look" within the YNLT framework. It receives the collection of localized, high-resolution patches generated by the preceding subsystem and evaluates them to resolve the initial visual ambiguity. By shifting the model's focus from the downsampled global image to these detailed morphological features, the system gathers the precise evidence needed to make an informed final classification.
+
+\begin{figure*}[!h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/figs26/ensemble26_simplified.drawio.pdf}
+  \caption{Workflow of the Ensemble subsystem. An image flagged for high uncertainty is divided into high-resolution patches. Each patch is processed independently by the classification pipeline and contributes a weighted vote to the final aggregated prediction.}
+  \label{fig:ensemble}
+\end{figure*}
+
+
+Each patch is classified independently. Random-resized-crop training makes these partial views admissible inputs. Patch \(i\) with confusion count \(c_i\) contributes a normalized vote
+\[
+w_i = \frac{c_{\max}-c_i}{c_{\max}}, \qquad c_{\max}=3,
+\]
+to its predicted class. Accumulated class scores are initialized at \(1\) the first time a class appears, then incremented by \(w_i\). The class with the largest score is returned. If two classes share the maximum, an invasive class is preferred. This is a tie-break, not a top-\(k\) override: YNLT does not replace a unique non-invasive winner with an invasive runner-up.
+
+\subsection{Evaluation Metrics}
+
+During training, the primary indicators used to monitor model convergence were validation accuracy and loss. To prevent the network from generating overconfident predictions, which would compromise the YNLT module's ability to accurately detect uncertainty, label smoothing was applied in conjunction with standard cross-entropy. As demonstrated by \citet{Mulleretal2019}, label smoothing not only improves generalization but also significantly aids in model calibration by preventing the network from assigning full probability to the target class, thereby keeping the logits constrained. The smoothed cross-entropy loss is defined as:
+
+\[
+\mathcal{L}_{\text{smooth}} = - \sum_{i=1}^{K} q_i \log p_i
+\]
+where \( p_i \) is the predicted probability corresponding to class \( i \), \( K \) is the total number of classes, and the smoothed target distribution \( q_i \) is calculated as:
+
+\[
+ q_i = (1 - \epsilon) \delta_{i,y} + \frac{\epsilon}{K} 
+\]
+with \(\epsilon=0.05\) in the reported runs.
+
+Overall model performance was evaluated using standard multi-class metrics, including overall accuracy and class-wise recall. However, given the ecological context of the study, predictions were also aggregated into a binary classification: Invasive (positive class) versus Native (negative class). In this binary framework, the most critical evaluation metric is the False Negative Rate (FNR). The ecological consequences of failing to identify an invasive species (a false negative) severely outweigh the operational costs of misclassifying a native plant as invasive (a false positive). Therefore, minimizing the FNR was a primary objective:
+\[
+\text{FNR} = \frac{\text{FN}}{\text{TP} + \text{FN}}
+\]
+where FN represents False Negatives and TP represents True Positives.
+
+To specifically isolate and evaluate the utility of the proposed YNLT block, model predictions were tracked before and after the ensemble process. For any image flagged for high-resolution re-evaluation due to high uncertainty, there are four possible transition outcomes, as outlined in Table \ref{tab:ynlt_outcomes}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Case} & \textbf{Before YNLT} & \textbf{After YNLT} \\
+        \hline
+        1 & Correct & Correct \\
+        2 & Correct & Incorrect \\
+        3 & Incorrect & Correct \\
+        4 & Incorrect & Incorrect \\
+        \hline
+    \end{tabular}
+    \caption{Possible transition outcomes for images processed by the YNLT ensemble module.}
+    \label{tab:ynlt_outcomes}
+\end{table}
+
+Based on these transition cases, two custom metrics—Success Rate and Effectiveness—were defined to quantify the module's performance:
+
+\[
+\text{Success Rate} = \frac{\text{Total Correct After YNLT}}{\text{Total Images Reviewed by YNLT}}
+\]
+
+\[
+\text{Effectiveness} = \frac{\text{Transitions from Incorrect to Correct}}{\text{Total Images Reviewed by YNLT}}
+\]
+
+These metrics served as key optimization targets for tuning the uncertainty thresholds, as well as the scale and overlap parameters within the patching subsystem.
+
+\subsection{Experimentation}
+This section discusses the hyperparameters tuned and some of the design choices that were made in this work 
+\subsubsection{Training Classification model}
+% learning rate schedule
+% AdamW optimizer
+% label smoothing
+The model was implemented in PyTorch on a CUDA laptop with an NVIDIA RTX A500 GPU (4~GB VRAM). Only the classification head was trained; all ConvNeXt-V2 Tiny backbone weights remained frozen (27.9~M frozen parameters, 0.26~M trainable). A single \(224\times 224\) forward pass requires approximately 322~M multiply--adds. This cost is acceptable on a workstation GPU. It is not, by itself, evidence that the full YNLT pipeline can run on an autonomous underwater vehicle: when review is triggered, every retained patch is a separate forward pass, and the multi-scale schedule above can produce tens of patches per image. Smaller ConvNeXt-V2 variants (Nano, Pico, Atto) are available in the same training code and are the appropriate candidates if onboard deployment is required. Until latency is measured on a target embedded board, we do not claim that the present Tiny model is robot-ready.
+
+Training used AdamW, cosine learning-rate decay, 250 epochs, batch size 4, weight decay \(2\times 10^{-5}\), initial learning rate \(5\times 10^{-4}\), and label smoothing \(\epsilon=0.05\). Model selection used an out-of-distribution validation split rather than laboratory validation loss alone.
+
+\subsubsection{Tuning YNLT Block}
+YNLT trades accuracy against compute. The scales \(\{0.2,0.3,0.4,0.5\}\) and overlaps \(\{0.0,0.1,0.2,0.3\}\) were held fixed for the reported results. Recursion to still finer patches is implemented but disabled in the experiments here.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{table*}[!ht]
+% \caption{Summary of YOLO variants with open-source software packages.}
+% \label{tab:models}
+% \renewcommand{\arraystretch}{1.4}
+% \centering
+% \resizebox{0.7\textwidth}{!}{
+% \begin{tabular}{llll}
+% \hline
+% Index & YOLO models  & URL & Reference \\ \hline
+% 1     & YOLOv3    & \url{https://github.com/ultralytics/YOLOv3}  & \cite{redmon2018YOLOv3}         \\ 
+% 2     & YOLOv4    & \url{https://github.com/WongKinYiu/PyTorch-YOLOv4}  & \cite{bochkovskiy2020YOLOv4} \\ 
+% 3    & YOLOv5   & \url{https://github.com/ultralytics/YOLOv5}   & \cite{jocher2020YOLOv5}           \\
+% 4   & Scaled-YOLOv4     & \url{https://github.com/WongKinYiu/ScaledYOLOv4}   & \cite{wang2021scaled}           \\ 
+% 5    & YOLOR      & \url{https://github.com/WongKinYiu/yolor} & \cite{wang2021r}           \\ \hline
+% \end{tabular}
+% }
+% \end{table*}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Results}
+\label{sec:results}
+
+
+\begin{table*}[!ht]
+    \caption{Ablation of the classification head and of YNLT on a shared frozen ConvNeXt-V2 Tiny backbone. Rows differ only in the head (linear vs.\ gated attention) and in whether YNLT is applied at test time. Results are from one stratified 60/20/20 laboratory split (46 test images) and a 17-image OOD test split.}
+    \label{tab:ablation}
+    \renewcommand{\arraystretch}{1.4}
+    \centering
+    \resizebox{1.0\textwidth}{!}{
+         \begin{tabular}{lcccccc}
+             \hline
+             \multirow{2}{*}{\textbf{Model}} & \multicolumn{3}{c}{\textbf{Lab Data (\%)}} & \multicolumn{3}{c}{\textbf{OOD Data (\%)}} \\
+             \cline{2-4} \cline{5-7}
+             & \textbf{Class Acc} & \textbf{Bin Acc} & \textbf{Bin FNR} & \textbf{Class Acc} & \textbf{Bin Acc} & \textbf{Bin FNR} \\
+             \hline
+             Linear Classifier & 84.78 & 93.48 & 30.0 & 47.06 & 58.82 & 62.5 \\
+             Linear + YNLT Block & 91.30 & 93.48 & 30.0 & 52.94 & 58.82 & 62.5 \\
+             Gated Attention Classifier & 86.96 & 97.83 & 10.0 & 52.94 & 76.47 & 12.5 \\
+             Gated Attention + YNLT Block & 93.48 & 97.83 & 10.0 & 64.71 & 76.47 & 12.5 \\
+             \hline
+        \end{tabular}
+    }
+\end{table*}
+
+\subsection{Ablation Tests}
+Table~\ref{tab:ablation} isolates the two trainable or test-time components on a shared frozen ConvNeXt-V2 Tiny backbone. The first row is a linear classifier. Adding YNLT to that linear head raises laboratory accuracy from 84.78\% to 91.30\% and OOD accuracy from 47.06\% to 52.94\%, while binary FNR is unchanged. Replacing the linear head with gated attention, still without YNLT, yields a smaller laboratory gain (86.96\%) but a larger OOD gain (52.94\%) and cuts binary FNR from 30.0\% to 10.0\% on the laboratory set and from 62.5\% to 12.5\% on OOD. Combining gated attention with YNLT produces the best 21-way accuracies (93.48\% laboratory, 64.71\% OOD). The two modules are complementary: gated attention mainly reduces invasive false negatives and improves field transfer; YNLT mainly repairs ambiguous 21-way decisions by using high-resolution patches.
+
+This table does not yet separate the backbone from the head. All four rows use ConvNeXt-V2 Tiny pretrained on ImageNet-22k. A fairer comparison would add ResNet, EfficientNet, ViT, and ConvNeXt-V1 under the same frozen-encoder protocol, and would report mean and standard deviation over repeated stratified splits. With only 46 laboratory test images, a single additional correct prediction changes accuracy by about 2.2\%, so the point estimates in Table~\ref{tab:ablation} should be read as a single-split snapshot.
+
+%TODO:
+% 1. Also talk about FNR decrease
+% 2. Include final \% numbers in the above
+
+% \subsection{McMilan's Test}
+
+\subsection{Best Model Performance}
+
+The last row in Table \ref{tab:ablation} shows that the best performing model is a combination of a Gated Attention based classification head on a ConvNeXt-V2 backbone for feature extraction, along with the proposed YNLT block. In this section we will look at the performance of this model in detail.
+
+% Example - Figure 1 - Image and classification scores
+\begin{figure*}[!h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/sample_prediction_initial.pdf}
+  \caption{Example of an initially misclassified image. The bar chart shows the model’s output probabilities, where the highest logit corresponds to Heteranthera dubia while the true label is Potamogeton gramineus. The uncertainty metrics (bottom left) indicate model confusion and trigger the YNLT block to re-examine the image. The corrected prediction after the second pass is shown in the following figure.}
+  \label{fig:incorrect}
+\end{figure*}
+%The figure shows a detailed report of one of the images that was initially classified incorrectly. The bar graph on the right shows the probability distribution from the output of the classification model. The highest logit corresponds to Heteranthera dubia, but the image actually is of Potamogeton gramineus. Even though the model is wrong, it accurately communicates that it is confused through the metrics listed in the box at the bottom left. This signals the YNLT block to take a second closer look at the image. In this particular example, the revised prediction after a second look was correct, as seen in the next figure.
+
+
+The first component of our solution is the classification model that taken an input image and outputs logits corresponding to the probabilities of the image belonging to each of the 21 species of plants. Figure \ref{fig:incorrect} illustrates this stage with a sample image belonging to the Potamogeton gramineus species from the out-of-distribution test set. The bar graph in \ref{fig:incorrect} represents the probability distribution from the output of the classification model. We observe that the second highest predicted probability actually corresponds to the correct species. Even though this initial prediction is wrong, the model is not very confident with this prediction. The confidence is only 0.41, and the margin, which is the difference between the confidence score and that of the second highest prediction is 0.12. In this particular example, the entropy of the distribution which is also one of the metrics used to evaluate confusion is not very high. It is at moderate value of 1.65. But because two of the three metrics signal that the model is confused, the image is passed on to the YNLT block before a final prediction is made.
+
+% Example - Image 2 - YNLT Aggregate Voting scores
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.48\textwidth]{figs/sample_prediction_final.pdf}
+  \caption{The figure shows the aggregated scores from the voting in the Ensemble subsystem that was done for the image in the previous figure. Potamogeton gramineus is the revised final prediction with the highest votes, which in this particular example is correct.}
+  \label{fig:ynlt_corrected}
+\end{figure}
+
+The second component of our solution as illustrated in \ref{fig:ensemble} first creates patches from the original high-resolution version of the current image, and then aggregates votes weighted by the confidence level of each patch. For the sample image discussed in Figure \ref{fig:incorrect}, the aggregate scores from this step are shown in Figure \ref{fig:ynlt_corrected}. The highest score corresponds to the Potamogeton gramineus species, which turns out to be the correct prediction for this image.
+
+% Confusion matrices and classwise analysis
+
+% \begin{figure}[!h]
+%   \centering
+%   \includegraphics[width=0.45\textwidth]{figs/figs26/ood_binary_cm.pdf}
+%   \caption{Binary Confusion Matrix on the out-of-distribution test set of crowd-sourced images. Binary categories were created by grouping all the native and invasive plant species together.}
+%   \label{fig:bin_cm}
+% \end{figure}
+
+% \begin{figure*}[!h]
+%   \centering
+%   \includegraphics[width=1.0\textwidth]{figs/figs26/ood_classwise_cm.pdf}
+%   \caption{The figure tabulates the classwise confusion matrix of the predictions made on the out-of-distribution test set. The numbers on the diagonal represent correct predictions. We can also see which species the model gets confused between from the non-diagonal entries.}
+%   \label{fig:classwise_butterfly}
+% \end{figure*}
+
+
+% \begin{figure*}[!h]
+%   \centering
+%   \includegraphics[width=1.0\textwidth]{figs/figs26/lab_butterfly_chart.pdf}
+%   \caption{The figure is a butterfly bar graph representing classwise metrics on the best model's performance on the test set.The two metrics here are Recall or accuracy, which we are trying to maximize, and the False Negative Rate, which we aim to minimize. It can be observed that the model performs reasonably well on all classes except Hydrocharis morsus-ranae.}
+%   \label{fig:classwise_butterfly}
+% \end{figure*}
+
+\section{Discussion}
+
+\textbf{Overcoming Data Scarcity through Scale-Invariant Patching}
+The primary challenge in applying deep learning to aquatic plant identification is the high cost of acquiring large, annotated datasets from underwater environments. While laboratory and crowd-sourced images are more accessible, models trained on small datasets of high-resolution images often suffer from the curse of dimensionality when downsampled to standard input sizes. This study addressed this limitation by implementing a probabilistic crop and resize augmentation strategy. By training the model on overlapping patches ranging from 20\% to 100\% of the original image size, the network learned scale-invariant representations of fine morphological details. This approach allowed the model to maximize the utility of the limited 230-image laboratory dataset without losing critical botanical features during standard downsampling.
+
+\textbf{Architectural Suitability for Domain Generalization}
+The choice of the ConvNeXt-V2 backbone and the custom Gated Attention head was critical for generalizing from controlled laboratory settings to out-of-distribution crowd-sourced images. ConvNeXt-V2 provided a parameter-efficient foundation, minimizing the risk of overfitting. Furthermore, its pretraining on ImageNet-22k included hierarchical classifications of aquatic plants such as pondweeds and waterlilies. This extensive pretraining equipped the backbone with highly relevant feature extraction capabilities before fine-tuning. However, because these extracted features also contain domain-specific background noise from the laboratory environment, the Gated Attention head was introduced. By explicitly learning to suppress background artifacts and isolate plant-specific signals, the attention mechanism enabled the model to maintain robust performance across varying environments, contributing directly to the 64.71\% accuracy achieved on the unseen crowd-sourced dataset.
+
+\textbf{Addressing Uncertainty with the YNLT Module}
+Standard downsampling often obscures the subtle visual distinctions between native and invasive aquatic species. The proposed `You Need To Look Twice' (YNLT) module resolved this by selectively extracting and ensembling high-resolution patches only when the initial prediction exhibited high uncertainty. For this mechanism to function effectively, the model's confidence scores needed strict calibration. The integration of label smoothing during training prevented the network from generating overconfident incorrect predictions, ensuring that visual ambiguity triggered the YNLT re-evaluation rather than being ignored. By dynamically shifting focus to localized, high-resolution features, the YNLT module successfully corrected ambiguous predictions and played a central role in minimizing the False Negative Rate, a critical metric for invasive species management.
+
+\textbf{Optimization Trade-offs for Real-World Deployment}
+Optimizing purely for laboratory validation accuracy often degrades field performance. Model selection used an out-of-distribution validation set; training checkpoints were kept for the best laboratory and OOD loss and accuracy, and the reported model is the best OOD-accuracy checkpoint. This choice is consistent with the goal of laboratory-to-field transfer rather than peak laboratory accuracy.
+
+\textbf{Computational cost and edge deployment}
+A frozen ConvNeXt-V2 Tiny encoder plus the gated head contains 28.1~M parameters, of which 0.26~M are trained. One \(224\times 224\) forward pass is about 322~M multiply--adds and runs on the 4~GB laptop GPU used in this study. YNLT does not change the parameter count, but it multiplies inference cost by the number of patches on the subset of images with \(c\ge 1\). That subset, and the resulting latency, have not been measured on an embedded or underwater platform. We therefore treat workstation or laptop inference as the current operating regime. Onboard use on an autonomous underwater vehicle would require a smaller backbone (the training code already lists ConvNeXt-V2 Nano/Pico/Atto) and a measured latency budget; those measurements are left to future work.
+
+\textbf{Limitations and Future Work}
+The primary limitation remains dataset size and the single 60/20/20 split. Several classes have only two or three laboratory images, so stratified five-fold estimates will have high variance and should still be reported as mean \(\pm\) standard deviation. Stronger frozen backbones (ResNet, EfficientNet, ViT, ConvNeXt-V1, and biology-specific encoders) should be compared under the same protocol. Future training may also use unlabeled field photographs before the supervised head is fit. Distillation to a backbone that fits an underwater computer is a separate engineering step, not a claim of the present model.
+
+\textbf{Broader Impacts}
+Deployed on a laptop or a field computer, these models can assist screening of photographs before a botanist confirms the record. Continuous robotic monitoring remains a goal for a smaller backbone with a measured latency budget, not a claim about the 28~M-parameter model used here.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+\label{sec:conclu}
+% summarise work - data and main contributions
+% applications and broader impact 
+This study trained a 21-way aquatic plant classifier on 230 laboratory images and tested it on 33 crowd-sourced field images of the same taxa. A frozen ConvNeXt-V2 Tiny backbone, a gated attention head, and a confidence-aware second-look module (YNLT) raised laboratory accuracy from 84.78\% to 93.48\% and field accuracy from 47.06\% to 64.71\% on a single stratified split. YNLT is not a new backbone. It is a test-time rule that spends extra high-resolution computation only when the first look is uncertain, which is the setting where small laboratory models fail under domain shift.
+
+The present numbers should be read with the size of the test sets in mind. Repeated stratified splits, additional frozen backbones, and measured inference cost on an embedded board are the next experimental steps. Until those measurements exist, the method is a laptop-scale screening tool for fisheries and environmental monitoring, not a demonstrated onboard robot detector.
+
+
+
+\section*{Authorship Contribution}
+
+\textbf{Aaryan Panigrahi}: Formal analysis, Software, Writing - original draft; \\
+\textbf{Fengying Dang}: Conceptualization, Investigation, Data curation, Supervision, Writing - original \& draft \& review \& editing.  
+
+\section*{Acknowledgement}
+The authors thank Dr. Jo Latimore for providing the weed images that supported the experimental evaluation.
+
+% This work was supported in part by ???. 
+% helping annotate the weed images and Dr. ??? for the assistance in weed identification. 
+
+\typeout{}
+% \bibliographystyle{model1-num-names}
+\bibliography{ref}
+\end{document}
+
