@@ -139,6 +139,29 @@ def get_ood_dataloaders(cfg, ood_data_dir=None, test_percent=0.5, batch_size=Non
     return DataLoader(val_ds, batch_size=batch_size, **kw), DataLoader(test_ds, batch_size=batch_size, **kw)
 
 
+def loader_samples(loader):
+    """(path, label) pairs behind a DataLoader, in dataset order, or None if unavailable.
+
+    YNLT needs the source file to patch the full-resolution image, which the tensors
+    coming out of the loader no longer contain.
+    """
+    dataset = getattr(loader, "dataset", loader)
+    if isinstance(dataset, Subset):
+        base, indices = dataset.dataset, list(dataset.indices)
+    else:
+        base, indices = dataset, None
+    samples = getattr(base, "samples", None)
+    if not samples:
+        return None
+    if indices is None:
+        return list(samples)
+    return [samples[i] for i in indices]
+
+
+def load_original_image(path):
+    return Image.open(path).convert("RGB")
+
+
 def image_to_tensor(cfg, image, device=None):
     if isinstance(image, Image.Image):
         if image.mode != "RGB":

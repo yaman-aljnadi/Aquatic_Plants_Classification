@@ -38,17 +38,25 @@ class ImagePatchedDataset(Dataset):
             self.image = cv2.copyMakeBorder(self.image, 0, int(pad_h), 0, int(pad_w), border, **kwargs)
 
     def extract_patches_by_size(self, patch_size=224, stride=None):
+        """Append this scale's patches to self.patches and return just the new ones.
+
+        Patches are views into self.image, so multi-scale extraction stays cheap.
+        Returning only the current scale matters: self.patches holds several sizes
+        at once, which cannot be stacked into one array.
+        """
         if stride is None:
             stride = patch_size
         self.pad_image_for_patch_extraction(patch_size, stride)
         h, w, _ = self.image.shape
+        new_patches = []
         for y in range(0, h - patch_size + 1, stride):
             for x in range(0, w - patch_size + 1, stride):
                 patch = self.image[y:y + patch_size, x:x + patch_size]
                 if np.all(patch == patch[0, 0]):
                     continue
-                self.patches.append(patch)
-        return np.array(self.patches) if self.patches else np.empty((0,))
+                new_patches.append(patch)
+        self.patches.extend(new_patches)
+        return new_patches
 
     def extract_patches_multi_scale(self, scales=None, overlap=0.0):
         scales = scales if scales is not None else [0.2, 0.3, 0.4, 0.5]

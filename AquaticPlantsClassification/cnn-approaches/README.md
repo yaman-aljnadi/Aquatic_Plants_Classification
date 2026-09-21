@@ -1,5 +1,5 @@
 This folder is the **original notebook archive**. New training lives in:
 
-`D:\Aquatic_Research\YamanA\Yaman-Aquatic_Plants_Classification`
+`Yaman-Aquatic_Plants_Classification/` at the root of this repository.
 
 Do not add new experiments here.

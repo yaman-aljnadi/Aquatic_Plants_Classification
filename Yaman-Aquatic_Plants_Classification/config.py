@@ -119,7 +119,8 @@ random_seed = 8
 # --------------------------------------------------------------------------------------
 BACKBONE_PRESETS = {
     "convnextv2": "convnextv2_tiny.fcmae_ft_in22k_in1k",
-    "convnext": "convnext_tiny.in22k_ft_in1k",
+    # ConvNeXt-V1 counterpart of the V2 checkpoint above: IN-22k pretraining, IN-1k fine-tune.
+    "convnext": "convnext_tiny.fb_in22k_ft_in1k",
     "resnet50": "resnet50.a1_in1k",
     "efficientnet": "tf_efficientnetv2_b0.in1k",
     "vit": "vit_base_patch16_224.augreg_in21k_ft_in1k",
@@ -156,3 +157,9 @@ ms_scale = [0.2, 0.3, 0.4, 0.5]
 ms_overlap = [0.0, 0.1, 0.2, 0.3]
 bs_patch_size = 224
 bs_stride = None
+
+# Where the second look cuts its patches from.
+#   "original"  - re-open the source file and patch the full-resolution image (paper text)
+#   "input224"  - patch the 224x224 network input (what the archive notebooks did for Table 1)
+ynlt_patch_source = "original"
+ynlt_patch_batch_size = 16

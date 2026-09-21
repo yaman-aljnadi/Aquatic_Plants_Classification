@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+*.pyc
+*.pth
+runs/
+.ipynb_checkpoints/
+
+# Image sets live outside version control (see Readme.md)
+Aquatic Plant lab/
+Aquatic Plant outdoor/
+
+# LaTeX build products
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc

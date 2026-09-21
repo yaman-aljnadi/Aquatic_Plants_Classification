@@ -272,8 +272,11 @@ c &= b_{\mathrm{conf}} + b_{\mathrm{marg}} + b_{\mathrm{ent}} \in \{0,1,2,3\}.
 The operating point used throughout this paper is \(\tau_{\mathrm{conf}}=0.5\), \(\tau_{\mathrm{marg}}=0.2\), \(\tau_{H}=2.0\). A first-pass prediction is sent to high-resolution review if \(c \ge \tau_{c}\) with \(\tau_{c}=1\), except when the predicted class is already invasive: in that case the invasive label is kept, so that YNLT cannot talk the model out of a positive detection.
 
 \subsubsection{High-Resolution Patching Subsystem}
+\label{subsec:patching}
 
-When a prediction is flagged, the $224\times 224$ input is treated as insufficient. Patches are cut from the original high-resolution image at relative scales \(s \in \{0.2, 0.3, 0.4, 0.5\}\) of the shorter side, with fractional overlaps \(\{0.0, 0.1, 0.2, 0.3\}\) respectively. Each patch is resized to $224\times 224$ and scored by the same frozen backbone and head. Uniform patches (for example padding) are discarded. More scales and overlap improve coverage and increase the number of forward passes.
+When a prediction is flagged, the $224\times 224$ input is treated as insufficient and the image is re-examined at several scales. Patches are cut at relative scales \(s \in \{0.2, 0.3, 0.4, 0.5\}\) of the shorter side, with fractional overlaps \(\{0.0, 0.1, 0.2, 0.3\}\) respectively. Reflected padding is applied at each scale so that the stride tiles the image exactly, uniform patches (for example padding) are discarded, and every remaining patch is resized to $224\times 224$ and scored by the same frozen backbone and head. More scales and overlap improve coverage and increase the number of forward passes.
+
+\paragraph{Patch source.} Which image the patches are cut from is a design choice in its own right, and one that the earlier description of this method left implicit. In the \emph{downsampled} setting the crops are taken from the $224\times 224$ network input, so the second look magnifies interpolated pixels and re-weights evidence the model has already seen; the schedule above yields 111 patches per reviewed image. In the \emph{full-resolution} setting the crops are taken from the original photograph, so the second look recovers botanical detail that downsampling destroyed; for a $3000\times 4000$ image the same schedule yields 99 patches between 600 and 1500 pixels wide. The results in Table~\ref{tab:ablation} were obtained with the downsampled setting. Both settings are implemented in the released code and are reported as separate rows in the repeated-split experiments of Section~\ref{sec:results}, since they differ in cost as well as in the information available to the vote.
 
 \subsubsection{Ensemble Subsystem}
 
@@ -349,7 +352,30 @@ This section discusses the hyperparameters tuned and some of the design choices 
 % learning rate schedule
 % AdamW optimizer
 % label smoothing
-The model was implemented in PyTorch on a CUDA laptop with an NVIDIA RTX A500 GPU (4~GB VRAM). Only the classification head was trained; all ConvNeXt-V2 Tiny backbone weights remained frozen (27.9~M frozen parameters, 0.26~M trainable). A single \(224\times 224\) forward pass requires approximately 322~M multiply--adds. This cost is acceptable on a workstation GPU. It is not, by itself, evidence that the full YNLT pipeline can run on an autonomous underwater vehicle: when review is triggered, every retained patch is a separate forward pass, and the multi-scale schedule above can produce tens of patches per image. Smaller ConvNeXt-V2 variants (Nano, Pico, Atto) are available in the same training code and are the appropriate candidates if onboard deployment is required. Until latency is measured on a target embedded board, we do not claim that the present Tiny model is robot-ready.
+The model was implemented in PyTorch on a CUDA laptop with an NVIDIA RTX A500 GPU (4~GB VRAM). Only the classification head was trained; all ConvNeXt-V2 Tiny backbone weights remained frozen (27.9~M frozen parameters, 0.26~M trainable). Table~\ref{tab:cost} lists the measured cost of the network, obtained on an NVIDIA RTX 3070 Ti with batch size 1 and averaged over 300 timed iterations after warm-up. A single \(224\times 224\) forward pass requires 4.47~G multiply--adds and 5.0~ms.
+
+This cost is acceptable on a workstation GPU. It is not, by itself, evidence that the full YNLT pipeline can run on an autonomous underwater vehicle. When review is triggered, every retained patch is a separate forward pass: a reviewed full-resolution image costs roughly 187~ms, about 37 times a single pass, and the average cost per image therefore depends on how often the uncertainty test fires. Smaller ConvNeXt-V2 variants (Nano, Pico, Atto) are available in the same training code and are the appropriate candidates if onboard deployment is required. Until latency is measured on a target embedded board, we do not claim that the present Tiny model is robot-ready.
+
+\begin{table}[h]
+    \centering
+    \caption{Measured cost of the frozen ConvNeXt-V2 Tiny backbone with the gated attention head on an NVIDIA RTX 3070 Ti, batch size 1. Patch counts follow the multi-scale schedule of Section~\ref{subsec:patching} and determine the cost of an image that YNLT reviews; images that are not flagged cost one forward pass.}
+    \label{tab:cost}
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{lr}
+        \hline
+        \textbf{Quantity} & \textbf{Value} \\
+        \hline
+        Total parameters & 28.13~M \\
+        Trainable parameters & 261{,}933 \\
+        Multiply--adds, one $224\times 224$ pass & 4.47~G \\
+        Latency, one $224\times 224$ pass & 5.0~ms \\
+        Latency per patch (batches of 16) & 1.8~ms \\
+        Patches per reviewed image, $224\times 224$ source & 111 \\
+        Patches per reviewed image, $3000\times 4000$ source & 99 \\
+        Latency of one reviewed image, full resolution & 187~ms \\
+        \hline
+    \end{tabular}
+\end{table}
 
 Training used AdamW, cosine learning-rate decay, 250 epochs, batch size 4, weight decay \(2\times 10^{-5}\), initial learning rate \(5\times 10^{-4}\), and label smoothing \(\epsilon=0.05\). Model selection used an out-of-distribution validation split rather than laboratory validation loss alone.
 
@@ -387,7 +413,7 @@ YNLT trades accuracy against compute. The scales \(\{0.2,0.3,0.4,0.5\}\) and ove
 
 
 \begin{table*}[!ht]
-    \caption{Ablation of the classification head and of YNLT on a shared frozen ConvNeXt-V2 Tiny backbone. Rows differ only in the head (linear vs.\ gated attention) and in whether YNLT is applied at test time. Results are from one stratified 60/20/20 laboratory split (46 test images) and a 17-image OOD test split.}
+    \caption{Ablation of the classification head and of YNLT on a shared frozen ConvNeXt-V2 Tiny backbone. Rows differ only in the head (linear vs.\ gated attention) and in whether YNLT is applied at test time. The two YNLT rows use the downsampled patch source of Section~\ref{subsec:patching}. Results are from one stratified 60/20/20 laboratory split (46 test images) and a 17-image OOD test split.}
     \label{tab:ablation}
     \renewcommand{\arraystretch}{1.4}
     \centering
@@ -412,6 +438,14 @@ Table~\ref{tab:ablation} isolates the two trainable or test-time components on a
 
 This table does not yet separate the backbone from the head. All four rows use ConvNeXt-V2 Tiny pretrained on ImageNet-22k. A fairer comparison would add ResNet, EfficientNet, ViT, and ConvNeXt-V1 under the same frozen-encoder protocol, and would report mean and standard deviation over repeated stratified splits. With only 46 laboratory test images, a single additional correct prediction changes accuracy by about 2.2\%, so the point estimates in Table~\ref{tab:ablation} should be read as a single-split snapshot.
 
+Both YNLT rows in Table~\ref{tab:ablation} use the downsampled patch source of Section~\ref{subsec:patching}: the crops were taken from the $224\times 224$ network input rather than from the original photograph. The gains in those rows are therefore attributable to the confidence-gated multi-scale vote itself and not to recovered resolution, which is a weaker claim than the one the method is designed to support. Repeating the ablation with full-resolution crops is the single most informative remaining experiment, and it is reported separately because it changes both the accuracy and the cost of a reviewed image.
+
+% EXPERIMENTS PENDING (see Yaman-Aquatic_Plants_Classification/scripts/run_matrix.py):
+%   1. Repeat every row over seeds 8-12 and replace the point estimates with mean +/- std.
+%   2. Add linear-head rows for resnet50, efficientnet, vit and convnext under the same recipe.
+%   3. Add "Gated attention + YNLT (full-resolution patches)" as a fifth row here.
+%   4. Report the YNLT trigger rate per row alongside Table~\ref{tab:cost}.
+% `python scripts/aggregate_results.py --latex` emits the tabular body for rows 1-3 directly.
 %TODO:
 % 1. Also talk about FNR decrease
 % 2. Include final \% numbers in the above
@@ -483,10 +517,10 @@ Standard downsampling often obscures the subtle visual distinctions between nati
 Optimizing purely for laboratory validation accuracy often degrades field performance. Model selection used an out-of-distribution validation set; training checkpoints were kept for the best laboratory and OOD loss and accuracy, and the reported model is the best OOD-accuracy checkpoint. This choice is consistent with the goal of laboratory-to-field transfer rather than peak laboratory accuracy.
 
 \textbf{Computational cost and edge deployment}
-A frozen ConvNeXt-V2 Tiny encoder plus the gated head contains 28.1~M parameters, of which 0.26~M are trained. One \(224\times 224\) forward pass is about 322~M multiply--adds and runs on the 4~GB laptop GPU used in this study. YNLT does not change the parameter count, but it multiplies inference cost by the number of patches on the subset of images with \(c\ge 1\). That subset, and the resulting latency, have not been measured on an embedded or underwater platform. We therefore treat workstation or laptop inference as the current operating regime. Onboard use on an autonomous underwater vehicle would require a smaller backbone (the training code already lists ConvNeXt-V2 Nano/Pico/Atto) and a measured latency budget; those measurements are left to future work.
+A frozen ConvNeXt-V2 Tiny encoder plus the gated head contains 28.1~M parameters, of which 0.26~M are trained. One \(224\times 224\) forward pass is 4.47~G multiply--adds and 5.0~ms on the RTX 3070 Ti used for the measurements in Table~\ref{tab:cost}; it also runs on the 4~GB laptop GPU used for training. YNLT does not change the parameter count, but it multiplies inference cost by the number of patches on the subset of images with \(c\ge 1\): with the multi-scale schedule that is 99 additional forward passes, or about 187~ms, for each reviewed full-resolution photograph. The average cost per image is therefore one forward pass plus the trigger rate times that review cost, and the released code logs the trigger rate for every evaluation so this quantity is measured rather than assumed. Neither figure has been measured on an embedded or underwater platform. We therefore treat workstation or laptop inference as the current operating regime. Onboard use on an autonomous underwater vehicle would require a smaller backbone (the training code already lists ConvNeXt-V2 Nano/Pico/Atto) and a measured latency budget; those measurements are left to future work.
 
 \textbf{Limitations and Future Work}
-The primary limitation remains dataset size and the single 60/20/20 split. Several classes have only two or three laboratory images, so stratified five-fold estimates will have high variance and should still be reported as mean \(\pm\) standard deviation. Stronger frozen backbones (ResNet, EfficientNet, ViT, ConvNeXt-V1, and biology-specific encoders) should be compared under the same protocol. Future training may also use unlabeled field photographs before the supervised head is fit. Distillation to a backbone that fits an underwater computer is a separate engineering step, not a claim of the present model.
+The primary limitation remains dataset size and the single 60/20/20 split. Several classes have only two or three laboratory images, which rules out stratified five-fold cross-validation: a five-way stratified partition needs at least five examples of every class. Variability is instead estimated from repeated stratified 60/20/20 splits with different random seeds, reported as mean \(\pm\) standard deviation. A second limitation is the patch source discussed in Section~\ref{subsec:patching}: the reported YNLT numbers re-examine the downsampled input, so they understate what a second look at the original photograph can contribute. Stronger frozen backbones (ResNet, EfficientNet, ViT, ConvNeXt-V1, and biology-specific encoders) should be compared under the same protocol. Future training may also use unlabeled field photographs before the supervised head is fit. Distillation to a backbone that fits an underwater computer is a separate engineering step, not a claim of the present model.
 
 \textbf{Broader Impacts}
 Deployed on a laptop or a field computer, these models can assist screening of photographs before a botanist confirms the record. Continuous robotic monitoring remains a goal for a smaller backbone with a measured latency budget, not a claim about the 28~M-parameter model used here.

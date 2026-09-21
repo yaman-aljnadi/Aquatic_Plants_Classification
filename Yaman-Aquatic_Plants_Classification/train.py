@@ -5,11 +5,15 @@ Examples (from this folder):
     python train.py --head linear --backbone convnextv2
     python train.py --head gated_attention --backbone convnextv2 --with-ynlt
     python train.py --head linear --backbone resnet50 --seed 8
+
+Every run writes ``results.json`` next to its checkpoint; aggregate several runs with
+``python scripts/aggregate_results.py``.
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 import time
@@ -18,6 +22,7 @@ from datetime import datetime
 import numpy as np
 import torch
 import torch.nn as nn
+from sklearn.metrics import accuracy_score
 from torch.optim.lr_scheduler import CosineAnnealingLR
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -26,9 +31,9 @@ if ROOT not in sys.path:
 
 import config as cfg
 from src.data import get_3_dataloaders, get_ood_dataloaders
-from src.metrics import evaluate_loader
+from src.metrics import binary_fnr, evaluate_loader
 from src.model import create_model_from_config, freeze_backbone, load_model, save_model_weights
-from src.ynlt import evaluate_with_ynlt
+from src.ynlt import PATCH_SOURCES, evaluate_with_ynlt
 
 
 def parse_args():
@@ -43,6 +48,12 @@ def parse_args():
     parser.add_argument("--no-amp", action="store_true")
     parser.add_argument("--no-ood", action="store_true")
     parser.add_argument("--with-ynlt", action="store_true")
+    parser.add_argument(
+        "--ynlt-source",
+        choices=[*PATCH_SOURCES, "both"],
+        default="both",
+        help="patch the full-resolution file ('original'), the 224 input ('input224'), or report both",
+    )
     parser.add_argument("--cpu", action="store_true")
     return parser.parse_args()
 
@@ -77,7 +88,39 @@ def run_epoch(model, loader, criterion, optimizer, scaler, device, train=True):
 def report_split(name, acc, binary):
     fnr = binary.get("FNR")
     fnr_txt = "n/a" if fnr is None else f"{fnr:.4f}"
-    print(f"{name:12s}  accuracy={acc:.4f}  binary_FNR={fnr_txt}")
+    print(f"{name:16s}  accuracy={acc:.4f}  binary_FNR={fnr_txt}")
+
+
+def score_split(model, loader, device):
+    acc, binary = evaluate_loader(model, loader, cfg, device)
+    return {
+        "accuracy": acc,
+        "binary_accuracy": (binary["TP"] + binary["TN"]) / max(sum(binary[k] for k in ("TP", "TN", "FP", "FN")), 1),
+        "binary_FNR": binary["FNR"],
+        "confusion": {k: binary[k] for k in ("TP", "TN", "FP", "FN")},
+    }, acc, binary
+
+
+def score_split_ynlt(model, loader, device, patch_source):
+    stats = evaluate_with_ynlt(model, loader, device, patch_source=patch_source)
+    y_true = np.array(stats["y_true"])
+    y_pred = np.array(stats["y_pred"])
+    acc = float(accuracy_score(y_true, y_pred))
+    binary = binary_fnr(y_true, y_pred, cfg.INVASIVE_INDICES)
+    record = {
+        "accuracy": acc,
+        "binary_accuracy": (binary["TP"] + binary["TN"]) / max(len(y_true), 1),
+        "binary_FNR": binary["FNR"],
+        "confusion": {k: binary[k] for k in ("TP", "TN", "FP", "FN")},
+        "patch_source": stats["patch_source"],
+        "n_reviewed": stats["n_review"],
+        "n_total": stats["n_total"],
+        "trigger_rate": stats["trigger_rate"],
+        "mean_patches_per_reviewed": stats["mean_patches_per_reviewed"],
+        "ms_per_image": stats["ms_per_image"],
+        "ms_per_image_first_pass": stats["ms_per_image_first_pass"],
+    }
+    return record, acc, binary, stats
 
 
 def main():
@@ -98,7 +141,7 @@ def main():
 
     device = torch.device("cpu" if args.cpu or not torch.cuda.is_available() else "cuda")
     use_amp = bool(cfg.use_amp and device.type == "cuda" and not args.no_amp)
-    scaler = torch.cuda.amp.GradScaler(enabled=True) if use_amp else None
+    scaler = torch.amp.GradScaler("cuda") if use_amp else None
 
     print(f"Device: {device}" + (f"  ({torch.cuda.get_device_name(0)})" if device.type == "cuda" else ""))
     print(f"AMP: {use_amp}  batch={cfg.batch_size}  workers={cfg.num_workers}")
@@ -112,7 +155,7 @@ def main():
         val_ood_loader, test_ood_loader = get_ood_dataloaders(cfg, random_seed=args.seed)
 
     model = create_model_from_config(cfg)
-    freeze_backbone(model)
+    n_trainable, n_total_params = freeze_backbone(model)
     model.to(device)
 
     criterion = nn.CrossEntropyLoss(label_smoothing=cfg.label_smoothing)
@@ -128,6 +171,7 @@ def main():
     os.makedirs(save_dir, exist_ok=True)
     best_path = os.path.join(save_dir, "best.pth")
     best_ood_acc = -1.0
+    best_epoch = 0
 
     t0 = time.time()
     for epoch in range(1, cfg.num_epochs + 1):
@@ -143,33 +187,79 @@ def main():
         print(msg)
         if score >= best_ood_acc:
             best_ood_acc = score
+            best_epoch = epoch
             save_model_weights(model, best_path, verbose=False)
 
-    print(f"Training wall time: {(time.time() - t0) / 60:.1f} min")
+    train_minutes = (time.time() - t0) / 60
+    print(f"Training wall time: {train_minutes:.1f} min")
     model = load_model(best_path).to(device)
 
-    lab_acc, lab_bin = evaluate_loader(model, test_loader, cfg, device)
-    report_split("LAB", lab_acc, lab_bin)
+    results = {
+        "run": os.path.basename(save_dir),
+        "timestamp": stamp,
+        "head": args.head,
+        "backbone_key": args.backbone,
+        "backbone": backbone,
+        "seed": args.seed,
+        "epochs": cfg.num_epochs,
+        "best_epoch": best_epoch,
+        "selection_metric": "ood_val_accuracy" if val_ood_loader is not None else "lab_val_accuracy",
+        "best_selection_score": best_ood_acc,
+        "batch_size": cfg.batch_size,
+        "lr": cfg.lr_initial,
+        "amp": use_amp,
+        "device": torch.cuda.get_device_name(0) if device.type == "cuda" else "cpu",
+        "trainable_params": int(n_trainable),
+        "total_params": int(n_total_params),
+        "train_minutes": train_minutes,
+        "lab_data_dir": cfg.main_data_dir,
+        "ood_data_dir": cfg.hand_test_data_dir,
+        "splits": {
+            "lab_train": len(train_loader.dataset),
+            "lab_val": len(val_loader.dataset),
+            "lab_test": len(test_loader.dataset),
+            "ood_val": len(val_ood_loader.dataset) if val_ood_loader is not None else 0,
+            "ood_test": len(test_ood_loader.dataset) if test_ood_loader is not None else 0,
+        },
+        "checkpoint": best_path,
+        "metrics": {},
+    }
+
+    record, acc, binary = score_split(model, test_loader, device)
+    results["metrics"]["lab"] = record
+    report_split("LAB", acc, binary)
     if test_ood_loader is not None:
-        ood_acc, ood_bin = evaluate_loader(model, test_ood_loader, cfg, device)
-        report_split("OOD", ood_acc, ood_bin)
+        record, acc, binary = score_split(model, test_ood_loader, device)
+        results["metrics"]["ood"] = record
+        report_split("OOD", acc, binary)
 
     if args.with_ynlt:
-        y_true, y_pred, n_review = evaluate_with_ynlt(model, test_loader, device)
-        from sklearn.metrics import accuracy_score
-        from src.metrics import binary_fnr
-        acc = float(accuracy_score(y_true, y_pred))
-        binary = binary_fnr(np.array(y_true), np.array(y_pred), cfg.INVASIVE_INDICES)
-        report_split("LAB+YNLT", acc, binary)
-        print(f"YNLT reviewed {n_review}/{len(y_true)} lab test images")
-        if test_ood_loader is not None:
-            y_true, y_pred, n_review = evaluate_with_ynlt(model, test_ood_loader, device)
-            acc = float(accuracy_score(y_true, y_pred))
-            binary = binary_fnr(np.array(y_true), np.array(y_pred), cfg.INVASIVE_INDICES)
-            report_split("OOD+YNLT", acc, binary)
-            print(f"YNLT reviewed {n_review}/{len(y_true)} OOD test images")
+        sources = list(PATCH_SOURCES) if args.ynlt_source == "both" else [args.ynlt_source]
+        for source in sources:
+            record, acc, binary, stats = score_split_ynlt(model, test_loader, device, source)
+            results["metrics"][f"lab_ynlt_{record['patch_source']}"] = record
+            report_split(f"LAB+YNLT[{record['patch_source']}]", acc, binary)
+            print(
+                f"  reviewed {stats['n_review']}/{stats['n_total']} images"
+                f"  ({stats['trigger_rate']:.1%}), {stats['mean_patches_per_reviewed']:.1f} patches/reviewed,"
+                f" {stats['ms_per_image']:.1f} ms/image vs {stats['ms_per_image_first_pass']:.1f} ms first pass"
+            )
+            if test_ood_loader is not None:
+                record, acc, binary, stats = score_split_ynlt(model, test_ood_loader, device, source)
+                results["metrics"][f"ood_ynlt_{record['patch_source']}"] = record
+                report_split(f"OOD+YNLT[{record['patch_source']}]", acc, binary)
+                print(
+                    f"  reviewed {stats['n_review']}/{stats['n_total']} images"
+                    f"  ({stats['trigger_rate']:.1%}), {stats['mean_patches_per_reviewed']:.1f} patches/reviewed,"
+                    f" {stats['ms_per_image']:.1f} ms/image vs {stats['ms_per_image_first_pass']:.1f} ms first pass"
+                )
+
+    results_path = os.path.join(save_dir, "results.json")
+    with open(results_path, "w", encoding="utf-8") as handle:
+        json.dump(results, handle, indent=2)
 
     print(f"Best checkpoint: {best_path}")
+    print(f"Results: {results_path}")
 
 
 if __name__ == "__main__":

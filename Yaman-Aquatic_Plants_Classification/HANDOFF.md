@@ -4,6 +4,46 @@ Use this file to start a **new conversation** and continue the work. It summariz
 
 ---
 
+## 0. Update, 21 Sep 2026 (read this first)
+
+Everything below was written before the second working session. Three things changed.
+
+**YNLT was never looking at the high-resolution image.** Table 1 came from
+`n26_validate_ood_ynlt.ipynb` -> `PredictPlants.predict` -> `critical_review`, which patches
+the `224x224` tensor the dataloader produced, not the source file. The clean repo copied
+that faithfully. It is now a switch: `--ynlt-source original | input224 | both`
+(default `both`). `original` re-opens the file and patches the full-resolution photograph,
+which is what the paper describes; `input224` reproduces Table 1. The paper text, Table 1
+caption and limitations now say which one produced the published numbers.
+
+**Efficiency is measured, not estimated.** The draft's "322 M multiply-adds" was wrong by
+about 14x. Measured on the RTX 3070 Ti with `scripts/benchmark_efficiency.py`:
+4.47 GMACs and 5.0 ms for one 224 pass, 1.8 ms per patch in batches of 16, 99 patches for a
+reviewed 3000x4000 image (111 for a 224 one), so about 187 ms per reviewed image. These are
+in `Paper/main_v3.tex` as Table `tab:cost`.
+
+**Two bugs were fixed.** `src/patching.py` raised on the second scale because it stacked
+different-sized patches into one array, so YNLT would have crashed on any real image. And
+the `convnext` preset used a timm tag that does not exist; the correct ConvNeXt-V1
+counterpart is `convnext_tiny.fb_in22k_ft_in1k`.
+
+New tooling, all smoke-tested end to end on synthetic images:
+
+| Script | What it does |
+|---|---|
+| `scripts/run_matrix.py` | ablation x backbone x seed grid, sequential, skips finished runs |
+| `scripts/aggregate_results.py` | mean +/- std tables from `results.json`, plus a LaTeX tabular body |
+| `scripts/benchmark_efficiency.py` | params, MACs, latency, patch counts; needs no images |
+
+Every training run now writes `results.json` next to `best.pth` with accuracies, binary
+FNR, confusion counts, YNLT trigger rate, patches per reviewed image and ms per image.
+
+Still blocked on the same thing: **the images are not on this machine**, and `Paper/figs/`
+is missing so the draft cannot be compiled. Sections 6 and 9 below are still accurate
+about what that blocks.
+
+---
+
 ## 1. Project goal (advisor feedback)
 
 **Paper contribution (reframed):** not “design a new network,” but **small-data aquatic computer vision + lab-to-field domain shift + confidence-aware adaptive inference (YNLT)**.
@@ -47,7 +87,11 @@ Yaman-Aquatic_Plants_Classification/
     ynlt.py             # confidence-gated second look
     patching.py         # multi-scale high-res patches
     metrics.py          # accuracy + invasive binary FNR
-  runs/models/          # checkpoints (created on first train)
+  scripts/
+    run_matrix.py           # experiment grid, skips finished runs
+    aggregate_results.py    # mean +/- std tables, LaTeX fragment
+    benchmark_efficiency.py # params, MACs, latency, patch counts
+  runs/models/          # checkpoints + results.json (created on first train)
 ```
 
 **Images are not in this repo.** By default, training reads sibling folders (adjust paths in `config.py` or env vars):
@@ -183,8 +227,16 @@ python train.py --head gated_attention --backbone convnextv2 --seed 8
 python train.py --head gated_attention --backbone convnextv2 --seed 9
 # ... through seed 12
 
+# Or run the whole grid at once (skips anything already finished)
+python scripts\run_matrix.py --suite all --dry-run
+python scripts\run_matrix.py --suite all
+python scripts\aggregate_results.py --latex
+
 # Evaluate saved checkpoint
 python evaluate.py runs\models\<timestamp_folder>\best.pth --with-ynlt
+
+# Cost numbers for the paper; needs no images
+python scripts\benchmark_efficiency.py
 ```
 
 Checkpoints: `runs/models/<timestamp>_<head>_<backbone>_seed<N>/best.pth`
@@ -241,6 +293,9 @@ confidence_threshold = 0.5
 patching_method = "multi-scale"
 ms_scale = [0.2, 0.3, 0.4, 0.5]
 ms_overlap = [0.0, 0.1, 0.2, 0.3]
+
+ynlt_patch_source = "original"   # "original" = full-res file, "input224" = Table 1 behaviour
+ynlt_patch_batch_size = 16
 ```
 
 Training hyperparams (paper): `num_epochs=250`, `lr=0.0005`, `weight_decay=2e-5`, `label_smoothing=0.05`, `gated_attention_dim=168`, `classifier_head_dropout=0.1`.
@@ -249,29 +304,34 @@ Training hyperparams (paper): `num_epochs=250`, `lr=0.0005`, `weight_decay=2e-5`
 
 ## 9. TODO list for next session
 
-### Experiments (highest impact)
+### Experiments (highest impact) — all blocked on the images
 
 - [ ] Obtain official **230 lab + 33 OOD** image paths (or confirm 203/42 is acceptable)
+- [ ] `python scripts/run_matrix.py --suite all` covers the next four items in one command
 - [ ] Run 4-row ablation with `train.py` on seed 8; compare to Table 1
 - [ ] Run linear head on `resnet50`, `efficientnet`, `vit`, `convnext`
-- [ ] Run gated + YNLT on best backbone
 - [ ] Repeat main config for seeds **8, 9, 10, 11, 12**; report mean ± std
-- [ ] Log **YNLT trigger rate** and wall-clock time per image (with/without YNLT)
+- [ ] Compare `--ynlt-source original` against `input224` (the new, most informative row)
+- [x] Log **YNLT trigger rate** and wall-clock time per image — in every `results.json`
 - [ ] (Optional) BioCLIP frozen encoder + linear head
 
 ### Paper
 
 - [ ] Merge new results into Table 1 / add backbone comparison table
-- [ ] Add efficiency subsection with measured numbers (params, MACs, ms/image, % YNLT)
-- [ ] Replace placeholder `ref.bib` ecology entries with verified citations
-- [ ] Confirm figure paths (`figs/`) still exist for LaTeX build
-- [ ] Compile `main_v3.tex` and fix any broken refs
+      (`python scripts/aggregate_results.py --latex` prints the tabular body)
+- [x] Efficiency subsection now has measured numbers (Table `tab:cost` in `main_v3.tex`)
+- [x] Document which patch source produced Table 1
+- [ ] Replace the 11 `% UNVERIFIED` entries in `ref.bib` with Aaryan's originals
+      (11 others are now verified with DOIs)
+- [ ] Recover `Paper/figs/` — it is **not** in this repository, so the draft will not build
+- [ ] Compile `main_v3.tex` with **XeLaTeX or LuaLaTeX** (it uses `fontspec` and Times New
+      Roman); the `svg` package also needs Inkscape on `PATH`
 
 ### Code / repo
 
-- [ ] Add `data/` layout to README if images live inside GitHub repo
-- [ ] Script to aggregate multi-seed CSV/JSON results (not written yet)
-- [ ] Consider copying `Paper/` into repo or documenting where paper lives
+- [x] Aggregation script for multi-seed results (`scripts/aggregate_results.py`)
+- [x] Root `Readme.md`, root `.gitignore`, and removal of the stale `D:\Aquatic_Research` paths
+- [ ] Consider copying `Paper/` into the training repo, or leave it at the repo root as now
 
 ### Deprioritized
 
@@ -303,12 +363,16 @@ Copy-paste something like:
 
 ## 12. What was **not** done
 
-- No new training runs were executed in the session that created this handoff
-- No new accuracy numbers were added to the paper tables
-- `AquaticPlantsClassification` was not deleted (intentionally kept as archive)
+- No training on real data, so **no new accuracy numbers** are in the paper tables. The
+  only runs executed were synthetic smoke tests, and their output was deleted.
+- `Paper/figs/` was not recovered, so `main_v3.tex` has not been compiled
+- The 11 `% UNVERIFIED` bibliography entries were not resolved
+- `AquaticPlantsClassification` was not deleted (intentionally kept as archive); the
+  patching and preset bugs were fixed only in the clean repo, not in the archive
 - GitHub remote / CI / release tags not configured
-- No automated multi-seed runner script yet
 
 ---
 
-*Last updated from Cursor session: paper revision + clean repo extraction for GitHub. User: Yaman. Advisor context: Fengying Dang, Michigan Tech.*
+*Last updated 21 Sep 2026: YNLT patch-source fix, measured efficiency numbers, experiment
+scripts, bibliography verification. Earlier session: paper revision + clean repo extraction
+for GitHub. User: Yaman. Advisor context: Fengying Dang, Michigan Tech.*
