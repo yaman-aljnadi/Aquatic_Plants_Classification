@@ -20,7 +20,7 @@ Yaman-Aquatic_Plants_Classification/
     run_matrix.py           ablation x backbone x seed, skips finished runs
     aggregate_results.py    mean +/- std tables (Markdown and LaTeX)
     benchmark_efficiency.py params, MACs, latency, patch counts (no images needed)
-  runs/models/      checkpoints and results.json written here
+  runs/models/      checkpoints, results.json and TensorBoard events written here
 ```
 
 Images are **not** copied here. Training reads:
@@ -84,6 +84,21 @@ Score a checkpoint later:
 ```powershell
 python evaluate.py runs\models\<run>\best.pth --with-ynlt
 ```
+
+## TensorBoard
+
+Every run writes event files into its own folder under `runs\models\`, so one command
+shows all runs overlaid, named after their run folder:
+
+```powershell
+tensorboard --logdir runs\models
+```
+
+Then open <http://localhost:6006>. You get per-epoch `loss/train`, `loss/val`,
+`loss/ood_val`, the matching `accuracy/*` curves and `lr` on the Scalars tab; every number
+from `results.json` under `final/...`; the full `results.json` on the Text tab; and a
+HParams tab that sorts runs by head, backbone, seed and learning rate against final
+accuracy and invasive FNR. Use `--no-tensorboard` to turn the logging off.
 
 ## YNLT patch source
 

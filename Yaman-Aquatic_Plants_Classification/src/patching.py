@@ -3,15 +3,11 @@ import numpy as np
 import torch
 from PIL import Image
 from torch.utils.data import DataLoader, Dataset
-from torchvision import transforms
 
 import config as cfg
 
-_PATCH_TF = transforms.Compose([
-    transforms.Resize((224, 224)),
-    transforms.ToTensor(),
-    transforms.Normalize(mean=cfg.normalization_parameters["mean"], std=cfg.normalization_parameters["std"]),
-])
+# Patches go through the same preprocessing as a normal eval image.
+_PATCH_TF = cfg.basic_tf
 
 
 class ImagePatchedDataset(Dataset):

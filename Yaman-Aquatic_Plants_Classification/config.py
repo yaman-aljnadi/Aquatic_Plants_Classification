@@ -2,6 +2,10 @@
 
 import os
 
+# Pure noise on Windows, printed by every dataloader worker on first model download.
+os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
+
+import torch
 from torchvision.transforms import InterpolationMode
 from torchvision.transforms import v2
 
@@ -98,14 +102,18 @@ aug_tf = v2.Compose([
     v2.RandomPerspective(distortion_scale=0.15, p=0.5, interpolation=InterpolationMode.BICUBIC),
     v2.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3, hue=0.1),
     v2.TrivialAugmentWide(interpolation=InterpolationMode.BICUBIC),
-    v2.ToTensor(),
+    # v2.ToTensor() is deprecated; this pair is its documented replacement and is
+    # numerically equivalent (uint8 HWC -> float32 CHW scaled to [0, 1]).
+    v2.ToImage(),
+    v2.ToDtype(torch.float32, scale=True),
     v2.Normalize(mean=normalization_parameters["mean"], std=normalization_parameters["std"]),
     v2.RandomErasing(p=0.5, scale=(0.02, 0.1), ratio=(0.3, 3.3)),
 ])
 
 basic_tf = v2.Compose([
     v2.Resize((224, 224)),
-    v2.ToTensor(),
+    v2.ToImage(),
+    v2.ToDtype(torch.float32, scale=True),
     v2.Normalize(mean=normalization_parameters["mean"], std=normalization_parameters["std"]),
 ])
 

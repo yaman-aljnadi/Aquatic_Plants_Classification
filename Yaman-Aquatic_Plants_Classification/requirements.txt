@@ -6,6 +6,7 @@ numpy
 pillow
 opencv-python
 tqdm
+tensorboard
 
 # Optional: multiply-add counting in scripts/benchmark_efficiency.py.
 # Without it the benchmark still reports params and latency.

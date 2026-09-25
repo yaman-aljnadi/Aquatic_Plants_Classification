@@ -6,8 +6,9 @@ Examples (from this folder):
     python train.py --head gated_attention --backbone convnextv2 --with-ynlt
     python train.py --head linear --backbone resnet50 --seed 8
 
-Every run writes ``results.json`` next to its checkpoint; aggregate several runs with
-``python scripts/aggregate_results.py``.
+Every run writes ``results.json`` and TensorBoard event files next to its checkpoint.
+Aggregate several runs with ``python scripts/aggregate_results.py``; compare them visually
+with ``tensorboard --logdir runs/models``.
 """
 
 from __future__ import annotations
@@ -35,6 +36,11 @@ from src.metrics import binary_fnr, evaluate_loader
 from src.model import create_model_from_config, freeze_backbone, load_model, save_model_weights
 from src.ynlt import PATCH_SOURCES, evaluate_with_ynlt
 
+try:
+    from torch.utils.tensorboard import SummaryWriter
+except ImportError:  # tensorboard is optional
+    SummaryWriter = None
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Yaman aquatic plant training")
@@ -55,6 +61,7 @@ def parse_args():
         help="patch the full-resolution file ('original'), the 224 input ('input224'), or report both",
     )
     parser.add_argument("--cpu", action="store_true")
+    parser.add_argument("--no-tensorboard", action="store_true", help="skip writing TensorBoard event files")
     return parser.parse_args()
 
 
@@ -99,6 +106,42 @@ def score_split(model, loader, device):
         "binary_FNR": binary["FNR"],
         "confusion": {k: binary[k] for k in ("TP", "TN", "FP", "FN")},
     }, acc, binary
+
+
+def open_writer(save_dir, disabled):
+    """TensorBoard writer for one run, or None when unavailable/disabled."""
+    if disabled:
+        return None
+    if SummaryWriter is None:
+        print("TensorBoard not installed (pip install tensorboard) - skipping event logs.")
+        return None
+    return SummaryWriter(log_dir=save_dir)
+
+
+def log_final_metrics(writer, results, step):
+    """Mirror the numbers in results.json into scalars and the HParams tab."""
+    if writer is None:
+        return
+    hparam_metrics = {}
+    for split, record in results["metrics"].items():
+        for key, value in record.items():
+            if isinstance(value, (int, float)) and not isinstance(value, bool):
+                writer.add_scalar(f"final/{split}/{key}", value, step)
+        hparam_metrics[f"hparam/{split}_accuracy"] = record["accuracy"]
+        if record.get("binary_FNR") is not None:
+            hparam_metrics[f"hparam/{split}_binary_FNR"] = record["binary_FNR"]
+    hparams = {
+        "head": results["head"],
+        "backbone": results["backbone_key"],
+        "seed": results["seed"],
+        "epochs": results["epochs"],
+        "batch_size": results["batch_size"],
+        "lr": results["lr"],
+        "trainable_params": results["trainable_params"],
+    }
+    # run_name="." keeps the hparams in this run's directory instead of a timestamped child.
+    writer.add_hparams(hparams, hparam_metrics, run_name=".")
+    writer.add_text("results", "```json\n" + json.dumps(results, indent=2) + "\n```", step)
 
 
 def score_split_ynlt(model, loader, device, patch_source):
@@ -172,19 +215,32 @@ def main():
     best_path = os.path.join(save_dir, "best.pth")
     best_ood_acc = -1.0
     best_epoch = 0
+    writer = open_writer(save_dir, args.no_tensorboard)
 
     t0 = time.time()
     for epoch in range(1, cfg.num_epochs + 1):
+        lr_now = optimizer.param_groups[0]["lr"]
         tr_loss, tr_acc = run_epoch(model, train_loader, criterion, optimizer, scaler, device, train=True)
         va_loss, va_acc = run_epoch(model, val_loader, criterion, optimizer, scaler, device, train=False)
         scheduler.step()
         msg = f"Epoch {epoch:03d}/{cfg.num_epochs}  train {tr_loss:.3f}/{tr_acc:.3f}  val {va_loss:.3f}/{va_acc:.3f}"
         score = va_acc
+        ood_acc = None
         if val_ood_loader is not None:
-            _, ood_acc = run_epoch(model, val_ood_loader, criterion, optimizer, scaler, device, train=False)
+            ood_loss, ood_acc = run_epoch(model, val_ood_loader, criterion, optimizer, scaler, device, train=False)
             msg += f"  ood_val {ood_acc:.3f}"
             score = ood_acc
         print(msg)
+        if writer is not None:
+            writer.add_scalar("loss/train", tr_loss, epoch)
+            writer.add_scalar("loss/val", va_loss, epoch)
+            writer.add_scalar("accuracy/train", tr_acc, epoch)
+            writer.add_scalar("accuracy/val", va_acc, epoch)
+            if ood_acc is not None:
+                writer.add_scalar("loss/ood_val", ood_loss, epoch)
+                writer.add_scalar("accuracy/ood_val", ood_acc, epoch)
+            writer.add_scalar("lr", lr_now, epoch)
+            writer.add_scalar("accuracy/best_selection", max(score, best_ood_acc), epoch)
         if score >= best_ood_acc:
             best_ood_acc = score
             best_epoch = epoch
@@ -258,8 +314,14 @@ def main():
     with open(results_path, "w", encoding="utf-8") as handle:
         json.dump(results, handle, indent=2)
 
+    log_final_metrics(writer, results, cfg.num_epochs)
+    if writer is not None:
+        writer.close()
+
     print(f"Best checkpoint: {best_path}")
     print(f"Results: {results_path}")
+    if writer is not None:
+        print(f"TensorBoard: tensorboard --logdir {cfg.MODELS_DIR}")
 
 
 if __name__ == "__main__":

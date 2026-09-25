@@ -37,6 +37,14 @@ New tooling, all smoke-tested end to end on synthetic images:
 
 Every training run now writes `results.json` next to `best.pth` with accuracies, binary
 FNR, confusion counts, YNLT trigger rate, patches per reviewed image and ms per image.
+The same folder also gets TensorBoard event files (per-epoch curves, final metrics, an
+HParams entry, and the results JSON as text), so `tensorboard --logdir runs\models`
+overlays every run. `--no-tensorboard` disables it.
+
+The deprecated `v2.ToTensor()` in `config.py` was replaced by its documented equivalent
+`v2.ToImage()` + `v2.ToDtype(torch.float32, scale=True)`; every dataloader worker used to
+print a warning for it. `src/patching.py` now reuses `cfg.basic_tf` instead of keeping a
+second copy of the same eval transform.
 
 Still blocked on the same thing: **the images are not on this machine**, and `Paper/figs/`
 is missing so the draft cannot be compiled. Sections 6 and 9 below are still accurate
@@ -374,5 +382,5 @@ Copy-paste something like:
 ---
 
 *Last updated 21 Sep 2026: YNLT patch-source fix, measured efficiency numbers, experiment
-scripts, bibliography verification. Earlier session: paper revision + clean repo extraction
+scripts, TensorBoard logging, bibliography verification. Earlier session: paper revision + clean repo extraction
 for GitHub. User: Yaman. Advisor context: Fengying Dang, Michigan Tech.*
