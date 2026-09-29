@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Progress Report — Yaman — 28 September 2026</title>
+  <style>
+    @page { size: letter; margin: 0.9in 1in; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 12pt;
+      line-height: 1.3;
+      color: #111;
+      max-width: 7.3in;
+      margin: 0 auto;
+      padding: 1in 0.9in;
+    }
+    h1 { font-size: 16pt; text-align: center; margin: 0 0 0.08in; }
+    .sub { text-align: center; margin: 0 0 0.28in; }
+    .meta { width: 100%; border-collapse: collapse; margin-bottom: 0.22in; }
+    .meta td { padding: 1px 8px 1px 0; }
+    .meta td:first-child { width: 1.35in; font-weight: 700; }
+    h2 {
+      font-size: 13pt;
+      border-bottom: 1px solid #333;
+      margin: 0.26in 0 0.1in;
+      padding-bottom: 2px;
+    }
+    ul { margin: 0.04in 0 0.08in 0.22in; padding: 0; }
+    li { margin: 0.05in 0; }
+    table.data {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11pt;
+      margin: 0.08in 0 0.12in;
+    }
+    table.data th, table.data td {
+      border: 1px solid #444;
+      padding: 4px 7px;
+      text-align: left;
+      vertical-align: top;
+    }
+    table.data th { background: #f0f0f0; }
+    .note { margin: 0.1in 0; font-size: 11pt; }
+    @media print { body { padding: 0; max-width: none; } }
+  </style>
+</head>
+<body>
+
+<h1>Progress Report</h1>
+<p class="sub">YNLT aquatic plant classification</p>
+
+<table class="meta">
+  <tr><td>Student</td><td>Yaman</td></tr>
+  <tr><td>Advisor</td><td>Dr. Fengying Dang</td></tr>
+  <tr><td>Date</td><td>28 September 2026</td></tr>
+</table>
+
+<h2>Finished</h2>
+<table class="data">
+  <tr><th>Request</th><th>Status</th></tr>
+  <tr><td>Reframe contribution (small data + lab-to-field + YNLT)</td><td>Done in title, abstract, intro</td></tr>
+  <tr><td>Shorter intro + related methods</td><td>Done</td></tr>
+  <tr><td>YNLT math (confidence, margin, entropy, trigger)</td><td>Done</td></tr>
+  <tr><td>Ablation: backbone / gated head / YNLT</td><td>14 runs finished</td></tr>
+  <tr><td>Stronger baselines (ResNet, EfficientNet, ViT, ConvNeXt)</td><td>Trained</td></tr>
+  <tr><td>Repeated splits, mean ± std (seeds 8–12)</td><td>Trained</td></tr>
+  <tr><td>Computational cost / robot claim</td><td>Measured; robot claim removed</td></tr>
+  <tr><td>Check references</td><td>11 verified, 11 still open</td></tr>
+  <tr><td>Read 2 papers / week</td><td>Swin + DINOv2 done; BioCLIP unfinished</td></tr>
+</table>
+
+<p class="note">Cost measured on RTX 3070 Ti: <strong>4.47 G MACs, 5.0 ms</strong> per 224 pass (draft said ~322 M). One reviewed image ≈ 187 ms.</p>
+
+<h2>New results (not yet in the paper)</h2>
+<p class="note">Trained on <strong>203 lab / 42 field</strong> images. Paper still uses <strong>230 / 33</strong>. These numbers do not replace Table 1 until we confirm the official set.</p>
+<table class="data">
+  <tr>
+    <th>Model (ConvNeXt-V2, 5 seeds)</th>
+    <th>Lab %</th>
+    <th>OOD %</th>
+  </tr>
+  <tr><td>Linear</td><td>65.9 ± 29.4</td><td>20.0 ± 12.3</td></tr>
+  <tr><td>Linear + YNLT</td><td>69.3 ± 30.1</td><td>18.1 ± 17.0</td></tr>
+  <tr><td>Gated attention</td><td>80.0 ± 6.8</td><td>19.1 ± 7.5</td></tr>
+  <tr><td>Gated + YNLT</td><td>82.0 ± 6.4</td><td>18.1 ± 8.5</td></tr>
+</table>
+
+<h2>Still to do</h2>
+<ul>
+  <li>Put the new tables into the paper.</li>
+  <li>Confirm which image list is official (230/33 vs 203/42).</li>
+  <li>Recover <code>Paper/figs/</code> and compile the draft.</li>
+  <li>Fix the 11 unverified citations.</li>
+  <li>Finish BioCLIP reading notes.</li>
+</ul>
+
+<h2>Questions</h2>
+<ul>
+  <li>Which dataset should the paper use?</li>
+  <li>Can I have Aaryan’s original <code>ref.bib</code>?</li>
+</ul>
+
+</body>
+</html>
