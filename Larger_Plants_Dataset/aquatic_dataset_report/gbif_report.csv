@@ -1,0 +1,22 @@
+species,requested_rank,gbif_key,matched_name,matched_rank,match_type,taxonomic_status,confidence,rank_warning,global_image_occurrences,great_lakes_bbox_image_occurrences
+Brasenia schreberi,SPECIES,2882446,Brasenia schreberi J.F.Gmel.,SPECIES,EXACT,ACCEPTED,99,,9735,3186
+Cabomba,GENUS,2882440,Cabomba Aubl.,GENUS,EXACT,ACCEPTED,94,,2163,120
+Ceratophyllum demersum,SPECIES,2882398,Ceratophyllum demersum L.,SPECIES,EXACT,ACCEPTED,97,,16143,2341
+Elodea canadensis,SPECIES,7707728,Tracheophyta,PHYLUM,HIGHERRANK,ACCEPTED,97,"Requested SPECIES, matched PHYLUM",95182419,6167841
+Heteranthera dubia,SPECIES,2766116,Heteranthera dubia (Jacq.) MacMill.,SPECIES,EXACT,ACCEPTED,98,,2196,874
+Hydrocharis morsus-ranae,SPECIES,5329266,Hydrocharis morsus-ranae L.,SPECIES,EXACT,ACCEPTED,99,,18973,3161
+Myriophyllum sibiricum,SPECIES,5361764,Myriophyllum sibiricum Kom.,SPECIES,EXACT,ACCEPTED,99,,3342,631
+Myriophyllum spicatum,SPECIES,5361760,Myriophyllum spicatum L.,SPECIES,EXACT,ACCEPTED,97,,9343,2200
+Najas flexilis,SPECIES,5329315,Najas flexilis (Willd.) Rostk. & W.L.E.Schmidt,SPECIES,EXACT,ACCEPTED,99,,1893,885
+Nitellopsis obtusa,SPECIES,2638307,Nitellopsis obtusa (Desv.) J.Groves,SPECIES,EXACT,ACCEPTED,99,,1004,610
+Nuphar variegata,SPECIES,6434989,Nuphar variegata Engelm. ex Durand,SPECIES,EXACT,ACCEPTED,97,,9018,4343
+Nymphaea odorata,SPECIES,2882412,Nymphaea odorata Sol. ex Aiton,SPECIES,EXACT,ACCEPTED,97,,29556,12126
+Potamogeton crispus,SPECIES,5301162,Potamogeton crispus L.,SPECIES,EXACT,ACCEPTED,98,,10682,2126
+Potamogeton gramineus,SPECIES,5301183,Potamogeton gramineus L.,SPECIES,EXACT,ACCEPTED,99,,7001,921
+Potamogeton illinoensis,SPECIES,5301138,Potamogeton illinoensis Morong,SPECIES,EXACT,ACCEPTED,99,,1486,547
+Potamogeton natans,SPECIES,5301147,Potamogeton natans L.,SPECIES,EXACT,ACCEPTED,98,,13934,1078
+Potamogeton praelongus,SPECIES,5301213,Potamogeton praelongus Wulfen,SPECIES,EXACT,ACCEPTED,97,,2704,319
+Potamogeton richardsonii,SPECIES,5301198,Potamogeton richardsonii (A.Benn.) Rydb.,SPECIES,EXACT,ACCEPTED,99,,2715,1179
+Potamogeton robbinsii,SPECIES,5301182,Potamogeton robbinsii Oakes,SPECIES,EXACT,ACCEPTED,99,,1190,608
+Ranunculus aquatilis,SPECIES,3033464,Ranunculus aquatilis L.,SPECIES,EXACT,ACCEPTED,97,,4348,109
+Vallisneria americana,SPECIES,2865501,Vallisneria americana Michx.,SPECIES,EXACT,ACCEPTED,99,,2571,1261

@@ -1,0 +1,12 @@
+Aquatic Plant Dataset Explorer
+==============================
+Selected sources: gbif, inat, plantnet, aquavplant, egle, usgs, noaa
+Species/classes requested: 21
+
+Important interpretation notes:
+- GBIF/iNaturalist counts are occurrence/observation counts, not guaranteed unique plant individuals.
+- Photo counts can differ from image counts because one observation can contain multiple photographs.
+- The Great Lakes GBIF screen uses a broad bounding box and is not a watershed polygon.
+- EGLE's public layer is survey-site metadata; it should not be assumed to be a species-image dataset.
+- Pl@ntNet-300K-v2 metadata is useful for class coverage before committing to the 41.8 GB image archive.
+- Preserve original licenses/rights-holder metadata for every image used in research.

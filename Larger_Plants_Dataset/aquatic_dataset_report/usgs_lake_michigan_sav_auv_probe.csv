@@ -1,0 +1,2 @@
+source,requested_url,reachable,final_url,note_or_error
+USGS Lake Michigan SAV AUV,https://data.usgs.gov/datacatalog/data/USGS%3A66df378ad34eef5af66da455,True,https://data.usgs.gov/datacatalog/data/USGS%3A66df378ad34eef5af66da455,HTTP request succeeded

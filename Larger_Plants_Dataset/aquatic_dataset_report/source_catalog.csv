@@ -1,0 +1,8 @@
+source,type,url,notes
+GBIF,occurrence + image metadata,https://www.gbif.org/,Taxonomically indexed occurrence records; supports mediaType=StillImage filtering.
+iNaturalist,observation + photo metadata,https://www.inaturalist.org/,Citizen-science observations; use photo license fields when building a redistributable image set.
+Pl@ntNet-300K-v2,plant image benchmark,https://zenodo.org/records/10419064,"306,087 images / 1,000 species; metadata can be inspected before downloading the 41.8 GB image archive."
+AqUavplant,aquatic plant UAV segmentation dataset,https://figshare.com/articles/dataset/AqUavplant_Dataset_A_High-Resolution_Aquatic_Plant_Classification_and_Segmentation_Image_Dataset_Using_UAV/27019894,197 high-resolution images covering 31 aquatic species; includes segmentation annotations.
+Michigan EGLE ANC,Michigan aquatic vegetation survey sites,https://www.michigan.gov/egle/about/organization/water-resources/aquatic-nuisance-control,Historical survey-site coverage from 1986 to present; the public layer is primarily site/survey metadata rather than an image dataset.
+USGS Lake Michigan SAV AUV,underwater RGB + masks + polygons,https://doi.org/10.5066/P1GPDYMM,2020 Lake Michigan AUV imagery; 4096x2176 color images with masks/polygons and metadata.
+NOAA Great Lakes SAV hyperspectral,airborne hyperspectral imagery,https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc%3AC01632/html,Great Lakes SAV hyperspectral flights; metadata indicates public access by request rather than normal direct download.

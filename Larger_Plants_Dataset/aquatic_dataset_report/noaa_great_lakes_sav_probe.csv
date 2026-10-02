@@ -1,0 +1,2 @@
+source,requested_url,reachable,final_url,note_or_error
+NOAA Great Lakes SAV,https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc%3AC01632/html,True,https://www.ncei.noaa.gov/metadata/geoportal/rest/metadata/item/gov.noaa.ncdc%3AC01632/html,HTTP request succeeded

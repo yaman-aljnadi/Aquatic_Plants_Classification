@@ -1,0 +1,5 @@
+file,size_bytes,checksum,download_url
+images.zip,41819638938,md5:459b90c81cd8798e15e6f12a0ea56f64,https://zenodo.org/api/records/10419064/files/images.zip/content
+README.md,5029,md5:998a460db326260a32826104cca21a65,https://zenodo.org/api/records/10419064/files/README.md/content
+species_metadata.csv,106651,md5:106b21ebc7bdde38725ad49e299ebc74,https://zenodo.org/api/records/10419064/files/species_metadata.csv/content
+plantnet300K_metadata.csv,27738434,md5:87e7d4b94f2b709524a7e90c7e9060ba,https://zenodo.org/api/records/10419064/files/plantnet300K_metadata.csv/content

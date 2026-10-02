@@ -1,0 +1,675 @@
+OBJECTID,LakeSiteName,County,SiteID,Staff1,Staff2,Staff3,Affiliation,SiteVisitType,Year,Comments,Longitude,Latitude
+1,Cedar Lake,Alcona,WB-2127,Dave Kenaga,Paul Hausler (Progressive AE),,SOM,vegetation survey,1997,,-83.333086,44.521992
+2,Horsehoe Lake,Alcona,WB-6169,Michigan State University,,,MSU,vegetation survey,2023,,-83.767128,44.599681
+3,Hubbard Lake,Alcona,WB-2171,Michigan State University,,,MSU,vegetation survey,2023,,-83.552003,44.807219
+4,Jewell Lake,Alcona,WB-6173,Michigan State University,,,MSU,vegetation survey,2023,,-83.608144,44.678927
+5,Monterey Lake,Allegan,WB-1361,Dave Kenaga,,,SOM,vegetation survey,1994,,-85.807945,42.684921
+6,Selkirk Lake,Allegan,WB-1392,Dave Kenaga,,,SOM,vegetation survey,1994,,-85.626976,42.610749
+7,Selkirk Lake,Allegan,WB-1392,Dave Kenaga,,,SOM,vegetation survey,1995,,-85.626976,42.610749
+8,Selkirk Lake,Allegan,WB-1392,Dave Kenaga,,,SOM,vegetation survey,1996,,-85.626976,42.610749
+9,Hutchins Lake,Allegan,WB-2191,Dave Schipper,,,SOM,vegetation survey,1997,,-86.130544,42.581083
+10,Lower Scott Lake,Allegan,WB-1522,Dave Schipper,,,SOM,vegetation survey,1998,,-86.0739,42.4884
+11,Monterey Lake,Allegan,WB-1361,Laura Esman,Eric Bacon,,SOM,vegetation survey,2002,,-85.807945,42.684921
+12,Selkirk Lake,Allegan,WB-1392,Eric Bacon,Laura Esman,,SOM,vegetation survey,2002,,-85.626976,42.610749
+13,Hutchins Lake,Allegan,WB-2191,Matt Preisser,Eric Bacon,Lisa Huberty,SOM,vegetation survey,2004,,-86.130544,42.581083
+14,Osterhout Lake,Allegan,WB-2152,Lisa Huberty,Brett Wiseley,Charlie Cunningham,SOM,vegetation survey,2007,partial lake survey,-86.0385,42.4343
+15,Osterhout Lake,Allegan,WB-2152,Ryan Crouch,Eric Bacon,Matt Diana (DNR),SOM,vegetation survey,2017,Assessment of treatment in shallow lake with wide litttoral zone,-86.0385,42.4343
+16,Dumont Lake,Allegan,WB-214,Lisa Huberty,Eric Bacon,,SOM,vegetation survey,2019,Partial survey to respond to stakeholder complaint,-85.86188,42.59291
+17,Monterey Lake,Allegan,WB-1361,Ryan Crouch,Eric Bacon,Marley Diatikar,SOM,vegetation survey,2019,ProcellaCOR Pre- and Post Treatment Survey,-85.8099,42.686
+18,Goshorn Lake,Allegan,WB-1498,Ryan Crouch,Eric bacon,Andrew LeBaron,ANC,vegetation survey,2022,,-86.1826,42.6828
+19,Fletcher Pond,Alpena,WB-2777,Michigan State University,,,MSU,vegetation survey,2023,,-83.867701,44.979297
+20,Bass Lake,Antrim,WB-2391,Eric Bacon,Laura Esman,,SOM,vegetation survey,1999,,-85.399587,44.90469
+21,Loon Lake,Barry,WB-2265,Dave Kenaga,,,SOM,vegetation survey,1991,,-85.135929,42.435904
+22,Loon Lake,Barry,WB-2265,Dave Kenaga,,,SOM,vegetation survey,1992,,-85.135929,42.435904
+23,Algonquin Lake,Barry,WB-1678,Dave Schipper,,,SOM,vegetation survey,1995,,-85.331112,42.671226
+24,Loon Lake,Barry,WB-2265,Dave Kenaga,,,SOM,vegetation survey,1995,,-85.135929,42.435904
+25,Fine Lake,Barry,WB-2387,Eric Bacon,Brent Brooks,,SOM,vegetation survey,1998,,-85.290782,42.444794
+26,Bristol Lake,Barry,WB-1470,Eric Bacon,Laura Esman,,SOM,vegetation survey,1999,,-85.247785,42.485531
+27,Long Lake,Barry,WB-64,Eric Bacon,Jeremie Wilson,,SOM,vegetation survey,1999,,-85.373979,42.554285
+28,Fish Lake Mill Pond,Barry,WB-164,Eric Bacon,Laura Esman,,SOM,vegetation survey,2000,,-85.505417,42.548208
+29,Jordan Lake,Barry,WB-4721,Eric Bacon,Ned Rathbun,,SOM,vegetation survey,2000,Post fish kill investigation,-85.140252,42.77026
+30,Gun Lake,Barry,WB-103,Laura Esman,Eric Bacon,,SOM,vegetation survey,2002,,-85.520749,42.600672
+31,Algonquin Lake,Barry,WB-1678,Laura Esman,Julie Sims,Eric Bacon,SOM,vegetation survey,2004,,-85.331112,42.671226
+32,Cobb Lake,Barry,WB-755,Julie Sims,Laura Esman,,SOM,vegetation survey,2004,,-85.537142,42.651041
+33,Gun Lake,Barry,WB-103,Eric Bacon,Lisa Huberty,Matt Preisser,SOM,vegetation survey,2004,,-85.520749,42.600672
+34,Leach Lake,Barry,WB-2405,Eric Bacon,Matt Preisser,,SOM,vegetation survey,2007,,-85.283315,42.687255
+35,Middle Lake,Barry,WB-1602,Matt Preisser,Eric Bacon,,SOM,vegetation survey,2007,,-85.269861,42.696028
+36,Jordan Lake,Barry,WB-4721,Eric Bacon,Ryan Crouch,,SOM,vegetation survey,2016,Assessment of vegetation community after multiple complaints of low vegetation presence,-85.13907,42.77028
+37,Hall Lake,Barry,WB-5743,Eric Bacon,Mark Huffsmith,Isabel Latvaitis,ANC,vegetation survey,2022,,-85.48257,42.61234
+38,Kawkawlin River,Bay,WB-34,Eric Bacon,Matt Preisser,Julie Sims,SOM,vegetation survey,2004,,-83.902684,43.648946
+39,Paw Paw Lake,Berrien,WB-1396,Ned Rathbun,,,SOM,vegetation survey,1996,,-86.2668,42.2074
+40,Paw Paw Lake,Berrien,WB-1396,Eric Bacon,Doyle Brunsen,Sean Syts (DEQ),SOM,vegetation survey,2015,Poor aquatic plant and fishing conditions reported to DNR,-86.2668,42.2074
+41,Lake Lavine,Branch,WB-2308,Jeremie Wilson,Eric Bacon,,SOM,vegetation survey,1999,,-85.037572,41.768459
+42,Lake George,Branch,WB-104,Eric Bacon,Ned Rathbun,,SOM,vegetation survey,2000,,-85.00806,41.76111
+43,Lake Lavine,Branch,WB-2308,Eric Bacon,Jeremie Wilson,,SOM,vegetation survey,2000,,-85.037572,41.768459
+44,Gilead Lake,Branch,WB-469,Laura Esman,Eric Bacon,,SOM,vegetation survey,2002,,-85.164138,41.794899
+45,Matteson Lake,Branch,WB-1636,Eric Bacon,Lisa Huberty,,SOM,vegetation survey,2005,,-85.205272,41.932488
+46,Lake Lavine,Branch,WB-2308,Brett Wiseley,Eric Bacon,,SOM,vegetation survey,2007,,-85.037572,41.768459
+47,Lake Lavine,Branch,WB-2308,Ryan Crouch,Lisa Huberty,Brian Gunderman (DNR),SOM,vegetation survey,2018,Fisheries concerns,-85.03513,41.76802
+48,Morrison Lake,Branch,WB-91,Ryan Crouch,Lisa Huberty,,SOM,vegetation survey,2019,ProcellaCOR Pre- and Post Treatment Survey,-85.0273,41.989
+49,Goguac Lake,Calhoun,WB-1601,Ned Rathbun,,,SOM,vegetation survey,1995,,-85.210134,42.288049
+50,Goguac Lake,Calhoun,WB-1601,Eric Bacon,Laura Esman,,SOM,vegetation survey,1999,,-85.210134,42.288049
+51,St. Mary's Lake,Calhoun,WB-1537,Julie Sims,Laura Esman,,SOM,vegetation survey,2004,,-85.181903,42.378697
+52,Duck Lake,Calhoun,WB-2258,Ryan Crouch,Eric Bacon,Sara Thoma,SOM,vegetation survey,2016,Document plant community; first year of permitted treatments,-84.785214,42.387475
+53,Little Fish Lake,Cass,WB-2448,Eric Bacon,Ned Rathbun,Dustin Day,SOM,vegetation survey,2000,,-85.903887,41.984851
+54,Finch Lake,Cass,WB-1616,Eric Bacon,Lisa Huberty,Brian Gunderman (DNR),SOM,vegetation survey,2015,"Document plant community, development pressure to TE pugnose shiner",-85.8827,42.0485
+55,Gravel Pit Pond,Cass,WB-5067,Ryan Crouch,Eric Bacon,,SOM,vegetation survey,2020,complaint response,-86.22215,41.88179
+56,Saddlebag Lake,Cass,WB-2593,Eric Bacon,Mark Huffsmith,,ANC,vegetation survey,2022,,-85.86955,42.05967
+57,Thumb Lake,Charlevoix,WB-3904,Michigan State University,,,MSU,vegetation survey,2023,,-84.770378,45.190963
+58,Mullett Lake,Cheboygan,WB-94,Eric Bacon,Brett Wiseley,,SOM,vegetation survey,2007,,-84.523742,45.512213
+59,Black Lake,Cheboygan,WB-1868,Michigan State University,,,MSU,vegetation survey,2023,,-84.262979,45.466535
+60,Twin Lakes,Cheboygan,WB-5938,Michigan State University,,,MSU,vegetation survey,2023,,-84.295194,45.541772
+61,Wildwood Lake,Cheboygan,WB-2645,Lisa Huberty,Mark Huffsmith,Josh Epperly,ANC,vegetation survey,2023,,-84.554475,45.236488
+62,Wildwood Lake,Cheboygan,WB-2645,Michigan State University,,,MSU,vegetation survey,2023,,-84.554475,45.236488
+63,Andrus Lake,Chippewa,WB-6156,Michigan State University,,,MSU,vegetation survey,2023,,-85.038708,46.701962
+64,Big Trout Lake,Chippewa,WB-6159,Michigan State University,,,MSU,vegetation survey,2023,,-84.10553,45.991719
+65,Caribou Lake,Chippewa,WB-3093,Michigan State University,,,MSU,vegetation survey,2023,,-83.992376,45.998798
+66,Monocle Lake,Chippewa,WB-6189,Michigan State University,,,MSU,vegetation survey,2023,,-84.645946,46.473357
+67,Shelldrake Lake,Chippewa,WB-6214,Michigan State University,,,MSU,vegetation survey,2023,,-85.075549,46.716464
+68,Trout Lake,Chippewa,WB-5714,Michigan State University,,,MSU,vegetation survey,2023,,-85.043178,46.183372
+69,Walker Lake,Chippewa,WB-6216,Michigan State University,,,MSU,vegetation survey,2023,,-84.980415,46.317529
+70,Whitmarsh Lake,Chippewa,WB-6217,Michigan State University,,,MSU,vegetation survey,2023,,-84.985672,46.320706
+71,Crooked Lake,Clare,WB-1921,Dave Kenaga,Ned Rathbun,,SOM,vegetation survey,1995,,-85.01581,43.84675
+72,Arnold Lake,Clare,WB-1701,Dave Kenaga,Ned Rathbun,,SOM,vegetation survey,1996,,-84.75455,44.071435
+73,Budd Lake,Clare,WB-1669,Eric Bacon,Kristin Bojesen,,SOM,vegetation survey,1996,,-84.798855,44.026505
+74,Crooked Lake,Clare,WB-1921,Dave Kenaga,Ned Rathbun,,SOM,vegetation survey,1996,,-85.01581,43.84675
+75,Lily Lake,Clare,WB-1696,Dave Schipper,,,SOM,vegetation survey,1996,,-84.904486,43.994946
+76,Little Long Lake,Clare,WB-2102,Eric Bacon,Kristin Bojesen,,SOM,vegetation survey,1996,,-84.783517,44.025122
+77,Long Lake,Clare,WB-1377,Dave Kenaga,Ned Rathbun,,SOM,vegetation survey,1996,,-84.763166,44.08895
+78,Little Long Lake,Clare,WB-2102,Dave Schipper,Dick Mikula,,SOM,vegetation survey,1997,,-84.783517,44.025122
+79,Budd Lake,Clare,WB-1669,Laura Esman,Eric Bacon,,SOM,vegetation survey,2001,,-84.798855,44.026505
+80,Lily Lake,Clare,WB-1696,Ned Rathbun,Laura Esman,,SOM,vegetation survey,2001,,-84.904486,43.994946
+81,Sutherland Lake,Clare,WB-1668,Laura Esman,Eric Bacon,Jennifer Olsen (DNR),SOM,vegetation survey,2001,,-84.771365,44.02415
+82,Little Long Lake,Clare,WB-2102,Laura Esman,Eric Bacon,,SOM,vegetation survey,2002,,-84.783517,44.025122
+83,Long Lake,Clare,WB-1377,Eric Bacon,Laura Esman,,SOM,vegetation survey,2002,,-84.763166,44.08895
+84,Lake George,Clare,WB-1685,Eric Bacon,Laura Esman,,SOM,vegetation survey,2003,,-84.93428,43.9539
+85,Shingle Lake,Clare,WB-1684,Eric Bacon,Laura Esman,,SOM,vegetation survey,2003,,-84.951256,43.963299
+86,Windover Lake,Clare,WB-2570,Laura Esman,Matt Preisser,,SOM,vegetation survey,2003,,-85.000089,43.957629
+87,Lily Lake,Clare,WB-1696,Laura Esman,Matt Preisser,Lisa Huberty,SOM,vegetation survey,2004,,-84.904486,43.994946
+88,Shingle Lake,Clare,WB-1684,Laura Esman,Eric Bacon,,SOM,vegetation survey,2004,,-84.951256,43.963299
+89,Cranberry Lake,Clare,WB-315,John Riley,Matt Preisser,,SOM,vegetation survey,2008,,-84.743176,44.057731
+90,Windover Lake,Clare,WB-2570,Matt Preisser,John Riley,,SOM,vegetation survey,2008,,-85.000089,43.957629
+91,Five Lakes,Clare,WB-1697,Amanda Whitscell,Eric Bacon,Jeff Cooper,SOM,vegetation survey,2012,Concerns by DNR Fisheries for the aquatic plant community; No vegetation survey data; Lake residents requesting public access be closed,-84.802596,43.871148
+92,Perch Lake,Clare,WB-1811,Eric Bacon,Rachel Matthews,,SOM,vegetation survey,2012,Assess plant community; No vegetation survey data; Extensive emergent-floating leaf control in past,-85.003493,43.848464
+93,Cranberry Lake,Clare,WB-315,Ryan Crouch,Sara Thoma,Sarah LeSage,SOM,vegetation survey,2017,Assessment of lake based on resident and applicator request,-84.743176,44.057731
+94,Crooked Lake,Clare,WB-1921,Eric Bacon,Sara Thoma,Amanda Bosak,SOM,vegetation survey,2018,DNR Fish Study/Resident Interest in Plant Community for Stocking,-85.01581,43.84675
+95,Lake Thirteen,Clare,WB-2245,Eric Bacon,Mark Huffsmith,,SOM,vegetation survey,2020,complaint response,-84.8598,43.8609
+96,Lake George ,Clare,WB-1685,Eric Bacon,Mark Huffsmith,Isabel Latvaitis,ANC,vegetation survey,2022,,-84.93428,43.9539
+97,Lake Ovid,Clinton,WB-1027,Ned Rathbun,,,SOM,vegetation survey,1995,,-84.411618,42.934373
+98,Lake Victoria,Clinton,WB-2256,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1997,,-84.373806,42.916359
+99,Lake Victoria,Clinton,WB-2256,Dave Schipper,Eric Bacon,Jeremie Wilson,SOM,vegetation survey,1998,,-84.373806,42.916359
+100,Park Lake,Clinton,WB-1847,Eric Bacon,Jeremie Wilson,,SOM,vegetation survey,1999,,-84.439783,42.789428
+101,Round Lake,Clinton,WB-2071,Jeremie Wilson,John Esch,,SOM,vegetation survey,1999,,-84.4448,42.8785
+102,Lake Geneva,Clinton,WB-1666,Eric Bacon,Scott Jorgensen (ATI),,SOM,vegetation survey,2000,,-84.583472,42.833069
+103,Lake Geneva,Clinton,WB-1666,Eric Bacon,Scott Jorgensen (ATI),,SOM,vegetation survey,2001,,-84.583472,42.833069
+104,Round Lake,Clinton,WB-2071,Jeremie Wilson,,,SOM,vegetation survey,2001,,-84.4448,42.8785
+105,Lake Victoria,Clinton,WB-2256,Laura Esman,Dave Kenaga,,SOM,vegetation survey,2002,,-84.373806,42.916359
+106,Lake Victoria,Clinton,WB-2256,Dave Kenaga,,,SOM,vegetation survey,2003,,-84.373806,42.916359
+107,Lake Victoria,Clinton,WB-2256,Dave Kenaga,,,SOM,vegetation survey,2004,,-84.373806,42.916359
+108,Lake Ovid,Clinton,WB-1027,Matt Preisser,Jessica Koerner,Julie Sims,SOM,vegetation survey,2005,,-84.411618,42.934373
+109,Park Lake,Clinton,WB-1847,Eric Bacon,,,SOM,vegetation survey,2006,,-84.439783,42.789428
+110,Round Lake,Clinton,WB-2071,Eric Bacon,Sara Thoma,Pam Studebaker,SOM,vegetation survey,2017,Site Visit to monitor for AIS,-84.4448,42.8785
+111,Park Lake,Clinton,WB-1847,Eric Bacon,Ryan Crouch,Lisa Huberty,SOM,vegetation survey,2019,ProcellaCOR Post Treatment Survey,-84.4393,42.7903
+112,Bear Lake,Crawford,WB-6158,Michigan State University,,,MSU,vegetation survey,2023,,-84.619969,44.7934
+113,Jones Lake,Crawford,WB-6174,Michigan State University,,,MSU,vegetation survey,2023,,-84.592424,44.782824
+114,KP Lake,Crawford,WB-6175,Michigan State University,,,MSU,vegetation survey,2023,,-84.547304,44.793512
+115,Lonesome Lake,Crawford,WB-6177,Michigan State University,,,MSU,vegetation survey,2023,,-84.538088,44.84846
+116,Gooseneck Lake,Delta,(none),Ryan Crouch,Eric Bacon,,SOM,vegetation survey,2018,AIS survey,-86.549757,46.068843
+117,Round Lake,Delta,WB-3328,Eric Bacon,Ryan Crouch,,SOM,vegetation survey,2018,AIS survey,-86.7442,46.1515
+118,Bass Lake,Dickinson,WB-752,Eric Bacon,Laura Esman,,SOM,vegetation survey,2003,,-88.072722,45.852139
+119,Lake Mary,Dickinson,WB-652,Laura Esman,Eric Bacon,,SOM,vegetation survey,2003,,-87.819459,45.751262
+120,Carney Lake,Dickinson,WB-796,Jessica Koerner,Eric Bacon,,SOM,vegetation survey,2005,,-87.933328,45.895904
+121,Sawyer Lake,Dickinson,WB-1120,Eric Bacon,Jessica Koerner,,SOM,vegetation survey,2005,,-88.060875,46.181932
+122,Bass Lake,Dickinson,WB-752,John Riley,Eric Bacon,,SOM,vegetation survey,2008,,-88.072722,45.852139
+123,Pine Lake,Eaton,WB-2109,Jessica Koerner,Eric Bacon,,SOM,vegetation survey,2006,,-84.939168,42.426122
+124,Lacey Lake,Eaton,(none),Mark Huffsmith,Ryan Crouch,Sarah Campbell,SOM,vegetation survey,2021,response to report of fish kill and lake-wide plant loss,-84.970577,42.529321
+125,Crooked Lake,Emmet,WB-1127,Michigan State University,,,MSU,vegetation survey,2023,,-84.829054,45.41162
+126,Lake Lobdell,Genesee,WB-1576,Maureen Hein,,,SOM,vegetation survey,1989,,-83.830593,42.785247
+127,Lake Shinanguag,Genesee,WB-1720,Dave Kenaga,,,SOM,vegetation survey,1990,,-83.50014,42.894771
+128,Lake Shinanguag,Genesee,WB-1720,Dave Kenaga,,,SOM,vegetation survey,1991,,-83.50014,42.894771
+129,Lobdell Lake,Genesee,WB-1576,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1991,,-83.830593,42.785247
+130,Lake Shinanguag,Genesee,WB-1720,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1992,,-83.50014,42.894771
+131,Lobdell Lake,Genesee,WB-1576,Dave Kenaga,Jeff Knox (AS),,SOM,vegetation survey,1992,,-83.830593,42.785247
+132,Lobdell Lake,Genesee,WB-1576,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1993,,-83.830593,42.785247
+133,Lake Shinanguag,Genesee,WB-1720,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1994,,-83.50014,42.894771
+134,Lobdell Lake,Genesee,WB-1576,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1994,,-83.830593,42.785247
+135,Byram Lake,Genesee,Wb-1605,Ned Rathbun,Paul Hausler (Progressive AE),,SOM,vegetation survey,1995,,-83.791355,42.804525
+136,Lake Shinanguag,Genesee,WB-1720,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.50014,42.894771
+137,Lobdell Lake,Genesee,WB-1576,Howard Wandell,Dave Kenaga,Doug Pullman (Aquest),SOM,vegetation survey,1995,,-83.830593,42.785247
+138,Byram Lake,Genesee,WB-1605,Dave Kenaga,Ned Rathbun,Paul Hausler (Progressive AE),SOM,vegetation survey,1996,,-83.791355,42.804525
+139,Lobdell Lake,Genesee,WB-1576,Dave Schipper,Dave Kenaga,,SOM,vegetation survey,1996,,-83.830593,42.785247
+140,Byram Lake,Genesee,WB-1605,Dave Kenaga,Dave Schipper,Paul Hausler (Progressive AE),SOM,vegetation survey,1997,,-83.791355,42.804525
+141,Lake Shinanguag,Genesee,WB-1720,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1997,,-83.50014,42.894771
+142,Lobdell Lake,Genesee,WB-1576,Dave Kenaga,,,SOM,vegetation survey,1997,,-83.830593,42.785247
+143,Lake Shinanguag,Genesee,WB-1720,Ned Rathbun,,,SOM,vegetation survey,1998,,-83.50014,42.894771
+144,Lake Shinanguag,Genesee,WB-1720,Ned Rathbun,Laura Esman,,SOM,vegetation survey,1999,,-83.50014,42.894771
+145,Lake Ponemah,Genesee,WB-2462,Ryan Crouch,Lisa Huberty,Matt Mulford,SOM,vegetation survey,2018,visit lakes in SLHMU,-83.74054,42.81598
+146,Lake Ponemah,Genesee,WB-2462,Ryan Crouch,Lisa Huberty,,SOM,vegetation survey,2023,,-83.74054,42.81598
+147,Lake Lancer,Gladwin,WB-2591,Dave Kenaga,,,SOM,vegetation survey,1991,,-84.444804,44.109961
+148,Wiggins Lake,Gladwin,WB-1755,Dave Kenaga,,,SOM,vegetation survey,1991,,-84.54342,43.99514
+149,Blue Lake,Gladwin,WB-1699,Dave Kenaga,Norm Zion (ANC),,SOM,vegetation survey,1993,,-84.560892,44.12223
+150,Lake Lancelot,Gladwin,WB-2590,Eric Bacon,Ray Van Goethem (ANPC-ND),,SOM,vegetation survey,1998,,-84.452267,44.11927
+151,Lake Lancer,Gladwin,WB-2591,Eric Bacon,Ray Van Goethem (ANPC-ND),,SOM,vegetation survey,1998,,-84.444804,44.109961
+152,Wixom Lake,Gladwin,WB-330,Eric Bacon,Matt Preisser,,SOM,vegetation survey,2003,,-84.389383,43.821033
+153,Wiggins Lake,Gladwin,WB-1755,Eric Bacon,Ryan Crouch,Amanda Bosak,SOM,vegetation survey,2021,,-84.54342,43.99514
+154,Clearwater Lake,Gogebic,WB-281,Laura Esman,Julie Sims,,SOM,vegetation survey,2005,,-89.411489,46.25603
+155,Duck Lake,Gogebic,WB-1008,Julie Sims,Laura Esman,,SOM,vegetation survey,2005,,-89.217341,46.205834
+156,Lake Gogebic,Gogebic,WB-1025,Laura Esman,Julie Sims,,SOM,vegetation survey,2005,,-89.565181,46.456072
+157,Langford Lake,Gogebic,WB-602,Laura Esman,Julie Sims,,SOM,vegetation survey,2005,,-89.480588,46.275486
+158,Pomeroy Lake,Gogebic,WB-930,Julie Sims,Laura Esman,,SOM,vegetation survey,2005,Partial vegetation survey,-89.577723,46.275834
+159,Fife Lake,Grand Traverse,WB-240,Sara Thoma,Ryan Crouch,,SOM,vegetation survey,2018,Fisheries concerns,-85.344,44.5691
+160,Lake Somerset,Hillsdale,WB-1488,Brian Carley,,,SOM,vegetation survey,1991,,-84.380258,42.055245
+161,Perch Lake,Hillsdale,WB-1880,Laura Esman,Kurt Getsinger (USACE),,SOM,vegetation survey,1999,,-84.413815,42.05847
+162,Little Long Lake,Hillsdale,WB-1649,Eric Bacon,Ned Rathbun,,SOM,vegetation survey,2000,,-84.802749,41.747261
+163,Lake Somerset,Hillsdale,WB-1488,Jeremie Wilson,Ned Rathbun,,SOM,vegetation survey,2001,,-84.380258,42.055245
+164,Perch Lake,Hillsdale,WB-1880,Laura Esman,Kurt Getsinger (USACE),,SOM,vegetation survey,2001,,-84.413815,42.05847
+165,Perch Lake,Hillsdale,WB-1880,Laura Esman,Eric Bacon,,SOM,vegetation survey,2002,,-84.413815,42.05847
+166,Perch Lake,Hillsdale,WB-1880,Laura Esman,,,SOM,vegetation survey,2003,,-84.413815,42.05847
+167,Perch Lake,Hillsdale,WB-1880,Laura Esman,Julie Sims,,SOM,vegetation survey,2004,,-84.413815,42.05847
+168,Carpenter Lake,Hillsdale,WB-589,Lisa Huberty,Eric Bacon,Louis Favior,SOM,vegetation survey,2005,,-84.796829,41.889067
+169,Little Long Lake,Hillsdale,WB-1649,Matt Preisser,John Riley,,SOM,vegetation survey,2009,,-84.802749,41.747261
+170,Pleasant Lake,Hillsdale,WB-5086,Matt Preisser,John Riley,,SOM,vegetation survey,2009,,-84.56623,41.88003
+171,Cub Lake,Hillsdale,WB-2242,Ryan Crouch,Lisa Huberty,John Buszkiewicz,ANC,vegetation survey,2022,,-84.637317,41.815645
+172,Long Lake ,Hillsdale,WB-16,Ryan Crouch,Mark Huffsmith,Isabel Latvaitis,ANC,vegetation survey,2022,,-84.793686,41.876459
+173,Lansing Lake,Ingham,WB-1956,Dave Kenaga,Maureen Hein,,SOM,vegetation survey,1990,,-84.4023,42.761
+174,Lake Lansing,Ingham,WB-1956,Dave Kenaga,Brian Carley,,SOM,vegetation survey,1991,,-84.4023,42.761
+175,Lake Lansing,Ingham,WB-1956,Dave Kenaga,Brian Carley,,SOM,vegetation survey,1992,,-84.4023,42.761
+176,Kinawa View Pond,Ingham,WB-1734,Dave Kenaga,,,SOM,vegetation survey,1994,Document site conditions,-84.4137,42.6953
+177,Lake Lansing,Ingham,WB-1956,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1995,,-84.4023,42.761
+178,Lake Lansing,Ingham,WB-1956,Dave Kenaga,,,SOM,vegetation survey,1996,,-84.4023,42.761
+179,Lake Lansing,Ingham,WB-1956,Howard Wandell,Paul Hausler (Progressive AE),,SOM,vegetation survey,1997,,-84.4023,42.761
+180,Lake Lansing,Ingham,WB-1956,Dave Schipper,Howard Wandell,Martin Jannereth,SOM,vegetation survey,1998,,-84.4023,42.761
+181,Lake Lansing,Ingham,WB-1956,Eric Bacon,Matt Preisser,,SOM,vegetation survey,2003,,-84.4023,42.761
+182,Lake of the Hills,Ingham,WB-1380,Matt Preisser,Eric Bacon,,SOM,vegetation survey,2005,,-84.421815,42.751521
+183,Morrison Lake,Ionia,WB-92,Dave Kenaga,,,SOM,vegetation survey,1992,,-85.211234,42.860637
+184,Long Lake,Ionia,WB-1572,Dave Kenaga,,,SOM,vegetation survey,1995,,-85.120916,43.11275
+185,Morrison Lake,Ionia,WB-92,Eric Bacon,Laura Esman,Jeremie Wilson,SOM,vegetation survey,2000,,-85.211234,42.860637
+186,Tupper Lake,Ionia,WB-2533,Eric Bacon,Ned Rathbun,,SOM,vegetation survey,2000,Post fish kill investigation,-85.115894,42.784281
+187,Jordan Lake,Ionia,WB-1963,Eric Bacon,Ned Rathbun,,SOM,vegetation survey,2001,,-85.140252,42.77026
+188,Long Lake,Ionia,WB-1572,Eric Bacon,Ned Rathbun,,SOM,vegetation survey,2001,,-85.120916,43.11275
+189,Long Lake,Ionia,WB-1572,Eric Bacon,Laura Esman,,SOM,vegetation survey,2002,,-85.120916,43.11275
+190,Morrison Lake,Ionia,WB-92,John Riley,Eric Bacon,,SOM,vegetation survey,2008,,-85.211234,42.860637
+191,Tupper Lake,Ionia,WB-2533,Ryan Crouch,Lisa Huberty,,SOM,vegetation survey,2019,Resident concerns about treatment impacts,-85.11574,42.78398
+192,Long Lake,Iosco,WB-101,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1995,,-83.854242,44.414783
+193,Loon Lake,Iosco,WB-1412,Ned Rathbun,Chuck Jeffery (DNR),,SOM,vegetation survey,1998,,-83.822711,44.410072
+194,Loon Lake,Iosco,WB-1412,Lisa Huberty,Eric Bacon,,SOM,vegetation survey,2005,,-83.822711,44.410072
+195,Little Long Lake,Iosco,WB-404,Eric Bacon,Lisa Huberty,,SOM,vegetation survey,2007,,-83.853037,44.406305
+196,Londo Lake,Iosco,WB-2213,Ryan Crouch,Mark Huffsmith,Isabel Latvaitis,ANC,vegetation survey,2022,,-83.8695,44.3468
+197,Floyd Lake,Iosco,WB-3652,Michigan State University,,,MSU,vegetation survey,2023,,-83.667752,44.330182
+198,Londo Lake,Iosco,WB-2213,Michigan State University,,,MSU,vegetation survey,2023,,-83.8695,44.3468
+199,Long Lake,Iosco,WB-101,Michigan State University,,,MSU,vegetation survey,2023,,-83.854242,44.414783
+200,Round Lake,Iosco,WB-6193,Michigan State University,,,MSU,vegetation survey,2023,,-83.65982,44.339696
+201,Van Etten Lake,Iosco,WB-2122,Michigan State University,,,MSU,vegetation survey,2023,,-83.3683,44.477687
+202,Buck Lake,Iron,WB-308,Eric Bacon,Jessica Koerner,,SOM,vegetation survey,2005,,-88.413101,46.032239
+203,Brule Lake,Iron,WB-1045,Eric Bacon,John Riley,,SOM,vegetation survey,2008,,-88.839206,46.055721
+204,Ice Lake,Iron,WB-873,Ryan Crouch,Eric Bacon,,SOM,vegetation survey,2018,AIS survey,-88.61339,46.10024
+205,Iron Lake,Iron,WB-2950,Eric Bacon,Ryan Crouch,,SOM,vegetation survey,2018,AIS survey,-88.652645,46.144591
+206,Halls Lake,Isabella,WB-1931,Eric Bacon,Jeremie Wilson,,SOM,vegetation survey,2000,,-85.065659,43.581219
+207,Littlefield Lake,Isabella,WB-136,Eric Bacon,Jeremie Wilson,,SOM,vegetation survey,2000,,-84.943944,43.773226
+208,Littlefield Lake,Isabella,WB-136,Lisa Huberty,Eric Bacon,Hannah Arnett,ANC,vegetation survey,2022,,-84.9412,43.768853
+209,Stevenson Lake,Isabella,WB-5721,Ryan Crouch,Mark Huffsmith,Amanda Bosak,ANC,vegetation survey,2022,,-84.824699,43.761525
+210,Norvell Lake,Jackson,WB-117,Howard Wandell,,,SOM,vegetation survey,1993,Limited survey,-84.197155,42.154445
+211,Big Portage Lake,Jackson,WB-3096,Ned Rathbun,,,SOM,vegetation survey,1996,,-84.237152,42.338133
+212,Lake Columbia,Jackson,WB-1638,Ned Rathbun,,,SOM,vegetation survey,1996,,-84.300342,42.092487
+213,Norvell Lake,Jackson,WB-117,Dave Kenaga,Howard Wandell,,SOM,vegetation survey,1996,,-84.197155,42.154445
+214,Norvell Lake,Jackson,WB-117,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1998,,-84.197155,42.154445
+215,Mirror Lake,Jackson,WB-52,Eric Bacon,Jeremie Wilson,,SOM,vegetation survey,1999,,-84.424014,42.078558
+216,Norvell Lake,Jackson,WB-117,Dave Kenaga,,,SOM,vegetation survey,1999,,-84.197155,42.154445
+217,Norvell Lake,Jackson,WB-117,Jeremie Wilson,Laura Esman,,SOM,vegetation survey,2000,,-84.197155,42.154445
+218,Crispell Lake,Jackson,WB-1690,Eric Bacon,Laura Esman,,SOM,vegetation survey,2002,,-84.4431,42.1133
+219,Round Lake,Jackson,WB-1587,Brett Wiseley,Matt Preisser,,SOM,vegetation survey,2007,,-84.327774,42.219845
+220,Big Portage Lake,Jackson,WB-3096,Amanda Whitscell,Eric Bacon,,SOM,vegetation survey,2011,"Document report of Cabomba, Lake not previously treated or surveyed, collect baseline survey data",-84.237152,42.338133
+221,Crispell Lake,Jackson,WB-1690,Ryan Crouch,Lisa Huberty,,SOM,vegetation survey,2018,visit site treated by ATI,-84.4431,42.1133
+222,Sunset Lake,Kalamazoo,WB-1912,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1992,,-85.533492,42.125156
+223,West Lake,Kalamazoo,WB-1561,Dave Kenaga,Jeff Knox (AS),,SOM,vegetation survey,1992,,-85.574684,42.186957
+224,Sunset Lake,Kalamazoo,WB-1912,Brian Carley,Dave Kenaga,,SOM,vegetation survey,1993,,-85.533492,42.125156
+225,West Lake,Kalamazoo,WB-1561,Dave Kenaga,Brian Carley,,SOM,vegetation survey,1993,,-85.574684,42.186957
+226,West Lake,Kalamazoo,WB-1561,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1994,,-85.574684,42.186957
+227,Eagle Lake (Charleston Twp),Kalamazoo,WB-4565,Ned Rathbun,,,SOM,vegetation survey,1995,,-85.3213,42.3241
+228,Jackson Hole Lake,Kalamazoo,WB-4566,Ned Rathbun,,,SOM,vegetation survey,1995,,-85.3534,42.3136
+229,West Lake,Kalamazoo,WB-1561,Dave Kenaga,,,SOM,vegetation survey,1995,,-85.574684,42.186957
+230,Whitford Lake,Kalamazoo,WB-4564,Ned Rathbun,,,SOM,vegetation survey,1995,,-85.355749,42.309485
+231,West Lake,Kalamazoo,WB-1561,Dave Kenaga,,,SOM,vegetation survey,1996,,-85.574684,42.186957
+232,Springwood Lake,Kalamazoo,WB-2025,Dave Kenaga,,,SOM,vegetation survey,1997,,-85.741533,42.293419
+233,West Lake,Kalamazoo,WB-1561,Dave Schipper,Dave Kenaga,,SOM,vegetation survey,1997,,-85.574684,42.186957
+234,Eagle Lake (Texas Twp),Kalamazoo,WB-81,Dave Schipper,Lynn Dancy,Eric Gray,SOM,vegetation survey,1998,,-85.717679,42.216069
+235,West Lake,Kalamazoo,WB-1561,Dave Schipper,Dave Kenaga,,SOM,vegetation survey,1998,,-85.574684,42.186957
+236,Eagle Lake (Texas Twp),Kalamazoo,WB-81,Laura Esman,Eric Bacon,Jennifer Olson (DNR),SOM,vegetation survey,2000,,-85.717679,42.216069
+237,West Lake,Kalamazoo,WB-1561,Eric Bacon,Laura Esman,,SOM,vegetation survey,2000,,-85.574684,42.186957
+238,West Lake,Kalamazoo,WB-1561,Laura Esman,Eric Bacon,,SOM,vegetation survey,2001,,-85.574684,42.186957
+239,Springwood Lake,Kalamazoo,WB-2025,Julie Sims,Laura Esman,,SOM,vegetation survey,2004,,-85.741533,42.293419
+240,Barton Lake,Kalamazoo,WB-2784,Eric Bacon,John Riley,,SOM,vegetation survey,2007,,-85.563873,42.098002
+241,Long Lake,Kalamazoo,WB-65,Eric Bacon,John Riley,,SOM,vegetation survey,2007,,-85.5238,42.1934
+242,Eagle Lake (Texas Twp),Kalamazoo,WB-81,Eric Bacon,Ryan Crouch,,SOM,vegetation survey,2017,Assement of previously allowed offshore native treatments,-85.7179,42.2152
+243,Sunset Lake,Kalamazoo,WB-1912,Eric Bacon,Ryan Crouch,Jay Oh,SOM,vegetation survey,2017,Issues with both protected and invasive species,-85.534991,42.124968
+244,Lime Lake,Kent,WB-2315,Dave Kenaga,,,SOM,vegetation survey,1990,,-85.638254,43.206383
+245,Silver Lake,Kent,WB-1427,Dave Kenaga,,,SOM,vegetation survey,1990,,-85.490739,43.091885
+246,Bostwick Lake,Kent,WB-1354,Dave Kenaga,,,SOM,vegetation survey,1991,,-85.458436,43.091547
+247,Lake Bella Vista,Kent,WB-1358,Dave Kenaga,Amy Hilt,,SOM,vegetation survey,1991,,-85.516255,43.090741
+248,Murray Lake,Kent,WB-1591,Dave Kenaga,Amy Hilt,,SOM,vegetation survey,1991,,-85.377365,43.031571
+249,Lake Bella Vista,Kent,WB-1358,Dave Kenaga,Amy Hilt,,SOM,vegetation survey,1992,,-85.516255,43.090741
+250,Lake Bella Vista,Kent,WB-1358,Dave Kenaga,Brian Carley,Doug Pullman (Aquest),SOM,vegetation survey,1993,,-85.516255,43.090741
+251,Silver Lake,Kent,WB-1427,Dave Kenaga,,,SOM,vegetation survey,1993,,-85.490739,43.091885
+252,Lake Bella Vista,Kent,WB-1358,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1994,,-85.516255,43.090741
+253,Big Crooked Lake,Kent,WB-1351,Ned Rathbun,,,SOM,vegetation survey,1995,,-85.393826,43.058178
+254,Big Pine Island Lake,Kent,WB-1600,Dave Kenaga,Paul Hausler (Progressive AE),,SOM,vegetation survey,1995,,-85.364904,43.10052
+255,Dean Lake,Kent,WB-1996,Ned Rathbun,Paul Hausler (Progressive AE),,SOM,vegetation survey,1995,,-85.608666,43.030186
+256,Lake Bella Vista,Kent,WB-1358,Dave Kenaga,Paul Hausler (Progressive AE),Doug Pullman (Aquest),SOM,vegetation survey,1995,,-85.516255,43.090741
+257,Big Pine Island Lake,Kent,WB-1600,Howard Wandell,Dave Kenaga,Paul Hausler (Progressive AE),SOM,vegetation survey,1996,,-85.364904,43.10052
+258,Big Crooked Lake,Kent,WB-1351,Dave Kenaga,Ned Rathbun,,SOM,vegetation survey,1997,,-85.393826,43.058178
+259,Big Pine Island Lake,Kent,WB-1600,Dave Kenaga,Dave Schipper,Paul Hausler (Progressive AE),SOM,vegetation survey,1997,,-85.364904,43.10052
+260,Little Brower Lake,Kent,WB-1365,Dave Kenaga,Ned Rathbun,,SOM,vegetation survey,1997,,-85.485063,43.128035
+261,Dean Lake,Kent,WB-1996,Eric Bacon,Jeremie Wilson,,SOM,vegetation survey,1999,,-85.608666,43.030186
+262,Lincoln Lake,Kent,WB-2035,Laura Esman,Eric Bacon,,SOM,vegetation survey,1999,,-85.360092,43.245194
+263,Pine Lake,Kent,WB-2278,,,,SOM,vegetation survey,2001,,-85.467365,43.218921
+264,Campau Kettle Lake,Kent,WB-1418,Laura Esman,Eric Bacon,,SOM,vegetation survey,2002,,-85.448696,42.838177
+265,Lime Lake,Kent,WB-2315,Eric Bacon,Laura Esman,,SOM,vegetation survey,2002,,-85.638254,43.206383
+266,Little Myers Lake,Kent,WB-2081,Eric Bacon,Laura Esman,,SOM,vegetation survey,2002,,-85.49123,43.140391
+267,Pine Lake,Kent,WB-2278,,,,SOM,vegetation survey,2002,,-85.467365,43.218921
+268,Little Brower Lake,Kent,WB-1365,Eric Bacon,Matt Preisser,,SOM,vegetation survey,2003,,-85.485063,43.128035
+269,Murray Lake,Kent,WB-1591,Matt Preisser,Eric Bacon,,SOM,vegetation survey,2003,,-85.377365,43.031571
+270,Pine Lake,Kent,WB-2278,,,,SOM,vegetation survey,2003,,-85.467365,43.218921
+271,Wabasis Lake,Kent,WB-1458,Eric Bacon,Matt Preisser,,SOM,vegetation survey,2003,,-85.378665,43.137896
+272,Bostwick Lake,Kent,WB-1354,Lisa Huberty,Matt Preisser,,SOM,vegetation survey,2004,,-85.458436,43.091547
+273,Little Pine Island Lake,Kent,WB-145,Julie Sims,Laura Esman,,SOM,vegetation survey,2004,,-85.655195,43.093011
+274,Pine Lake,Kent,WB-2278,,,,SOM,vegetation survey,2004,,-85.467365,43.218921
+275,Pine Lake,Kent,WB-2278,,,,SOM,vegetation survey,2005,,-85.467365,43.218921
+276,Lincoln Lake,Kent,WB-2035,Matt Preisser,,,SOM,vegetation survey,2006,,-85.360092,43.245194
+277,Pine Lake,Kent,WB-2278,,,,SOM,vegetation survey,2006,,-85.467365,43.218921
+278,Pine Lake,Kent,WB-2278,,,,SOM,vegetation survey,2008,,-85.467365,43.218921
+279,Pine Lake,Kent,WB-2278,,,,SOM,vegetation survey,2010,,-85.467365,43.218921
+280,Pine Lake,Kent,WB-2278,Eric Bacon,Amanda Whitscell,,SOM,vegetation survey,2011,,-85.467365,43.218921
+281,Pine Lake,Kent,WB-2278,,,,SOM,vegetation survey,2012,,-85.467365,43.218921
+282,Pine Lake,Kent,WB-2278,,,,SOM,vegetation survey,2013,,-85.467365,43.218921
+283,Pine Lake,Kent,WB-2278,,,,SOM,vegetation survey,2015,,-85.467365,43.218921
+284,Thornapple River (Cascade Township),Kent,WB-1165,Ryan Crouch,Lisa Huberty,Isabel Latvaitis,ANC,vegetation survey,2022,,-85.479398,42.882549
+285,Loon Lake,Lake,WB-1955,Eric Bacon,Laura Esman,,SOM,vegetation survey,2001,,-85.974523,44.066009
+286,Loon Lake,Lake,WB-1955,Matt Preisser,Laura Esman,Lisa Huberty,SOM,vegetation survey,2004,,-85.974523,44.066009
+287,Paradise Lake,Lake,WB-869,Lisa Huberty,Matt Preisser,Laura Esman,SOM,vegetation survey,2004,,-85.796164,43.894728
+288,Big Bass Lake,Lake,WB-2971,Lisa Huberty,Eric Bacon,Ross Helmer,ANC,vegetation survey,2022,,-85.977908,44.082622
+289,Merritt Lake,Lapeer,WB-1339,Howard Wandell,,,SOM,vegetation survey,1990,,-83.3254,42.951678
+290,Merritt Lake,Lapeer,WB-1339,Dave Kenaga,,,SOM,vegetation survey,1991,,-83.3254,42.951678
+291,Barnes Lake,Lapeer,WB-1548,Brian Carley,Dave Kenaga,,SOM,vegetation survey,1992,,-83.30308,43.18406
+292,Merritt Lake,Lapeer,WB-1339,Dave Kenaga,,,SOM,vegetation survey,1992,,-83.3254,42.951678
+293,Barnes,Lapeer,WB-1548,Brian Carley,Jeff Knox (AS),,SOM,vegetation survey,1993,,-83.30308,43.18406
+294,Lake Metamora,Lapeer,WB-1483,Dave Kenaga,,,SOM,vegetation survey,1993,,-83.332711,42.959151
+295,Merritt Lake,Lapeer,WB-1339,Dave Kenaga,,,SOM,vegetation survey,1993,,-83.3254,42.951678
+296,Merritt Lake,Lapeer,WB-1339,Dave Kenaga,Ned Rathbun,Doug Pullman (Aquest),SOM,vegetation survey,1994,,-83.3254,42.951678
+297,Barnes Lake,Lapeer,WB-1548,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1995,,-83.30308,43.18406
+298,Lake Metamora,Lapeer,WB-1483,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.332711,42.959151
+299,Merritt Lake,Lapeer,WB-1339,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1995,,-83.3254,42.951678
+300,Minnawanna Lake,Lapeer,WB-2133,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.347959,42.941893
+301,Merritt Lake,Lapeer,WB-1339,Dave Kenaga,Ned Rathbun,,SOM,vegetation survey,1996,,-83.3254,42.951678
+302,Minnawanna Lake,Lapeer,WB-2133,Howard Wandell,Dave Kenaga,Ned Rathbun,SOM,vegetation survey,1996,,-83.347959,42.941893
+303,Merritt Lake,Lapeer,WB-1339,Dave Kenaga,,,SOM,vegetation survey,1997,,-83.3254,42.951678
+304,Minnawanna Lake,Lapeer,WB-2133,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1997,,-83.347959,42.941893
+305,Skinner Lake,Lapeer,WB-1674,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1997,,-83.393506,43.088428
+306,Barnes Lake,Lapeer,WB-1548,Dave Schipper,Eric Bacon,,SOM,vegetation survey,1998,,-83.302915,43.184971
+307,Merritt Lake,Lapeer,WB-1339,Dave Schipper,Eric Bacon,Gary Bower (Adept Aquatic),SOM,vegetation survey,1998,,-83.3254,42.951678
+308,Barnes Lake,Lapeer,WB-1548,Eric Bacon,Ryan Crouch,Sarah Bowman,SOM,vegetation survey,2019,,-83.30308,43.18406
+309,Posey Lake,Lenawee,WB-2975,John Riley,Eric Bacon,,SOM,vegetation survey,2009,,-84.301734,41.897271
+310,South Lake,Lenawee,WB-2969,Brett Wiseley,Lisa Huberty,,SOM,vegetation survey,2009,,-84.285559,42.040462
+311,Devils Lake,Lenawee,WB-278,Eric Bacon,Lisa Huberty,Isabel Latvaitis,ANC,vegetation survey,2022,,-84.287969,41.99206
+312,Thompson Lake,Livingston,WB-1523,Maureen Hein,,,SOM,vegetation survey,1986,,-83.913737,42.611912
+313,Hiland Lake,Livingston,WB-1705,Dave Kenaga,Bill Kraus (AMS),,SOM,vegetation survey,1991,,-83.991183,42.427024
+314,Thompson Lake,Livingston,WB-1523,Dave Kenaga,,,SOM,vegetation survey,1991,,-83.913737,42.611912
+315,Fonda Lake,Livingston,WB-1504,Dave Kenaga,Dick Hinterman (ANPC),,SOM,vegetation survey,1992,,-83.75193,42.5153
+316,Rush Lake,Livingston,WB-1547,Dave Kenaga,,,SOM,vegetation survey,1992,,-83.88333,42.4725
+317,Fonda Lake,Livingston,WB-1504,Dave Kenaga,Dick Hinterman (ANPC),,SOM,vegetation survey,1993,,-83.75193,42.5153
+318,Pardee Lake,Livingston,WB-1846,Dave Kenaga,Scott Jorgensen (ATI),,SOM,vegetation survey,1993,,-83.90801,42.53341
+319,Woodland Lake,Livingston,WB-1410,Dave Kenaga,,,SOM,vegetation survey,1993,,-83.779578,42.554984
+320,Runyan Lake,Livingston,WB-1560,Ned Rathbun,,,SOM,vegetation survey,1994,,-83.749739,42.760408
+321,Woodland Lake,Livingston,WB-1410,Dave Kenaga,,,SOM,vegetation survey,1994,,-83.779578,42.554984
+322,Coon Lake,Livingston,WB-1744,Dave Kenaga,Scott Jorgensen (ATI),,SOM,vegetation survey,1995,,-83.9178,42.53579
+323,Fonda Lake,Livingston,WB-1504,Dave Kenaga,Ned Rathbun,Scott Jorgensen (ATI),SOM,vegetation survey,1995,,-83.75193,42.5153
+324,Handy Lake,Livingston,WB-1787,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.72704,42.63162
+325,Pardee Lake,Livingston,WB-1846,Dave Kenaga,Scott Jorgensen (ATI),,SOM,vegetation survey,1995,,-83.90801,42.53341
+326,Woodland Lake,Livingston,WB-1410,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.779578,42.554984
+327,Chilson Pond,Livingston,WB-533,Dave Kenaga,,,SOM,vegetation survey,1997,,-83.86172,42.516398
+328,Shenandoah Pond,Livingston,WB-2277,Dave Kenaga,Eric Bacon,,SOM,vegetation survey,1997,,-83.745107,42.573748
+329,Silver Fox Lake,Livingston,WB-2146,Dave Schipper,Ned Rathbun,Scott Jorgensen (ATI),SOM,vegetation survey,1998,,-83.722489,42.477778
+330,Chenango Lake,Livingston,WB-1512,Jeremie Wilson,Laura Esman,,SOM,vegetation survey,2000,,-83.894206,42.504316
+331,Hiland Lake,Livingston,WB-1705,Jeremie Wilson,Laura Esman,,SOM,vegetation survey,2000,,-83.991183,42.427024
+332,Woodland Lake,Livingston,WB-1410,Jeremie Wilson,Laura Esman,,SOM,vegetation survey,2000,,-83.779578,42.554984
+333,Pardee,Livingston,WB-1846,Jeremie Wilson,Laura Esman,,SOM,vegetation survey,2001,,-83.90801,42.53341
+334,Rush Lake,Livingston,WB-1547,Eric Bacon,Paul Hausler (Progressive AE),,SOM,vegetation survey,2001,,-83.88333,42.4725
+335,Tyrone Lake,Livingston,WB-1606,Ned Rathbun,Derek Brookshire (ANPC),,SOM,vegetation survey,2001,,-83.72573,42.69454
+336,Whitmore Lake,Livingston,WB-2180,Laura Esman,Eric Bacon,,SOM,vegetation survey,2003,,-83.75271,42.42985
+337,Fausett Lake,Livingston,WB-5369,Eric Bacon,Jessica Schultz,,SOM,vegetation survey,2004,,-83.866905,42.697041
+338,Whitmore Lake,Livingston,WB-2180,Jessica Schultz,Eric Bacon,Julie Sims,SOM,vegetation survey,2004,,-83.75271,42.42985
+339,Woodland Lake,Livingston,WB-1410,Eric Bacon,Jessica Schultz,,SOM,vegetation survey,2004,,-83.779578,42.554984
+340,Earl Lake,Livingston,WB-1510,Eric Bacon,Laura Esman,,SOM,vegetation survey,2005,,-83.895115,42.601852
+341,Woodland Lake,Livingston,WB-1410,Laura Esman,Lisa Huberty,,SOM,vegetation survey,2005,Partial vegetation survey,-83.779578,42.554984
+342,Coon Lake,Livingston,WB-1744,Lisa Huberty,,,SOM,vegetation survey,2006,,-83.9178,42.53579
+343,Portage Lake,Livingston,WB-35,Eric Bacon,Lisa Huberty,Marisa Burghdoff,SOM,vegetation survey,2006,,-83.91321,42.42716
+344,Round Lake,Livingston,WB-1675,Lisa Huberty,,,SOM,vegetation survey,2006,,-83.740839,42.628041
+345,Clark Lake,Livingston,WB-2284,Lisa Huberty,Eric Bacon,,SOM,vegetation survey,2015,Assess aquatic plant community following complaint of poor condition,-83.791972,42.579677
+346,Clark Lake,Livingston,WB-2284,Eric Bacon,Ryan Crouch,Amanda Bosak,SOM,vegetation survey,2016,Document plant community following 2015 assessment,-83.791972,42.579677
+347,Cedar Lake,Livingston,WB-1863,Lisa Huberty,Ryan Crouch,Mark Huffsmith,SOM,vegetation survey,2021,,-83.9906,42.5305
+348,Cedar Lake,Livingston,WB-1863,Eric Bacon,Ryan Crouch,Lisa Huberty,SOM,vegetation survey,2021,,-83.9906,42.5305
+349,Fonda Lake,Livingston,WB-1504,Eric Bacon,Lisa Huberty,Mark Huffsmith,SOM,vegetation survey,2021,,-83.7519,42.5153
+350,Long Lake,Livingston,WB-1872,Ryan Crouch,Eric Bacon,Vincent Josik,ANC,vegetation survey,2023,,-83.7378,42.619777
+351,Rush Lake,Livingston,WB-1547,Eric Bacon,Ryan Crouch,Mark Huffsmith,ANC,vegetation survey,2023,,-83.88333,42.4725
+352,Bodi Lake,Luce,WB-6160,Michigan State University,,,MSU,vegetation survey,2023,,-85.32715,46.69926
+353,Clark Lake,Luce,WB-6161,Michigan State University,,,MSU,vegetation survey,2023,,-85.245406,46.620612
+354,Culhane Lake,Luce,WB-6163,Michigan State University,,,MSU,vegetation survey,2023,,-85.353061,46.695359
+355,East Lake,Luce,WB-2167,Michigan State University,,,MSU,vegetation survey,2023,,-85.654971,46.305705
+356,Perch Lake,Luce,WB-6190,Michigan State University,,,MSU,vegetation survey,2023,,-85.596836,46.630685
+357,Pike Lake,Luce,WB-6192,Michigan State University,,,MSU,vegetation survey,2023,,-85.409093,46.642766
+358,Twin Lake,Luce,WB-6215,Michigan State University,,,MSU,vegetation survey,2023,,-85.53302,46.308396
+359,Lake Huron (Cedarville Bay),Mackinac,WB-7-112,Laura Esman,Eric Bacon,,SOM,vegetation survey,2003,,-84.360342,45.995423
+360,South Manistique Lake,Mackinac,WB-429,Eric Bacon,Laura Esman,,SOM,vegetation survey,2003,,-85.774755,46.165914
+361,Clear Spring Lake,Macomb,WB-74,Dave Kenaga,,,SOM,vegetation survey,1992,,-83.07614,42.671908
+362,Stony Creek Lake,Macomb,WB-1593,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1997,,-83.0783,42.73003
+363,Royal Forest Lake,Macomb,WB-2263,Jessica Schultz,Matt Preisser,,SOM,vegetation survey,2004,,-82.982984,42.679895
+364,Stony Creek Lake,Macomb,WB-1593,Eric Bacon,Ryan Crouch,Amanda Bosak,SOM,vegetation survey,2018,visit sites in LEMU,-83.0783,42.73003
+365,Chief Lake,Manistee,WB-2115,Eric Bacon,Brett Wiseley,,SOM,vegetation survey,2007,,-86.1232,44.34566
+366,Chief Lake,Manistee,WB-2515,Eric Bacon,Ryan Crouch,Chris Riley (US Forest Service),SOM,vegetation survey,2019,Plant community assessment / Forest Service concerns,-86.1232,44.34566
+367,Pleiness Lake,Mason,WB-1393,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1993,,-86.244799,43.858656
+368,Pleiness Lake,Mason,WB-1393,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1994,,-86.244799,43.858656
+369,Bass Lake,Mason,WB-1702,Eric Bacon,Derek Brookshire (ANPC),,SOM,vegetation survey,1999,,-86.41334,43.8316
+370,Bass Lake,Mason,WB-1702,Eric Bacon,Laura Esman,Derek Brookshire (ANPC),SOM,vegetation survey,2000,,-86.41334,43.8316
+371,Bass Lake,Mason,WB-1702,Eric Bacon,Derek Brookshire (ANPC),,SOM,vegetation survey,2001,,-86.41334,43.8316
+372,Gun Lake,Mason,WB-103,Eric Bacon,Ralph Bednarz,,SOM,vegetation survey,2001,,-86.175215,44.081465
+373,Bass Lake,Mason,WB-1702,Eric Bacon,Derek Brookshire (ANPC),,SOM,vegetation survey,2002,,-86.41334,43.8316
+374,Bass Lake,Mason,WB-1702,Eric Bacon,Ryan Crouch,,SOM,vegetation survey,2017,Assessment of offshore native treatment,-86.41334,43.8316
+375,Hackert Lake,Mason,WB-341,Lisa Huberty,Eric Bacon,Nathaniel Shuff,ANC,vegetation survey,2022,,-86.323359,43.983437
+376,Long Lake,Mason,WB-2426,Eric Bacon,Mark Huffsmith,Lisa Huberty,ANC,vegetation survey,2023,,-86.091237,43.956703
+377,Clear Lake,Mecosta,WB-2952,Ryan Crouch,Eric Bacon,Sara Thoma,SOM,vegetation survey,2016,Document plant community; first year of permitted treatments,-85.393251,43.678937
+378,Tubbs Lake,Mecosta,WB-1859,Eric Bacon,Ryan Crouch,Joshua Beaulaurier (LRBOI) ,SOM,vegetation survey,2019,Wild rice assessment,-85.19891,43.71683
+379,Chippewa Lake,Mecosta,WB-211,Ryan Crouch,Eric Bacon,Matt Mulford,ANC,vegetation survey,2023,,-85.297367,43.754279
+380,Hermansville Lake,Menominee,WB-1026,Eric Bacon,Jessica Koerner,,SOM,vegetation survey,2005,,-87.613526,45.712763
+381,Lake Mary,Menominee,WB-711,Eric Bacon,John Riley,,SOM,vegetation survey,2008,,-87.757198,45.452342
+382,Sanford Lake,Midland,WB-1954,Eric Bacon,Paul Hausler (Progressive AE),,SOM,vegetation survey,2003,,-84.376765,43.690203
+383,Sanford Lake,Midland,WB-1954,Eric Bacon,Ryan Crouch,,SOM,vegetation survey,2017,Partial survey to respond to stakeholder complaint,-84.376765,43.690203
+384,Crooked Lake,Missaukee,WB-1671,Eric Bacon,Jeremie Wilson,,SOM,vegetation survey,1999,,-85.285753,44.335674
+385,Lake Missaukee,Missaukee,WB-376,Ryan Crouch,Mark Huffsmith,Glen Schmit,ANC,vegetation survey,2022,,-85.2381,44.3237
+386,Tamarack Lake,Montcalm,WB-1511,Dave Kenaga,Amy Hilt,,SOM,vegetation survey,1992,,-85.266377,43.443547
+387,Tamarack Lake,Montcalm,WB-1511,Dave Kenaga,,,SOM,vegetation survey,1993,,-85.266377,43.443547
+388,Cowden Lake,Montcalm,WB-1568,Dave Kenaga,Amy Hilt,,SOM,vegetation survey,1994,,-85.356881,43.355053
+389,Tamarack Lake,Montcalm,WB-1511,Dave Kenaga,Amy Hilt,,SOM,vegetation survey,1994,,-85.266377,43.443547
+390,Winfield Lake,Montcalm,WB-1726,Ralph Bednarz,,,SOM,vegetation survey,1994,,-85.369014,43.384139
+391,Cowden Lake,Montcalm,WB-1568,Dave Kenaga,,,SOM,vegetation survey,1995,,-85.356881,43.355053
+392,Tamarack Lake,Montcalm,WB-1511,Dave Kenaga,Howard Wandell,,SOM,vegetation survey,1995,,-85.266377,43.443547
+393,Winfield Lake,Montcalm,WB-1726,Howard Wandell,,,SOM,vegetation survey,1995,,-85.369014,43.384139
+394,Tamarack Lake,Montcalm,WB-1511,Dave Kenaga,Howard Wandell,,SOM,vegetation survey,1996,,-85.266377,43.443547
+395,Clifford Lake,Montcalm,WB-2286,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1997,,-85.190409,43.308192
+396,Cowden Lake,Montcalm,WB-1568,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1997,,-85.356881,43.355053
+397,Holland Lake,Montcalm,WB-1402,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1997,,-85.045253,43.230665
+398,Tamarack Lake,Montcalm,WB-1511,Dave Kenaga,Ned Rathbun,Dave Schipper,SOM,vegetation survey,1997,,-85.266377,43.443547
+399,Cowden Lake,Montcalm,WB-1568,Ned Rathbun,Eric Bacon,,SOM,vegetation survey,1998,,-85.356881,43.355053
+400,Crooked Lake,Montcalm,WB-2429,Ned Rathbun,Eric Bacon,,SOM,vegetation survey,1998,,-85.002459,43.237105
+401,Duck Lake,Montcalm,WB-1569,Ned Rathbun,Eric Bacon,,SOM,vegetation survey,1998,,-84.877324,43.26918
+402,Clifford Lake,Montcalm,WB-2286,Laura Esman,Eric Bacon,,SOM,vegetation survey,1999,,-85.190409,43.308192
+403,Winfield Lake,Montcalm,WB-1726,Laura Esman,Eric Bacon,,SOM,vegetation survey,2000,Partial vegetation survey,-85.369014,43.384139
+404,Winfield Lake,Montcalm,WB-1726,Jeremie Wilson,Laura Esman,,SOM,vegetation survey,2001,,-85.369014,43.384139
+405,Dickerson Lake,Montcalm,WB-273,Eric Bacon,Laura Esman,,SOM,vegetation survey,2002,,-85.167007,43.294517
+406,Clifford Lake,Montcalm,WB-2286,Laura Esman,Eric Bacon,,SOM,vegetation survey,2003,,-85.190409,43.308192
+407,Lake Montcalm,Montcalm,WB-1698,Eric Bacon,Matt Preisser,,SOM,vegetation survey,2003,,-85.189801,43.380835
+408,Rainbow Lake,Montcalm,WB-891,Eric Bacon,Matt Preisser,,SOM,vegetation survey,2003,,-85.306665,43.330822
+409,Derby Lake,Montcalm,WB-2359,Matt Preisser,Julie Sims,,SOM,vegetation survey,2004,,-85.127397,43.273662
+410,Holland Lake,Montcalm,WB-1402,Eric Bacon,Laura Esman,Jessica Schultz,SOM,vegetation survey,2004,,-85.045253,43.230665
+411,Nevins Lake,Montcalm,WB-2068,Julie Sims,Matt Preisser,,SOM,vegetation survey,2004,,-85.138661,43.280958
+412,Indian Lake,Montcalm,WB-1478,Laura Esman,Julie Sims,,SOM,vegetation survey,2005,,-85.433473,43.420714
+413,Tamarack Lake,Montcalm,WB-1511,Julie Sims,Laura Esman,,SOM,vegetation survey,2005,,-85.266377,43.443547
+414,Baldwin Lake,Montcalm,WB-3974,Laura Esman,Matt Preisser,,SOM,vegetation survey,2006,,-85.269883,43.163665
+415,Rainbow Lake,Montcalm,WB-891,Ryan Crouch,Eric Bacon,,SOM,vegetation survey,2017,Assessment of lake selected randomly,-85.306665,43.330822
+416,Winfield Lake,Montcalm,WB-1726,Ryan Crouch,Sara Thoma,Bob Sweet,SOM,vegetation survey,2017,Historic issues with native plant diversity,-85.369014,43.384139
+417,Crystal Lake,Montcalm,WB-107,Ryan Crouch,Lisa Huberty,Tom Braum,SOM,vegetation survey,2019,Plant community assessment,-84.9322,43.2631
+418,Pearl Lake,Montcalm,WB-1983,Eric Bacon,Ryan Crouch,Bill Keiper,SOM,vegetation survey,2021,,-85.076811,43.209248
+419,Clear Lake,Montmorency,WB-6162,Michigan State University,,,MSU,vegetation survey,2023,,-84.18034,45.124724
+420,Hillman Pond,Montmorency,WB-6168,Michigan State University,,,MSU,vegetation survey,2023,,-83.906171,45.05901
+421,Long Lake,Montmorency,WB-6186,Michigan State University,,,MSU,vegetation survey,2023,,-83.973206,45.124062
+422,Wolf Lake,Muskegon,WB-1497,Dave Kenaga,,,SOM,vegetation survey,1991,,-86.101665,43.257779
+423,Twin Lake,Muskegon,WB-2226,Dave Kenaga,,,SOM,vegetation survey,1997,,-86.172436,43.368594
+424,Wolf Lake,Muskegon,WB-1497,Laura Esman,Jeremie Wilson,,SOM,vegetation survey,1999,,-86.101665,43.257779
+425,Big Blue Lake,Muskegon,WB-1316,Matt Preisser,John Riley,,SOM,vegetation survey,2007,,-86.206744,43.455237
+426,Half Moon Lake,Muskegon,WB-2536,Matt Preisser,Lisa Huberty,,SOM,vegetation survey,2007,,-85.810138,43.257586
+427,Hess Lake,Newaygo,WB-1417,Dave Kenaga,Rich O'Neal (DNR),,SOM,vegetation survey,1992,,-85.768691,43.386263
+428,Robinson Lake,Newaygo,WB-2164,Dave Kenaga,Rich O'Neal (DNR),,SOM,vegetation survey,1992,,-85.854431,43.531505
+429,Hess Lake,Newaygo,WB-1417,Howard Wandell,,,SOM,vegetation survey,1996,,-85.768691,43.386263
+430,Kimball Lake,Newaygo,WB-1416,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1997,,-85.8261,43.4557
+431,Nichols Lake,Newaygo,WB-2073,Dave Kenaga,Rich O'Neal (DNR),,SOM,vegetation survey,1997,,-85.905364,43.726467
+432,Pickerel Lake,Newaygo,WB-1037,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1997,,-85.809529,43.457431
+433,Robinson Lake,Newaygo,WB-2164,Dave Kenaga,Rich O'Neal (DNR),,SOM,vegetation survey,1997,,-85.854431,43.531505
+434,Brooks Lake,Newaygo,WB-1363,Jeremie Wilson,Laura Esman,,SOM,vegetation survey,1999,,-85.750488,43.39642
+435,Englewright Lake,Newaygo,WB-1608,Eric Bacon,Laura Esman,,SOM,vegetation survey,2000,,-85.582856,43.320981
+436,Nichols Lake,Newaygo,WB-2073,Eric Bacon,Laura Esman,,SOM,vegetation survey,2000,,-85.905364,43.726467
+437,Diamond Lake,Newaygo,WB-1742,Laura Esman,Jeremie Wilson,,SOM,vegetation survey,2001,,-85.817596,43.604741
+438,Nichols Lake,Newaygo,WB-2073,Jeremie Wilson,Laura Esman,,SOM,vegetation survey,2001,,-85.905364,43.726467
+439,Crystal Lake,Newaygo,WB-650,Matt Preisser,Laura Esman,,SOM,vegetation survey,2003,,-85.865312,43.505834
+440,Robinson Lake,Newaygo,WB-2164,Jessica Koerner,Julie Sims,Kim Manning,SOM,vegetation survey,2005,,-85.854431,43.531505
+441,Pickerel Lake,Newaygo,WB-1037,Lisa Huberty,John Riley,,SOM,vegetation survey,2008,,-85.807238,43.457007
+442,Blanch Lake,Newaygo,WB-3319,Tom Alwin,Lisa Huberty,,SOM,vegetation survey,2011,,-85.804502,43.341239
+443,Pickerel Lake,Newaygo,WB-1037,Tom Alwin,Eric Bacon,Amanda Whitscell,SOM,vegetation survey,2011,,-85.84116,43.783
+444,Brooks Lake,Newaygo,WB-1363,Eric Bacon,Amanda Whitscell,,SOM,vegetation survey,2012,Concerns by DNR Fisheries and lake resident of lack of aquatic vegetation following fluridone treatment,-85.750488,43.39642
+445,Brooks Lake,Newaygo,WB-1363,Ryan Crouch,Sara Thoma,,SOM,vegetation survey,2017,Issues with native plant diversity and densities in past years,-85.7526,43.3968
+446,Fremont Lake,Newaygo,WB-3060,Ryan Crouch,Eric Bacon,Glen Schmitt,SOM,vegetation survey,2017,Historical issue with native plant diversity,-85.967757,43.449633
+447,Pickerel Lake,Newaygo,WB-1037,Ryan Crouch,Sara Thoma,Marcy Knoll-Wilmes,SOM,vegetation survey,2018,Fisheries concerns,-85.807238,43.457007
+448,Robinson Lake,Newaygo,WB-2164,Ryan Crouch,Lisa Huberty,Jack Farelly,SOM,vegetation survey,2018,"Fisheries, T/E Concerns",-85.854,43.5322
+449,Brooks Lake,Newaygo,WB-1363,Mark Huffsmith,Lisa Huberty,Eric Bacon,SOM,vegetation survey,2021,,-85.7526,43.3968
+450,Hess Lake,Newaygo,WB-1417,Eric Bacon,Ryan Crouch,Mark Huffsmith,SOM,vegetation survey,2021,,-85.76869,43.38626
+451,Van Norman Lake,Oakland,WB-1422,Howard Wandell,,,SOM,vegetation survey,1987,,-83.4119,42.70455
+452,Lower Straits Lake,Oakland,WB-1861,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1991,,-83.458739,42.582409
+453,Pontiac Lake,Oakland,WB-1399,Dave Kenaga,,,SOM,vegetation survey,1991,,-83.461726,42.668949
+454,Charlick Lake,Oakland,WB-1952,Dave Kenaga,Scott Jorgensen (ATI),,SOM,vegetation survey,1992,,-83.633889,42.674402
+455,Dixie Lake,Oakland,WB-1423,Dave Kenaga,Ned Rathbun,Paul Hausler (Progressive AE),SOM,vegetation survey,1992,,-83.490833,42.765448
+456,Highland Lake,Oakland,WB-1384,Dave Kenaga,,,SOM,vegetation survey,1992,,-83.121506,42.609594
+457,Pontiac Lake,Oakland,WB-1399,Dave Kenaga,,,SOM,vegetation survey,1992,,-83.461726,42.668949
+458,Upper Long Lake,Oakland,WB-1545,Dave Kenaga,,,SOM,vegetation survey,1992,,-83.3194,42.59539
+459,White Lake,Oakland,WB-1398,Dave Kenaga,Ernie Maier (ELM),,SOM,vegetation survey,1992,,-83.56537,42.666775
+460,Woodruff Lake,Oakland,WB-1818,Dave Kenaga,,,SOM,vegetation survey,1992,,-83.631135,42.670341
+461,Dixie Lake,Oakland,WB-1423,Dave Kenaga,Ned Rathbun,Paul Hausler (Progressive AE),SOM,vegetation survey,1993,,-83.490833,42.765448
+462,Duck Lake (Highland Twp),Oakland,WB-60,Dave Kenaga,Doug Pullman (Aquest),Dick Pinagel (AWC),SOM,vegetation survey,1993,,-83.58914,42.674352
+463,Elkhorn Lake,Oakland,WB-1570,Dave Kenaga,Jeff Knox (AS),,SOM,vegetation survey,1993,,-83.269436,42.768437
+464,Grass Lake,Oakland,WB-1343,Dave Kenaga,,,SOM,vegetation survey,1993,,-83.53984,42.668614
+465,Lake Louise,Oakland,WB-1520,Brian Carley,,,SOM,vegetation survey,1993,,-83.430886,42.82191
+466,Lake Sherwood,Oakland,WB-1508,Brian Carley,,,SOM,vegetation survey,1993,,-83.550112,42.588668
+467,Lower Straits Lake,Oakland,WB-1861,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1993,,-83.458739,42.582409
+468,Pontiac Lake,Oakland,WB-1399,Dave Kenaga,,,SOM,vegetation survey,1993,,-83.461726,42.668949
+469,Round Lake (White Lake Twp),Oakland,WB-37,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1993,,-83.4716,42.6193
+470,Susin Lake,Oakland,WB-1588,Dave Kenaga,Ernie Maier (ELM),,SOM,vegetation survey,1993,,-83.47916,42.76206
+471,Tipsico Lake,Oakland,WB-1870,Dave Kenaga,Brian Carley,Doug Pullman (Aquest),SOM,vegetation survey,1993,,-83.67768,42.716576
+472,Upper Long Lake,Oakland,WB-1545,Dave Kenaga,Ernie Maier (ELM),,SOM,vegetation survey,1993,,-83.3194,42.59539
+473,Walters Lake,Oakland,WB-1567,Dave Kenaga,Bill Kraus (AMS),,SOM,vegetation survey,1993,,-83.348498,42.762565
+474,White Lake,Oakland,WB-1398,Dave Kenaga,Doug Pullman (Aquest),Ernie Maier (ELM),SOM,vegetation survey,1993,,-83.56537,42.666775
+475,Wolverine Lake,Oakland,WB-1647,Dave Kenaga,Liz Hay,Doug Pullman (Aquest),SOM,vegetation survey,1993,,-83.490486,42.554392
+476,Dixie Lake,Oakland,WB-1423,Dave Kenaga,Ned Rathbun,Paul Hausler (Progressive AE),SOM,vegetation survey,1994,,-83.490833,42.765448
+477,Elkhorn Lake,Oakland,WB-1570,Dave Kenaga,,,SOM,vegetation survey,1994,,-83.269436,42.768437
+478,Lake Louise,Oakland,WB-1520,Dave Kenaga,Paul Hausler (Progressive AE),,SOM,vegetation survey,1994,,-83.430886,42.82191
+479,Pontiac Lake,Oakland,WB-1399,Dave Kenaga,,,SOM,vegetation survey,1994,,-83.461726,42.668949
+480,Round Lake (White Lake Twp),Oakland,WB-37,Dave Kenaga,,,SOM,vegetation survey,1994,,-83.4716,42.6193
+481,Tipsico Lake,Oakland,WB-1870,Dave Kenaga,Jeff Brauscheidel (DNR),,SOM,vegetation survey,1994,,-83.67768,42.716576
+482,Upper Long Lake,Oakland,WB-1545,Dave Kenaga,,,SOM,vegetation survey,1994,,-83.3194,42.59539
+483,Walters Lake,Oakland,WB-1567,Dave Kenaga,Jeff Brauscheidel (DNR),,SOM,vegetation survey,1994,,-83.348498,42.762565
+484,Waumegah Lake,Oakland,WB-1814,Dave Kenaga,,,SOM,vegetation survey,1994,,-83.45542,42.76736
+485,White Lake,Oakland,WB-1398,Dave Kenaga,,,SOM,vegetation survey,1994,,-83.56537,42.666775
+486,Wing Lake,Oakland,WB-1961,Dave Schipper,,,SOM,vegetation survey,1994,,-83.297841,42.552394
+487,Wolverine Lake,Oakland,WB-1647,Dave Kenaga,Liz Hay,Doug Pullman (Aquest),SOM,vegetation survey,1994,,-83.490486,42.554392
+488,Big Seven Lake,Oakland,(none),Dave Kenaga,,,SOM,vegetation survey,1995,,-83.675783,42.811443
+489,Charlick Lake,Oakland,WB-1952,Dave Kenaga,Ned Rathbun,Scott Jorgensen (ATI),SOM,vegetation survey,1995,,-83.633889,42.674402
+490,Dixie Lake,Oakland,WB-1423,Ned Rathbun,Dave Kenaga,Paul Hausler (Progressive AE),SOM,vegetation survey,1995,,-83.490833,42.765448
+491,Duck Lake (Highland Twp),Oakland,WB-60,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.58914,42.674352
+492,Elkhorn Lake,Oakland,WB-1570,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.269436,42.768437
+493,Highland Lake,Oakland,WB-1384,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.121506,42.609594
+494,Lake Ona,Oakland,WB-1639,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.542955,42.614531
+495,Lower Trout Lake,Oakland,WB-3190,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.225307,42.739985
+496,Marion Lake,Oakland,WB-1834,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.41614,42.60488
+497,Meadow Lake,Oakland,WB-1589,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.31328,42.5399
+498,Pleasant Lake,Oakland,WB-100,Ned Rathbun,,,SOM,vegetation survey,1995,,-83.435941,42.641255
+499,Pontiac Lake,Oakland,WB-1399,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.461726,42.668949
+500,Round Lake (White Lake Twp),Oakland,WB-37,Dave Kenaga,Ned Rathbun,Eric Bacon,SOM,vegetation survey,1995,Treatment observation,-83.4716,42.6193
+501,Scott Lake,Oakland,WB-1460,Ned Rathbun,Dave Schipper,,SOM,vegetation survey,1995,,-83.352575,42.669575
+502,Susin Lake,Oakland,WB-1588,Dave Kenaga,Ned Rathbun,Paul Hausler (Progressive AE),SOM,vegetation survey,1995,,-83.47916,42.76206
+503,Tipsico Lake,Oakland,WB-1870,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.67768,42.716576
+504,Upper Long Lake,Oakland,WB-1545,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.3194,42.59539
+505,Walters Lake,Oakland,WB-1567,Dave Kenaga,Ned Rathbun,Paul Hausler (Progressive AE),SOM,vegetation survey,1995,,-83.348498,42.762565
+506,White Lake,Oakland,WB-1398,Dave Kenaga,Ned Rathbun,,SOM,vegetation survey,1995,,-83.56537,42.666775
+507,Wolverine Lake,Oakland,WB-1647,Dave Kenaga,Doug Pullman (Aquest),,SOM,vegetation survey,1995,,-83.490486,42.554392
+508,Dixie Lake,Oakland,WB-1423,Dave Kenaga,Howard Wandell,Paul Hausler (Progressive AE),SOM,vegetation survey,1996,,-83.490833,42.765448
+509,Duck Lake (Highland Twp),Oakland,WB-60,Ned Rathbun,Eric Bacon,,SOM,vegetation survey,1996,,-83.58914,42.674352
+510,Highland Lake,Oakland,WB-1384,Dave Kenaga,Ned Rathbun,,SOM,vegetation survey,1996,,-83.121506,42.609594
+511,Kellogg Lake,Oakland,WB-2403,Dave Kenaga,Ned Rathbun,,SOM,vegetation survey,1996,,-83.64214,42.669319
+512,Lake Louise,Oakland,WB-1520,Ned Rathbun,Eric Bacon,,SOM,vegetation survey,1996,,-83.430886,42.82191
+513,Oxford Lake,Oakland,WB-1832,Dave Schipper,Eric Bacon,,SOM,vegetation survey,1996,,-83.24279,42.820207
+514,Pontiac Lake,Oakland,WB-1399,Dave Schipper,Dave Kenaga,Ned Rathbun,SOM,vegetation survey,1996,,-83.461726,42.668949
+515,Round Lake (White Lake Twp),Oakland,WB-37,Dave Kenaga,,,SOM,vegetation survey,1996,,-83.4716,42.6193
+516,Taggett Lake,Oakland,WB-1639,Dave Kenaga,Ned Rathbun,,SOM,vegetation survey,1996,,-83.641546,42.674308
+517,Upper Long Lake,Oakland,WB-1545,Dave Kenaga,Ned Rathbun,,SOM,vegetation survey,1996,,-83.3194,42.59539
+518,White Lake,Oakland,WB-1398,Dave Kenaga,,,SOM,vegetation survey,1996,,-83.56537,42.666775
+519,Big Seven Lake,Oakland,(none),Dave Kenaga,,,SOM,vegetation survey,1997,,-83.675783,42.811443
+520,Dixie Lake,Oakland,WB-1423,Dave Kenaga,Dave Schipper,Paul Hausler (Progressive AE),SOM,vegetation survey,1997,,-83.490833,42.765448
+521,Duck Lake (Highland Twp),Oakland,WB-60,Dave Kenaga,,,SOM,vegetation survey,1997,,-83.58914,42.674352
+522,Duck Lake (Orion Twp),Oakland,WB-2179,Dave Kenaga,Ned Rathbun,Scott Jorgensen (ATI),SOM,vegetation survey,1997,,-83.273978,42.79864
+523,Pontiac Lake,Oakland,WB-1399,Dave Kenaga,Maureen Houghton,Eric Bacon,SOM,vegetation survey,1997,,-83.461726,42.668949
+524,Upper Long Lake,Oakland,WB-1545,Dave Kenaga,Ned Rathbun,Dave Schipper,SOM,vegetation survey,1997,,-83.3194,42.59539
+525,Wolverine Lake,Oakland,WB-1647,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1997,,-83.490486,42.554392
+526,Lake Mickelson,Oakland,WB-1748,Eric Bacon,,,SOM,vegetation survey,1998,,-83.302204,42.820753
+527,Pontiac Lake,Oakland,WB-1399,Dave Schipper,Eric Bacon,,SOM,vegetation survey,1998,,-83.461726,42.668949
+528,Sears Lake,Oakland,WB-1942,Dave Schipper,Ned Rathbun,Ernie Maier (ELM),SOM,vegetation survey,1998,,-83.652706,42.591942
+529,Upper Long Lake,Oakland,WB-1545,Dave Schipper,Eric Bacon,,SOM,vegetation survey,1998,,-83.3194,42.59539
+530,Woodruff Lake,Oakland,WB-1818,Dave Kenaga,,,SOM,vegetation survey,1998,,-83.631135,42.670341
+531,Kent Lake,Oakland,WB-1592,Eric Bacon,Jeremie Wilson,,SOM,vegetation survey,1999,,-83.660276,42.524573
+532,White Lake,Oakland,WB-1398,Eric Bacon,Laura Esman,Dick Pinagel (AWC),SOM,vegetation survey,1999,,-83.56537,42.666775
+533,Wolverine Lake,Oakland,WB-1647,Jeremie Wilson,Laura Esman,,SOM,vegetation survey,1999,,-83.490486,42.554392
+534,Cedar Island Lake,Oakland,WB-108,Eric Bacon,Laura Esman,,SOM,vegetation survey,2000,,-83.481074,42.629835
+535,Lake Orion (Marina Park Estates),Oakland,WB-1571,Eric Bacon,Jeremie Wilson,,SOM,vegetation survey,2000,,-83.269526,42.777995
+536,White Lake,Oakland,WB-1398,Laura Esman,Jeremie Wilson,,SOM,vegetation survey,2000,,-83.56537,42.666775
+537,Wolverine Lake,Oakland,WB-1647,Jeremie Wilson,Ned Rathbun,,SOM,vegetation survey,2000,,-83.490486,42.554392
+538,Duck Lake (Highland Twp),Oakland,WB-60,Laura Esman,Rebecca Harry,,SOM,vegetation survey,2001,,-83.58914,42.674352
+539,Grass Lake,Oakland,WB-1343,Laura Esman,Eric Bacon,,SOM,vegetation survey,2001,,-83.53984,42.668614
+540,Grass Lake,Oakland,WB-1343,Laura Esman,Eric Bacon,,SOM,vegetation survey,2002,,-83.53984,42.668614
+541,Waumegah Lake,Oakland,WB-1814,Laura Esman,Eric Bacon,,SOM,vegetation survey,2002,,-83.45542,42.76736
+542,Waumegah Lake,Oakland,WB-1814,Eric Bacon,Laura Esman,,SOM,vegetation survey,2003,,-83.45542,42.76736
+543,Emerald Lake,Oakland,WB-1456,Laura Esman,Matt Preisser,,SOM,vegetation survey,2004,,-83.11508,42.61503
+544,Lone Pine Villas Pond,Oakland,WB-1718,Matt Preisser,Eric Bacon,Laura Esman,SOM,vegetation survey,2004,,-83.35909,42.571429
+545,Vhay Lake,Oakland,WB-1535,Matt Preisser,Laura Esman,,SOM,vegetation survey,2004,,-83.232266,42.587773
+546,Walker Lake,Oakland,WB-1752,Matt Preisser,Laura Esman,,SOM,vegetation survey,2004,,-83.121506,42.609594
+547,Williams Lake,Oakland,WB-1892,Jessica Schultz,Laura Esman,,SOM,vegetation survey,2004,,-83.423047,42.675547
+548,Duck Lake (Highland Twp),Oakland,WB-60,Julie Sims,Laura Esman,,SOM,vegetation survey,2005,Informal vegetation survey,-83.58914,42.674352
+549,Lake Sherwood,Oakland,WB-1508,Laura Esman,Matt Preisser,,SOM,vegetation survey,2005,Partial vegetation survey,-83.550112,42.588668
+550,Neva Lake,Oakland,WB-1582,Laura Esman,Eric Bacon,Dan Rockafellow,SOM,vegetation survey,2005,,-83.517543,42.639888
+551,Lake Oakland,Oakland,WB-1752,Jessica Koerner,Eric Bacon,,SOM,vegetation survey,2006,,-83.36234,42.700626
+552,Woodruff Lake,Oakland,WB-1818,Eric Bacon,Lisa Huberty,,SOM,vegetation survey,2006,,-83.631135,42.670341
+553,Upper Lake Sherwood,Oakland,WB-1563,Brett Wiseley,John Riley,,SOM,vegetation survey,2007,,-83.553818,42.619973
+554,Waumegah Lake,Oakland,WB-1814,John Riley,Eric Bacon,,SOM,vegetation survey,2007,,-83.45542,42.76736
+555,Cedar Island Lake,Oakland,WB-108,Eric Bacon,Matt Preisser,,SOM,vegetation survey,2009,,-83.481074,42.629835
+556,Waumegah Lake,Oakland,WB1814,Brett Wiseley,John Riley,,SOM,vegetation survey,2009,,-83.45542,42.76736
+557,Cedar Island Lake,Oakland,WB-108,Eric Bacon,Amanda Whitscell,,SOM,vegetation survey,2013,Document plant community and conditions in canals and bays of the lake; Concerns by DNR Fisheries of habitat loss,-83.479461,42.630145
+558,Crescent Lake,Oakland,WB-3590,Eric Bacon,Ryan Crouch,Sara Thoma,SOM,vegetation survey,2018,visit sites in LEMU,-83.3862,42.6425
+559,Mohawk-Wormer Lake,Oakland,WB-2457,Lisa Huberty,Ryan Crouch,Nadia Affes,SOM,vegetation survey,2019,Assessment of vegetation community,-83.34014,42.69075
+560,Heron Lake,Oakland,WB-5744,Eric Bacon,Mark Huffsmith,Jessica DiMilia,ANC,vegetation survey,2022,,-83.52817,42.81247
+561,Lake Oakland,Oakland,WB-1752,Ryan Crouch,Mark Huffsmith,Cleyo Harris,ANC,vegetation survey,2022,,-83.36234,42.700626
+562,Lake Orion,Oakland,WB-1571,Ryan Crouch,Eric Bacon,Joshua Allison,ANC,vegetation survey,2023,,-83.25681,42.779688
+563,Pine Lake,Oakland,WB-869,Ryan Crouch,Mark Huffsmith,Sarah Marshall,SOM,vegetation survey,2023,,-83.342511,42.590878
+564,White Lake,Oakland,WB-1398,Mark Huffsmith,Eric Bacon,Aaron Keatley,ANC,vegetation survey,2023,,-83.56537,42.666775
+565,Williams Lake,Oakland,WB-1892,Mark Huffsmith,Eric Bacon,Ryan Crouch,ANC,vegetation survey,2023,,-83.423047,42.675547
+566,Silver Lake,Oceana,WB-1425,Eric Bacon,Laura Esman,,SOM,vegetation survey,1999,,-86.500967,43.667723
+567,Silver Lake,Oceana,WB-1425,Eric Bacon,Laura Esman,,SOM,vegetation survey,2000,,-86.500967,43.667723
+568,Pentwater Lake,Oceana,WB-2169,Matt Preisser,Jessica Koerner,,SOM,vegetation survey,2005,Partial vegetation survey,-86.4185,43.7682
+569,Stony Lake,Oceana,WB-251,Lisa Huberty,Julie Sims,,SOM,vegetation survey,2005,,-86.480427,43.559645
+570,Campbell Lake,Oceana,WB-2959,Eric Bacon,Amanda Whitscell,,SOM,vegetation survey,2012,Assess plant community; No vegetation survey data; Proposal to treat native and exotics offshore,-86.10928,43.645304
+571,Hart Lake,Oceana,WB-2475,Eric Bacon,Amanda Whitscell,,SOM,vegetation survey,2012,Assess plant community following resident complaint of lack of aquatic plants,-86.370417,43.707533
+572,Pentwater Lake,Oceana,WB-21969,Eric Bacon,Doyle Brunsen,,SOM,vegetation survey,2015,Document Starry stonewort observed by DNR Fisheries,-86.4185,43.7682
+573,Lake Ogemaw,Ogemaw,WB-1491,Maureen Hein,,,SOM,vegetation survey,1986,,-84.05026,44.246683
+574,South Dease Lake,Ogemaw,WB-1542,Dave Kenaga,,,SOM,vegetation survey,1995,,-83.899013,44.391066
+575,Hardwood Lake,Ogemaw,WB-2119,Eric Bacon,Jeremie Wilson,,SOM,vegetation survey,1999,,-83.994105,44.245492
+576,George Lake,Ogemaw,WB-1442,Jeremie Wilson,,,SOM,vegetation survey,2000,,-83.97351,44.398722
+577,Peach Lake,Ogemaw,WB-206,Laura Esman,Jeremie Wilson,,SOM,vegetation survey,2000,,-84.16845,44.295287
+578,George Lake,Ogemaw,WB-1442,Laura Esman,Eric Bacon,,SOM,vegetation survey,2001,,-83.97351,44.398722
+579,Bush Lake,Ogemaw,WB-1874,Eric Bacon,Jessica Koerner,,SOM,vegetation survey,2005,,-84.035623,44.191507
+580,Sage Lake,Ogemaw,WB-2173,Lisa Huberty,Eric Bacon,,SOM,vegetation survey,2005,,-83.943084,44.350699
+581,George Lake,Ogemaw,WB-1442,Eric Bacon,Lisa Huberty,,SOM,vegetation survey,2007,,-83.97351,44.398722
+582,Rifle Lake,Ogemaw,WB-2321,Lisa Huberty,Eric Bacon,,SOM,vegetation survey,2007,,-83.979496,44.410833
+583,Skidway Lake,Ogemaw,WB-1575,Eric Bacon,Lisa Huberty,,SOM,vegetation survey,2007,,-84.032287,44.184685
+584,Rifle Lake,Ogemaw,WB-2321,Ryan Crouch,Eric Bacon,Barney Boyer,SOM,vegetation survey,2019,Fisheries Concersn about waterbody,-83.9804,44.413
+585,North Dease Lake,Ogemaw,WB-611,Eric Bacon,Lisa Huberty,Mark Huffsmith,SOM,vegetation survey,2021,,-83.89276,44.4056
+586,Devoe Lake,Ogemaw,WB-6164,Michigan State University,,,MSU,vegetation survey,2023,,-84.023745,44.403013
+587,Grousehaven Lake,Ogemaw,WB-6166,Michigan State University,,,MSU,vegetation survey,2023,,-84.019327,44.411896
+588,Lake George,Ogemaw,WB-1442,Michigan State University,,,MSU,vegetation survey,2023,,-83.97351,44.398722
+589,Peach Lake,Ogemaw,WB-206,Michigan State University,,,MSU,vegetation survey,2023,,-84.16845,44.295287
+590,Rifle Lake,Ogemaw,WB-2321,Michigan State University,,,MSU,vegetation survey,2023,,-83.9804,44.413
+591,Sage Lake,Ogemaw,WB-2173,Michigan State University,,,MSU,vegetation survey,2023,,-83.943084,44.350699
+592,Negaunee Lake,Osceola,WB-1700,Dave Kenaga,Brian Carley,,SOM,vegetation survey,1992,,-85.231982,43.821372
+593,Negaunee Lake,Osceola,WB-1700,Dave Kenaga,,,SOM,vegetation survey,1993,,-85.231982,43.821372
+594,Negaunee Lake,Osceola,WB-1700,Dave Kenaga,,,SOM,vegetation survey,1995,,-85.231982,43.821372
+595,Big Lake,Osceola,WB-182,Eric Bacon,Jeremie Wilson,,SOM,vegetation survey,2000,,-85.195961,43.86663
+596,Big Lake,Osceola,WB-182,Eric Bacon,Matt Preisser,,SOM,vegetation survey,2003,,-85.195961,43.86663
+597,Hicks Lake,Osceola,WB-2067,Matt Preisser,Eric Bacon,,SOM,vegetation survey,2005,,-85.283447,44.02243
+598,Rose Lake,Osceola,WB-2037,Marisa Burghdoff,Eric Bacon,Jessica Koerner,SOM,vegetation survey,2006,,-85.385242,44.063746
+599,Big Bradford Lake,Otsego,WB-3236,Amanda Whitscell,Eric Bacon,Doyle Brunsen,SOM,vegetation survey,2013,Document plant community conditions after spot treatment of Eurasian watermilfoil,-84.709341,44.865925
+600,Big Lake,Otsego,WB-3912,Ryan Crouch,Sara Thoma,,SOM,vegetation survey,2018,visit sites in NLHMU,-84.583,45.0082
+601,Big Bass Lake,Otsego,WB-4504,Michigan State University,,,MSU,vegetation survey,2023,,-84.507235,44.933947
+602,Big Lake,Otsego,WB-3912,Michigan State University,,,MSU,vegetation survey,2023,,-84.583,45.0082
+603,Dixon Lake,Otsego,WB-6165,Michigan State University,,,MSU,vegetation survey,2023,,-84.633785,44.996056
+604,Guthrie Lake,Otsego,WB-6167,Michigan State University,,,MSU,vegetation survey,2023,,-84.610102,44.86214
+605,Perch Lake,Otsego,WB-6191,Michigan State University,,,MSU,vegetation survey,2023,,-84.720282,44.968133
+606,Section One,Otsego,WB-6213,Michigan State University,,,MSU,vegetation survey,2023,,-84.618778,44.856764
+607,Cedar Lake West,Ottawa,WB-2420,Eric Bacon,Ned Rathbun,,SOM,vegetation survey,2000,,-85.845592,42.934017
+608,Crockery Lake,Ottawa,WB-1469,Eric Bacon,Matt Preisser,,SOM,vegetation survey,2003,,-85.851779,43.168238
+609,Hidden Shores Lake,Ottawa,WB-849,Eric Bacon,Jessica Schultz,,SOM,vegetation survey,2004,Document development,-85.969826,42.968592
+610,Skipping Stone Lake,Ottawa,WB-2551,Jessica Schultz,Eric Bacon,,SOM,vegetation survey,2004,,-85.867122,42.968419
+611,Spring Lake,Ottawa,WB-4,Lisa Huberty,Matt Preisser,,SOM,vegetation survey,2007,,-86.183301,43.097492
+612,Spring Lake - Smith Bayou,Ottawa,WB-4,Eric Bacon,Rachel Matthews,,SOM,vegetation survey,2013,Document plant community; Concerns by stakeholder of loss of fish habitat,-86.209835,43.089044
+613,Pigeon Lake,Ottawa,WB-620,Ryan Crouch,Eric Bacon,,SOM,vegetation survey,2017,Assessment of lake with newly expanded treatment plan,-86.2039,42.9023
+614,Bear Den Lake,Presque Isle,WB-6157,Michigan State University,,,MSU,vegetation survey,2023,,-84.221042,45.204263
+615,Lake Nettie,Presque Isle,WB-1924,Ryan Crouch,Mark Huffsmith,,ANC,vegetation survey,2023,,-83.990619,45.297407
+616,Lake Nettie,Presque Isle,WB-1924,Michigan State University,,,MSU,vegetation survey,2023,,-83.990619,45.297407
+617,Little Tomahawk Lake,Presque Isle,WB-6176,Michigan State University,,,MSU,vegetation survey,2023,,-84.18052,45.231184
+618,Lost Lake,Presque Isle,WB-6187,Michigan State University,,,MSU,vegetation survey,2023,,-83.966145,45.293879
+619,Ocqueoc Lake,Presque Isle,WB-4158,Ryan Crouch,Mark Huffsmith,,ANC,vegetation survey,2023,,-84.1141,45.47231
+620,Ocqueoc Lake,Presque Isle,WB-4158,Michigan State University,,,MSU,vegetation survey,2023,,-84.1141,45.47231
+621,Houghton Lake,Roscommon,WB-2106,Eric Bacon,Laura Esman,,SOM,vegetation survey,2002,,-84.7255,44.3441
+622,Houghton Lake,Roscommon,WB-2106,Eric Bacon,Laura Esman,,SOM,vegetation survey,2003,,-84.7255,44.3441
+623,Houghton Lake,Roscommon,WB-2106,Eric Bacon,Laura Esman,,SOM,vegetation survey,2004,,-84.7255,44.3441
+624,Houghton Lake,Roscommon,WB-2106,Lisa Huberty,Eric Bacon,Ryan Crouch,SOM,vegetation survey,2018,ProcellaCOR pre- and post treatment assessment,-84.7255,44.3441
+625,Houghton Lake,Roscommon,WB-2106,Ryan Crouch,Lisa Huberty,Renee Pionk,SOM,vegetation survey,2019,ProcellaCOR Post Treatment Survey,-84.7255,44.3441
+626,Houghton Lake,Roscommon,WB-2106,Ryan Crouch,Lisa Huberty,Mark Huffsmith,SOM,vegetation survey,2021,,-84.7255,44.3441
+627,Lake St Helen,Roscommon,WB-1467,Michigan State University,,,MSU,vegetation survey,2023,,-84.462731,44.366357
+628,Marl Lake,Roscommon,WB-6188,Michigan State University,,,MSU,vegetation survey,2023,,-84.6666,44.423779
+629,Gulliver Lake,Schoolcraft,(none),Ryan Crouch,Eric Bacon,,SOM,vegetation survey,2018,AIS survey,-86.028193,45.983886
+630,McDonald Lake,Schoolcraft,WB-3324,Eric Bacon,Ryan Crouch,,SOM,vegetation survey,2018,AIS survey,-85.975382,45.98484
+631,Lake Templene,St. Joseph,WB-1680,Dave Schipper,,,SOM,vegetation survey,1994,,-85.476177,41.895791
+632,Lake Templene,St. Joseph,WB-1680,Ned Rathbun,,,SOM,vegetation survey,1996,,-85.476177,41.895791
+633,Long Lake,St. Joseph,WB-2574,Ned Rathbun,,,SOM,vegetation survey,1996,,-85.3444,41.914
+634,Palmer Lake,St. Joseph,WB-2573,Ned Rathbun,,,SOM,vegetation survey,1996,,-85.318634,41.944416
+635,Clear Lake,St. Joseph,WB-54,Dave Kenaga,Dave Schipper,,SOM,vegetation survey,1997,,-85.73028,41.945502
+636,Long Lake (Colon Twp),St. Joseph,WB-2574,Ned Rathbun,,,SOM,vegetation survey,1997,,-85.3444,41.914
+637,Palmer Lake,St. Joseph,WB-2573,Ned Rathbun,,,SOM,vegetation survey,1997,,-85.318634,41.944416
+638,Long Lake,St. Joseph,WB-48,Eric Bacon,Jeremie Wilson,,SOM,vegetation survey,2001,,-85.752174,41.958009
+639,Sand Lake,St. Joseph,WB-1837,Jeremie Wilson,Eric Bacon,,SOM,vegetation survey,2001,,-85.455524,41.914332
+640,Fish Lake (Sherman Twp),St. Joseph,WB-17,Eric Bacon,Laura Esman,Rick Hobrla,SOM,vegetation survey,2002,,-85.4786,41.877
+641,Palmer Lake,St. Joseph,WB-2573,Eric Bacon,Laura Esman,Rick Hobrla,SOM,vegetation survey,2002,,-85.322236,41.947736
+642,Clear Lake,St. Joseph,WB-54,Laura Esman,Eric Bacon,,SOM,vegetation survey,2005,,-85.73028,41.945502
+643,Lake Omena,St. Joseph,WB-1625,Eric Bacon,Laura Esman,,SOM,vegetation survey,2005,,-85.4242,41.8387
+644,Fish Lake (Sherman Twp),St. Joseph,WB-17,Eric Bacon,John Riley,,SOM,vegetation survey,2007,,-85.4786,41.877
+645,Long Lake (Colon Twp),St. Joseph,WB-2574,John Riley,Brett Wiseley,,SOM,vegetation survey,2007,,-85.3444,41.914
+646,Palmer Lake,St. Joseph,WB-2573,Brett Wiseley,John Riley,,SOM,vegetation survey,2007,,-85.318634,41.944416
+647,Pleasant Lake,St. Joseph,WB-2092,John Riley,Brett Wiseley,,SOM,vegetation survey,2007,,-85.70592,41.95663
+648,Lake Templene,St. Joseph,WB-1680,Brett Wiseley,John Riley,,SOM,vegetation survey,2008,,-85.476177,41.895791
+649,Fish Lake (Sherman Twp),St. Joseph,WB-17,Eric Bacon,Doyle Brunsen,,SOM,vegetation survey,2015,Poor aquatic plant community and poor fishing conditions; On-going concerns by local resident,-85.4786,41.877
+650,Long Lake (Colon Twp),St. Joseph,WB-2574,Eric Bacon,Doyle Brunsen,,SOM,vegetation survey,2015,Assess aquatic plant community following complaint of poor fishing due to over management,-85.3444,41.914
+651,Prairie River Lake,St. Joseph,WB-2059,Eric Bacon,Doyle Brunsen,Sylvia Heaton,SOM,vegetation survey,2015,Document near-shore vegetation community; Never surveyed before,-85.40264,41.85889
+652,Fish Lake (Sherman Twp),St. Joseph,WB-17,Eric Bacon,Ryan Crouch,Brian Gunderman (DNR),SOM,vegetation survey,2018,"History of poor native vegetation, questions why recovery is not happening",-85.4786,41.877
+653,Cat Lake,Tuscola,WB-896,Jessica Koerner,Eric Bacon,Sylvia Heaton,SOM,vegetation survey,2005,,-83.338808,43.387356
+654,Lake Evergreen,Tuscola,WB-629,Eric Bacon,Jessica Koerner,Sylvia Heaton,SOM,vegetation survey,2005,,-83.308961,43.398827
+655,Murphy Lake,Tuscola,WB-1682,Jessica Koerner,Laura Esman,Seth Wright,SOM,vegetation survey,2005,,-83.461589,43.299415
+656,Ackley Lake,Van Buren,WB-1977,Laura Esman,Jeremie Wilson,,SOM,vegetation survey,1999,,-85.879133,42.231737
+657,Clear Lake,Van Buren,WB-2135,Laura Esman,Jeremie Wilson,,SOM,vegetation survey,1999,,-85.915863,42.242056
+658,Gravel Lake,Van Buren,WB-222,Jeremie Wilson,Ned Rathbun,,SOM,vegetation survey,2001,,-85.866536,42.076924
+659,Ackley Lake,Van Buren,WB-1977,Laura Esman,Matt Preisser,,SOM,vegetation survey,2004,,-85.879133,42.231737
+660,Huzzy Lake,Van Buren,WB-1651,Julie Sims,Eric Bacon,,SOM,vegetation survey,2005,,-85.82,42.1331
+661,Saddle Lake,Van Buren,WB-1614,Eric Bacon,Julie Sims,,SOM,vegetation survey,2005,,-86.050266,42.382242
+662,Scott Lake,Van Buren,WB-1530,Matt Preisser,,,SOM,vegetation survey,2006,,-85.995648,42.326585
+663,Big Crooked Lake,Van Buren,WB-1446,John Riley,Eric Bacon,,SOM,vegetation survey,2007,,-86.19577,42.07796
+664,Lake of the Woods,Van Buren,WB-1655,Eric Bacon,,,SOM,vegetation survey,2007,,-85.996488,42.11088
+665,Little Crooked Lake,Van Buren,WB-569,John Riley,,,SOM,vegetation survey,2007,,-86.203917,42.071814
+666,Big Crooked Lake,Van Buren,WB-1446,Eric Bacon,Doyle Brunsen,,SOM,vegetation survey,2015,Poor aquatic plant community and poor fishing conditions; On-going concerns by local resident,-86.19577,42.07796
+667,Huzzy Lake,Van Buren,WB-1651,Eric Bacon,Ryan Crouch,,SOM,vegetation survey,2018,Stakeholder complaint about vegetative community,-85.82,42.1331
+668,Reynolds Lake,Van Buren,WB-1786,Ryan Crouch,Eric Bacon,Nathan Noll (EGLE),SOM,vegetation survey,2019,Assessment of vegetation community,-86.0015,42.1997
+669,North Scott,Van Buren,WB-2682,Eric Bacon,Mark Huffsmith,Josh Epperly,ANC,vegetation survey,2022,,-85.997985,42.33044
+670,Great Bear Lake,Van Buren,WB-1340,Eric Bacon,Mark Huffsmith,Grant Raasakka,ANC,vegetation survey,2023,,-85.992487,42.372447
+671,Brownwood Lake,Van Buren,WB-1650,Matt Preisser,Eric Bacon,,SOM,vegetation survey,2008,,-85.915863,42.242056
+672,Detroit River - Gibraltar Bay,Wayne,WB-1,Eric Bacon,Brett Wiseley,,SOM,vegetation survey,2011,"Assess aquatic plant community, encroachment of Americal lotus to navigation lane",-83.158062,42.090385
+673,Newburgh Lake,Wayne,WB-4135,Ryan Crouch,Sara Thoma,,SOM,vegetation survey,2017,Assessment of Lake new to treatment regime,-83.417827,42.364483
+674,Lake Gitchegumee,Wexford,WB-2051,Laura Esman,Eric Bacon,,SOM,vegetation survey,2004,,-85.67367,44.49069
