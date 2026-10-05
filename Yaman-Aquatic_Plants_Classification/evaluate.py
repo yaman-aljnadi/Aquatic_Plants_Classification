@@ -1,7 +1,11 @@
 """Evaluate a saved checkpoint with and without YNLT.
 
-    python evaluate.py runs\\models\\<run>\\best.pth --with-ynlt
-    python evaluate.py runs\\models\\<run>\\best.pth --with-ynlt --ynlt-source input224
+    python evaluate.py runs\\models\\<run>\\best.pth --data lab+web --seed 8 --with-ynlt
+    python evaluate.py runs\\models\\<run>\\best.pth --split-csv data\\splits\\lab_web_seed8.csv
+
+Scores the lab test, web test and held-out field photographs of the chosen split list.
+Use the same ``--data``/``--seed`` the checkpoint was trained with, otherwise test images
+may have been in its training set.
 """
 
 from __future__ import annotations
@@ -10,6 +14,8 @@ import argparse
 import json
 import os
 import sys
+
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")  # before numpy; workers re-import this module
 
 import numpy as np
 import torch
@@ -20,7 +26,8 @@ if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
 import config as cfg
-from src.data import get_3_dataloaders, get_ood_dataloaders
+from scripts.build_splits import ensure_split
+from src.data import get_split_loaders
 from src.metrics import binary_fnr, evaluate_loader
 from src.model import load_model
 from src.ynlt import PATCH_SOURCES, evaluate_with_ynlt
@@ -65,30 +72,30 @@ def with_ynlt(model, loader, device, name, source, out):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("checkpoint")
+    parser.add_argument("--data", choices=list(cfg.DATA_CONFIGS), default="lab+web")
     parser.add_argument("--seed", type=int, default=cfg.random_seed)
+    parser.add_argument("--split-csv", default=None, help="explicit split list (overrides --data/--seed)")
     parser.add_argument("--with-ynlt", action="store_true")
-    parser.add_argument("--ynlt-source", choices=[*PATCH_SOURCES, "both"], default="both")
-    parser.add_argument("--no-ood", action="store_true")
+    parser.add_argument("--ynlt-source", choices=[*PATCH_SOURCES, "both"], default=cfg.ynlt_patch_source)
     parser.add_argument("--save", default=None, help="write the numbers to this JSON file")
     args = parser.parse_args()
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = load_model(args.checkpoint).to(device)
     sources = list(PATCH_SOURCES) if args.ynlt_source == "both" else [args.ynlt_source]
-    out = {"checkpoint": args.checkpoint, "seed": args.seed}
+    split_csv = args.split_csv or ensure_split(args.data, args.seed)
+    test_csv = split_csv if args.split_csv else ensure_split("lab+web", args.seed)
+    out = {"checkpoint": args.checkpoint, "split_csv": split_csv, "test_csv": test_csv}
 
-    _, _, test_loader = get_3_dataloaders(cfg, random_seed=args.seed)
-    plain(model, test_loader, device, "LAB", out)
-    if args.with_ynlt:
-        for source in sources:
-            with_ynlt(model, test_loader, device, "LAB", source, out)
-
-    if not args.no_ood:
-        _, test_ood = get_ood_dataloaders(cfg, random_seed=args.seed)
-        plain(model, test_ood, device, "OOD", out)
+    loaders = get_split_loaders(cfg, split_csv, test_csv=test_csv)
+    for name in ("lab_test", "web_test", "field_test"):
+        loader = loaders.get(name)
+        if loader is None:
+            continue
+        plain(model, loader, device, name.upper(), out)
         if args.with_ynlt:
             for source in sources:
-                with_ynlt(model, test_ood, device, "OOD", source, out)
+                with_ynlt(model, loader, device, name.upper(), source, out)
 
     if args.save:
         with open(args.save, "w", encoding="utf-8") as handle:

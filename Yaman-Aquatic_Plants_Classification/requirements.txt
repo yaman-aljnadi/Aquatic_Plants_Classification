@@ -7,6 +7,7 @@ pillow
 opencv-python
 tqdm
 tensorboard
+matplotlib   # scripts/plot_learning_curve.py
 
 # Optional: multiply-add counting in scripts/benchmark_efficiency.py.
 # Without it the benchmark still reports params and latency.

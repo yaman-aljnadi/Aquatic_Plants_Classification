@@ -2,9 +2,16 @@
 
 Examples (from this folder):
 
-    python train.py --head linear --backbone convnextv2
-    python train.py --head gated_attention --backbone convnextv2 --with-ynlt
-    python train.py --head linear --backbone resnet50 --seed 8
+    python train.py --data lab+web --head gated_attention --backbone convnextv2 --with-ynlt
+    python train.py --data lab --head linear --backbone convnextv2
+    python train.py --data lab+web --head linear --backbone convnextv2_nano --seed 9
+    python train.py --data lab+web --head gated_attention --train-fraction 0.25   # learning curve
+
+``--data`` selects which image collection is trained on (``lab``: 203 laboratory photos,
+``web``: 1,140 GBIF/iNaturalist field photos, ``lab+web``: both). The split list for
+(data, seed) is read from ``data/splits`` and built by ``scripts/build_splits.py`` if it
+does not exist yet. The checkpoint with the best accuracy on the combined validation split
+is kept and scored on the lab test, web test and the 42 held-out outdoor field photos.
 
 Every run writes ``results.json`` and TensorBoard event files next to its checkpoint.
 Aggregate several runs with ``python scripts/aggregate_results.py``; compare them visually
@@ -20,6 +27,9 @@ import sys
 import time
 from datetime import datetime
 
+# Must precede the numpy import: DataLoader workers re-import this module on Windows.
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+
 import numpy as np
 import torch
 import torch.nn as nn
@@ -31,10 +41,14 @@ if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
 import config as cfg
-from src.data import get_3_dataloaders, get_ood_dataloaders
+from scripts.build_splits import ensure_split
+from src.data import get_split_loaders
+from src.gpu_data import get_gpu_splits
 from src.metrics import binary_fnr, evaluate_loader
 from src.model import create_model_from_config, freeze_backbone, load_model, save_model_weights
 from src.ynlt import PATCH_SOURCES, evaluate_with_ynlt
+
+TEST_SPLITS = ("lab_test", "web_test", "field_test")
 
 try:
     from torch.utils.tensorboard import SummaryWriter
@@ -44,6 +58,12 @@ except ImportError:  # tensorboard is optional
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Yaman aquatic plant training")
+    parser.add_argument("--data", choices=list(cfg.DATA_CONFIGS), default="lab+web", help="which image collection to train on")
+    parser.add_argument("--split-csv", default=None, help="explicit split list; default data/splits/<data>_seed<N>.csv")
+    parser.add_argument(
+        "--train-fraction", type=float, default=1.0,
+        help="keep this fraction of the training images per class (whole observations); for the learning curve",
+    )
     parser.add_argument("--head", choices=["linear", "gated_attention", "mlp"], default=cfg.classification_head_type)
     parser.add_argument("--backbone", default="convnextv2", help="preset key or a full timm name")
     parser.add_argument("--seed", type=int, default=cfg.random_seed)
@@ -52,15 +72,19 @@ def parse_args():
     parser.add_argument("--lr", type=float, default=cfg.lr_initial)
     parser.add_argument("--workers", type=int, default=cfg.num_workers)
     parser.add_argument("--no-amp", action="store_true")
-    parser.add_argument("--no-ood", action="store_true")
     parser.add_argument("--with-ynlt", action="store_true")
     parser.add_argument(
         "--ynlt-source",
         choices=[*PATCH_SOURCES, "both"],
-        default="both",
-        help="patch the full-resolution file ('original'), the 224 input ('input224'), or report both",
+        default=cfg.ynlt_patch_source,
+        help="patch the 224 input ('input224', default), the full-resolution file ('original'), or report both",
     )
     parser.add_argument("--cpu", action="store_true")
+    parser.add_argument(
+        "--loader", choices=["gpu", "cpu"], default=None,
+        help="gpu (default on CUDA): decode once, keep images on the GPU, augment in batched kernels; "
+             "cpu: the torchvision DataLoader path",
+    )
     parser.add_argument("--no-tensorboard", action="store_true", help="skip writing TensorBoard event files")
     return parser.parse_args()
 
@@ -72,6 +96,8 @@ def run_epoch(model, loader, criterion, optimizer, scaler, device, train=True):
     with context:
         for images, labels in loader:
             images = images.to(device, non_blocking=True)
+            if device.type == "cuda":
+                images = images.contiguous(memory_format=torch.channels_last)
             labels = labels.to(device, non_blocking=True)
             if train:
                 optimizer.zero_grad(set_to_none=True)
@@ -90,6 +116,30 @@ def run_epoch(model, loader, criterion, optimizer, scaler, device, train=True):
             n_correct += (logits.argmax(1) == labels).sum().item()
             n_seen += labels.size(0)
     return total_loss / max(n_seen, 1), n_correct / max(n_seen, 1)
+
+
+@torch.no_grad()
+def cache_features(model, split, device, use_amp):
+    """Backbone features of a GpuSplit under the evaluation transform.
+
+    The backbone is frozen and the evaluation transform is deterministic, so the
+    validation images only need one pass through the encoder; every epoch then scores
+    the head on the cached features.
+    """
+    model.eval()
+    feats = []
+    for images, _ in split:
+        with torch.autocast(device_type=device.type, enabled=use_amp):
+            feats.append(model.backbone(images.to(device, non_blocking=True)).float())
+    return torch.cat(feats, dim=0), split.labels.to(device)
+
+
+@torch.no_grad()
+def validate_on_features(model, criterion, feats, labels):
+    model.eval()
+    logits = model.classifier(feats)
+    loss = criterion(logits, labels)
+    return loss.item(), (logits.argmax(1) == labels).float().mean().item()
 
 
 def report_split(name, acc, binary):
@@ -131,6 +181,8 @@ def log_final_metrics(writer, results, step):
         if record.get("binary_FNR") is not None:
             hparam_metrics[f"hparam/{split}_binary_FNR"] = record["binary_FNR"]
     hparams = {
+        "data": results["data"],
+        "train_fraction": results["train_fraction"],
         "head": results["head"],
         "backbone": results["backbone_key"],
         "seed": results["seed"],
@@ -186,22 +238,34 @@ def main():
     use_amp = bool(cfg.use_amp and device.type == "cuda" and not args.no_amp)
     scaler = torch.amp.GradScaler("cuda") if use_amp else None
 
+    loader_kind = args.loader or ("gpu" if device.type == "cuda" else "cpu")
     print(f"Device: {device}" + (f"  ({torch.cuda.get_device_name(0)})" if device.type == "cuda" else ""))
-    print(f"AMP: {use_amp}  batch={cfg.batch_size}  workers={cfg.num_workers}")
-    print(f"Lab data: {cfg.main_data_dir}")
-    print(f"OOD data: {cfg.hand_test_data_dir}")
+    print(f"AMP: {use_amp}  batch={cfg.batch_size}  loader={loader_kind}"
+          + (f"  workers={cfg.num_workers}" if loader_kind == "cpu" else f"  cache={cfg.gpu_cache_size}px"))
+    split_csv = args.split_csv or ensure_split(args.data, args.seed)
+    # Every run is scored on the same three test sets, taken from the lab+web list of this
+    # seed (identical per-source partitions, verified leak-free inside get_split_loaders).
+    test_csv = split_csv if args.split_csv else ensure_split("lab+web", args.seed)
+    print(f"Data: {args.data}  split list: {split_csv}")
     print(f"Backbone: {cfg.train_timm_model_name}  Head: {cfg.classification_head_type}  Seed: {args.seed}")
 
-    train_loader, val_loader, test_loader = get_3_dataloaders(cfg, random_seed=args.seed)
-    val_ood_loader = test_ood_loader = None
-    if not args.no_ood:
-        val_ood_loader, test_ood_loader = get_ood_dataloaders(cfg, random_seed=args.seed)
+    if loader_kind == "gpu":
+        loaders = get_gpu_splits(cfg, split_csv, device, train_fraction=args.train_fraction, seed=args.seed, test_csv=test_csv)
+    else:
+        loaders = get_split_loaders(cfg, split_csv, train_fraction=args.train_fraction, seed=args.seed, test_csv=test_csv)
+    train_loader, val_loader = loaders["train"], loaders["val"]
+    if val_loader is None:
+        raise ValueError("The split list has no validation rows; checkpoint selection needs them.")
+    test_loaders = {name: loaders[name] for name in TEST_SPLITS if loaders.get(name) is not None}
 
     model = create_model_from_config(cfg)
     n_trainable, n_total_params = freeze_backbone(model)
     model.to(device)
+    if device.type == "cuda":
+        model.to(memory_format=torch.channels_last)  # faster convolutions under AMP; no-op for ViT
 
     criterion = nn.CrossEntropyLoss(label_smoothing=cfg.label_smoothing)
+    val_cache = cache_features(model, val_loader, device, use_amp) if loader_kind == "gpu" else None
     optimizer = torch.optim.AdamW(
         [p for p in model.parameters() if p.requires_grad],
         lr=cfg.lr_initial,
@@ -210,10 +274,12 @@ def main():
     scheduler = CosineAnnealingLR(optimizer, T_max=cfg.num_epochs, eta_min=cfg.lr_cosine_minimum)
 
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    save_dir = os.path.join(cfg.MODELS_DIR, f"{stamp}_{args.head}_{args.backbone}_seed{args.seed}")
+    data_tag = args.data.replace("+", "_")
+    frac_tag = "" if args.train_fraction >= 1.0 else f"_frac{args.train_fraction:g}"
+    save_dir = os.path.join(cfg.MODELS_DIR, f"{stamp}_{data_tag}_{args.head}_{args.backbone}_seed{args.seed}{frac_tag}")
     os.makedirs(save_dir, exist_ok=True)
     best_path = os.path.join(save_dir, "best.pth")
-    best_ood_acc = -1.0
+    best_val_acc = -1.0
     best_epoch = 0
     writer = open_writer(save_dir, args.no_tensorboard)
 
@@ -221,89 +287,68 @@ def main():
     for epoch in range(1, cfg.num_epochs + 1):
         lr_now = optimizer.param_groups[0]["lr"]
         tr_loss, tr_acc = run_epoch(model, train_loader, criterion, optimizer, scaler, device, train=True)
-        va_loss, va_acc = run_epoch(model, val_loader, criterion, optimizer, scaler, device, train=False)
+        if val_cache is not None:
+            va_loss, va_acc = validate_on_features(model, criterion, *val_cache)
+        else:
+            va_loss, va_acc = run_epoch(model, val_loader, criterion, optimizer, scaler, device, train=False)
         scheduler.step()
-        msg = f"Epoch {epoch:03d}/{cfg.num_epochs}  train {tr_loss:.3f}/{tr_acc:.3f}  val {va_loss:.3f}/{va_acc:.3f}"
-        score = va_acc
-        ood_acc = None
-        if val_ood_loader is not None:
-            ood_loss, ood_acc = run_epoch(model, val_ood_loader, criterion, optimizer, scaler, device, train=False)
-            msg += f"  ood_val {ood_acc:.3f}"
-            score = ood_acc
-        print(msg)
+        print(f"Epoch {epoch:03d}/{cfg.num_epochs}  train {tr_loss:.3f}/{tr_acc:.3f}  val {va_loss:.3f}/{va_acc:.3f}")
         if writer is not None:
             writer.add_scalar("loss/train", tr_loss, epoch)
             writer.add_scalar("loss/val", va_loss, epoch)
             writer.add_scalar("accuracy/train", tr_acc, epoch)
             writer.add_scalar("accuracy/val", va_acc, epoch)
-            if ood_acc is not None:
-                writer.add_scalar("loss/ood_val", ood_loss, epoch)
-                writer.add_scalar("accuracy/ood_val", ood_acc, epoch)
             writer.add_scalar("lr", lr_now, epoch)
-            writer.add_scalar("accuracy/best_selection", max(score, best_ood_acc), epoch)
-        if score >= best_ood_acc:
-            best_ood_acc = score
+            writer.add_scalar("accuracy/best_selection", max(va_acc, best_val_acc), epoch)
+        if va_acc >= best_val_acc:
+            best_val_acc = va_acc
             best_epoch = epoch
             save_model_weights(model, best_path, verbose=False)
 
     train_minutes = (time.time() - t0) / 60
-    print(f"Training wall time: {train_minutes:.1f} min")
+    print(f"Training wall time: {train_minutes:.1f} min  (best epoch {best_epoch}, val acc {best_val_acc:.4f})")
     model = load_model(best_path).to(device)
 
     results = {
         "run": os.path.basename(save_dir),
         "timestamp": stamp,
+        "data": args.data,
+        "train_fraction": args.train_fraction,
+        "split_csv": os.path.relpath(split_csv, ROOT).replace("\\", "/"),
+        "test_csv": os.path.relpath(test_csv, ROOT).replace("\\", "/"),
         "head": args.head,
         "backbone_key": args.backbone,
         "backbone": backbone,
         "seed": args.seed,
         "epochs": cfg.num_epochs,
         "best_epoch": best_epoch,
-        "selection_metric": "ood_val_accuracy" if val_ood_loader is not None else "lab_val_accuracy",
-        "best_selection_score": best_ood_acc,
+        "selection_metric": "val_accuracy",
+        "best_selection_score": best_val_acc,
         "batch_size": cfg.batch_size,
         "lr": cfg.lr_initial,
         "amp": use_amp,
+        "loader": loader_kind,
         "device": torch.cuda.get_device_name(0) if device.type == "cuda" else "cpu",
         "trainable_params": int(n_trainable),
         "total_params": int(n_total_params),
         "train_minutes": train_minutes,
-        "lab_data_dir": cfg.main_data_dir,
-        "ood_data_dir": cfg.hand_test_data_dir,
-        "splits": {
-            "lab_train": len(train_loader.dataset),
-            "lab_val": len(val_loader.dataset),
-            "lab_test": len(test_loader.dataset),
-            "ood_val": len(val_ood_loader.dataset) if val_ood_loader is not None else 0,
-            "ood_test": len(test_ood_loader.dataset) if test_ood_loader is not None else 0,
-        },
+        "splits": loaders["sizes"],
         "checkpoint": best_path,
         "metrics": {},
     }
 
-    record, acc, binary = score_split(model, test_loader, device)
-    results["metrics"]["lab"] = record
-    report_split("LAB", acc, binary)
-    if test_ood_loader is not None:
-        record, acc, binary = score_split(model, test_ood_loader, device)
-        results["metrics"]["ood"] = record
-        report_split("OOD", acc, binary)
+    for name, loader in test_loaders.items():
+        record, acc, binary = score_split(model, loader, device)
+        results["metrics"][name] = record
+        report_split(name.upper(), acc, binary)
 
     if args.with_ynlt:
         sources = list(PATCH_SOURCES) if args.ynlt_source == "both" else [args.ynlt_source]
         for source in sources:
-            record, acc, binary, stats = score_split_ynlt(model, test_loader, device, source)
-            results["metrics"][f"lab_ynlt_{record['patch_source']}"] = record
-            report_split(f"LAB+YNLT[{record['patch_source']}]", acc, binary)
-            print(
-                f"  reviewed {stats['n_review']}/{stats['n_total']} images"
-                f"  ({stats['trigger_rate']:.1%}), {stats['mean_patches_per_reviewed']:.1f} patches/reviewed,"
-                f" {stats['ms_per_image']:.1f} ms/image vs {stats['ms_per_image_first_pass']:.1f} ms first pass"
-            )
-            if test_ood_loader is not None:
-                record, acc, binary, stats = score_split_ynlt(model, test_ood_loader, device, source)
-                results["metrics"][f"ood_ynlt_{record['patch_source']}"] = record
-                report_split(f"OOD+YNLT[{record['patch_source']}]", acc, binary)
+            for name, loader in test_loaders.items():
+                record, acc, binary, stats = score_split_ynlt(model, loader, device, source)
+                results["metrics"][f"{name}_ynlt_{record['patch_source']}"] = record
+                report_split(f"{name.upper()}+YNLT[{record['patch_source']}]", acc, binary)
                 print(
                     f"  reviewed {stats['n_review']}/{stats['n_total']} images"
                     f"  ({stats['trigger_rate']:.1%}), {stats['mean_patches_per_reviewed']:.1f} patches/reviewed,"

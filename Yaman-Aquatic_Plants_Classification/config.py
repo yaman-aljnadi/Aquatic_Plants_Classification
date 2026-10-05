@@ -4,6 +4,9 @@ import os
 
 # Pure noise on Windows, printed by every dataloader worker on first model download.
 os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
+# numpy's OpenBLAS allocates a thread-buffer set per process; with eight DataLoader
+# workers that has failed with "Memory allocation still failed" and hung training.
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 
 import torch
 from torchvision.transforms import InterpolationMode
@@ -34,6 +37,24 @@ OOD_DATA_DIR = _first_dir(
     os.environ.get("AQUATIC_OOD_DATA"),
     os.path.join(REPO_ROOT, "Aquatic Plant outdoor"),
 )
+# Web-sourced field photographs (GBIF-mediated iNaturalist observations), one folder per
+# species with underscores instead of spaces. Several photos can belong to one observation,
+# so splits are grouped by ``gbif_occurrence_key`` from the download manifest.
+WEB_DATA_DIR = _first_dir(
+    os.environ.get("AQUATIC_WEB_DATA"),
+    os.path.join(REPO_ROOT, "Larger_Plants_Dataset", "aquatic_dataset_report", "aquatic_plant_images"),
+)
+WEB_MANIFEST = os.path.join(WEB_DATA_DIR, "download_manifest.csv") if WEB_DATA_DIR else None
+
+# Frozen split lists written by scripts/build_splits.py and read by train.py / evaluate.py.
+SPLITS_DIR = os.path.join(PROJECT_ROOT, "data", "splits")
+DATA_CONFIGS = ("lab", "web", "lab+web")
+
+
+def split_csv_path(data_config, seed):
+    """data/splits/<data>_seed<N>.csv ('lab+web' is written as 'lab_web')."""
+    return os.path.join(SPLITS_DIR, f"{data_config.replace('+', '_')}_seed{seed}.csv")
+
 
 main_data_dir = LAB_DATA_DIR
 hand_test_data_dir = OOD_DATA_DIR
@@ -80,11 +101,23 @@ INVASIVE_INDICES = [CANONICAL_CLASS_TO_INDEX[name] for name in INVASIVE_SPECIES_
 # --------------------------------------------------------------------------------------
 # Hardware defaults for RTX 3070 Ti (8 GB) + i9-12900K
 # Paper training used batch_size=4 on a 4 GB A500. Frozen 224x224 heads fit 32 easily here.
+# persistent_workers matters on Windows: without it every loader respawns its workers
+# each epoch (3 loaders x 250 epochs), which made a 121-image run take two hours.
 # --------------------------------------------------------------------------------------
 batch_size = 32
-num_workers = 4
+num_workers = 8          # CPU loader path and one-off image-bank decoding
+eval_workers = 2         # validation / test loaders (plain resize only), CPU path
 pin_memory = True
+persistent_workers = True
+prefetch_factor = 4
 use_amp = True
+
+# GPU-resident data path (src/gpu_data.py): every image is decoded once, squashed to
+# gpu_cache_size x gpu_cache_size, cached in CACHE_DIR and kept on the GPU as uint8; the
+# training augmentation runs as batched GPU kernels. train.py uses it by default on CUDA
+# (--loader cpu restores the DataLoader path).
+gpu_cache_size = 320
+CACHE_DIR = os.path.join(PROJECT_ROOT, "data", "cache")
 
 # --------------------------------------------------------------------------------------
 # Augmentation / splits
@@ -127,12 +160,18 @@ random_seed = 8
 # --------------------------------------------------------------------------------------
 BACKBONE_PRESETS = {
     "convnextv2": "convnextv2_tiny.fcmae_ft_in22k_in1k",
+    # Smaller ConvNeXt-V2 variants: candidates for the underwater-rover compute budget.
+    # Nano has an IN-22k checkpoint; Pico and Atto are only released with IN-1k fine-tuning.
+    "convnextv2_nano": "convnextv2_nano.fcmae_ft_in22k_in1k",
+    "convnextv2_pico": "convnextv2_pico.fcmae_ft_in1k",
+    "convnextv2_atto": "convnextv2_atto.fcmae_ft_in1k",
     # ConvNeXt-V1 counterpart of the V2 checkpoint above: IN-22k pretraining, IN-1k fine-tune.
     "convnext": "convnext_tiny.fb_in22k_ft_in1k",
     "resnet50": "resnet50.a1_in1k",
     "efficientnet": "tf_efficientnetv2_b0.in1k",
     "vit": "vit_base_patch16_224.augreg_in21k_ft_in1k",
 }
+SMALL_CONVNEXTV2_PRESETS = ("convnextv2_nano", "convnextv2_pico", "convnextv2_atto")
 
 train_timm_model_name = BACKBONE_PRESETS["convnextv2"]
 classification_head_type = "gated_attention"
@@ -167,7 +206,9 @@ bs_patch_size = 224
 bs_stride = None
 
 # Where the second look cuts its patches from.
-#   "original"  - re-open the source file and patch the full-resolution image (paper text)
+#   "original"  - re-open the source file and patch the full-resolution image
 #   "input224"  - patch the 224x224 network input (what the archive notebooks did for Table 1)
-ynlt_patch_source = "original"
+# On the 203/42 collection the two sources agreed within one accuracy point on every
+# column while "original" cost 5-10x more per reviewed image, so input224 is the default.
+ynlt_patch_source = "input224"
 ynlt_patch_batch_size = 16

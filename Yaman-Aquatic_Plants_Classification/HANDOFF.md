@@ -1,64 +1,199 @@
 # Session handoff — aquatic plant classification (YNLT paper + training repo)
 
-Use this file to start a **new conversation** and continue the work. It summarizes what was done, what is where, and what still needs to be done.
+Use this file to start a **new conversation** and continue the work. It summarizes what was
+done, what is where, and what still needs to be done. Newest update first.
 
 ---
 
-## 0. Update, 21 Sep 2026 (read this first)
+## 0. Update, 4 Oct 2026 (read this first)
 
-Everything below was written before the second working session. Three things changed.
+Outcome of the meeting with Dr. Dang and what was built in response.
+
+### What the advisor asked for
+
+1. **Weights vs. samples.** "How many parameters does the model train, and how many samples
+   do you need for that many weights?" Answered in `Reports/Parameters_vs_Samples.md`
+   (plain language) with the numbers from `scripts/parameter_budget.py`
+   (`Reports/parameter_budget_tables.md`). Short version: the backbone is frozen
+   (27.87 M weights not trained); the heads train 16,149 (linear), 33,201 (MLP) or
+   261,933 (gated) weights on 768-d features. Lab alone gives 5.8 training images per
+   class; lab+web gives 38.4. The textbook "10 samples per weight" rule does not apply to
+   a frozen-feature probe, so the measured answer is the **learning curve** (`curve`
+   suite) plus the 95% CI table for each test set.
+2. **Train on the new, larger dataset combined with the old one.** Done: `--data lab+web`.
+3. **Full-resolution vs. 224 YNLT showed no difference → drop it.** Done: `input224` is
+   the default patch source, `original` is an ablation option, the paper's full-res rows
+   are gone (text keeps one sentence saying they matched within a point at 5–10x cost).
+4. **Find the best combination.** The `data` suite (3 data configs x 3 heads x 5 seeds)
+   plus `backbones`, `small` and `curve` suites; `aggregate_results.py` builds the tables.
+5. **Mention the underwater-rover goal** as the reason for ConvNeXt-V2 Tiny. Added to the
+   abstract, introduction, backbone section, cost table and discussion of `main_v3.tex`,
+   and Nano/Pico/Atto presets were added as smaller rover candidates.
+
+Decisions taken with the user: the 42 outdoor photographs are a **pure held-out field
+test** (checkpoint selection on the lab+web validation split, outdoor never seen); and the
+1,140 GBIF-mediated images are used now, a fresh iNaturalist download (the earlier one was
+75-px thumbnails) is optional later work.
+
+### The web dataset
+
+`Larger_Plants_Dataset/aquatic_dataset_report/aquatic_plant_images/<species>/*.jpg`,
+1,140 images from 532 iNaturalist observations (up to 15 photos each), downloaded through
+GBIF; `download_manifest.csv` has the occurrence key, licence and rights holder per file.
+Licences: 763 CC BY-NC, 124 BY-NC-ND, 110 BY, 77 CC0, 26 BY-ND, 6 BY-NC-SA, rest other.
+Sizes 354x265 to 2048x2048, median width 1536. Per-species counts are in `tab:data` of the
+paper and in `parameter_budget_tables.md`.
+
+### Protocol (new)
+
+- `scripts/build_splits.py` writes `data/splits/<data>_seed<N>.csv` (`lab`, `web`,
+  `lab_web`; seeds 8–12; all 15 exist). Columns: path, label, label_idx, source, group,
+  split, license, rights_holder.
+- Stratified 60/20/20 per species. **Web images are grouped by observation** so photos of
+  one plant never straddle train and test. The split RNG is seeded per (source, species),
+  so the lab partition is identical in `lab` and `lab+web` for the same seed.
+- Every run is scored on the **same three test sets** of its seed: lab test (39), web test
+  (210), field test (42 outdoor). For `lab`/`web`-only runs the test rows are read from the
+  `lab_web` list of the same seed; `get_split_loaders` asserts there is no overlap with the
+  run's train/val rows.
+- Checkpoint = best **validation accuracy** on the training data's val split. OOD-based
+  selection is gone.
+- `--train-fraction f` keeps a fraction of the training *groups* per class (≥1) for the
+  learning curve.
+- `results.json` keys: `lab_test`, `web_test`, `field_test`, and `<name>_ynlt_input224`.
+  Run folders: `<stamp>_<data>_<head>_<backbone>_seed<N>[_frac<f>]`. Fourteen archived
+  runs from the old protocol (no `data` key) are ignored by `aggregate_results.py`.
+
+### GPU data path (4 Oct, afternoon)
+
+Even after the worker fixes below the GPU sat at 5 % utilisation: eight CPU workers
+decoding 1500-px JPEGs and running the torchvision augmentations could feed only ~90
+images/s. `src/gpu_data.py` now decodes every image once (PIL `draft` + resize to 320x320,
+cached in `data/cache/images_320_<hash>.pt`, 425 MB for 1,385 images), keeps the bank on
+the GPU as uint8, and applies `cfg.aug_tf` as batched GPU kernels with per-image random
+parameters (crop/flip/rotation/perspective/TrivialAugment-geometry composed into one
+homography + `grid_sample`; ColorJitter, TrivialAugment colour ops, Normalize,
+RandomErasing as tensor arithmetic). Validation features are computed once per run
+(frozen backbone). Result: **1.2 s/epoch on lab+web, ~5 min per run, ~1 min for lab-only;
+the 93-job grid takes ~7–8 h.** `train.py --loader cpu` restores the old path. The 27 runs
+made with the CPU path before the switch are archived in `runs/models_cpu_loader/` and are
+not read by `aggregate_results.py`; the grid was restarted from zero on the GPU path so all
+paper numbers come from one pipeline. Known small deviations from torchvision are listed
+in the module docstring (bilinear vs bicubic, Equalize→AutoContrast, crop from the 320-px
+squashed image).
+
+### Windows DataLoader fixes (CPU path; keep these)
+
+Workers were being respawned every epoch (`persistent_workers=True` fixes it), and with 8
+workers OpenBLAS allocated per-thread buffers in each worker until one died with "Memory
+allocation still failed after 10 retries" and the run hung. Fix: `OPENBLAS_NUM_THREADS=1`
+is set before numpy is imported (`train.py`, `evaluate.py`, `config.py`), each worker calls
+`torch.set_num_threads(1)` and `cv2.setNumThreads(0)`, eval loaders use 2 workers. Timing:
+loader ~4 s/epoch, GPU ~1.1 s/epoch, observed ~9–10 s/epoch on lab+web (834 train images)
+→ ~35–40 min per 250-epoch run; lab-only ~6 min. 12 workers gave no speedup.
+
+### Experiment grid
+
+```powershell
+# launched 4 Oct 2026 in this order; logs in runs\logs\matrix_<suite>.log
+foreach ($suite in @('data','curve','small','backbones')) { python -u scripts\run_matrix.py --suite $suite }
+```
+
+93 distinct jobs (45 + 18 + 9 + 21), about 7–8 hours on the GPU path (relaunched 09:30 on
+4 Oct). `run_matrix.py` skips jobs that already have a `results.json`, so the loop can be
+re-run after an interruption.
+
+### Grid results (finished 17:36, 4 Oct; 93/93 runs, no failures)
+
+All numbers are in the paper (`tab:datagrid`, `tab:backbones`, `tab:cost`, `fig:curve`;
+no `\tbd` or `TODO(results)` left). Headlines, mean over seeds, frozen ConvNeXt-V2 Tiny:
+
+| Training data | Head | Lab acc | Web acc | Outdoor acc | Lab FNR |
+|---|---|---|---|---|---|
+| Lab | linear | 80.0 | 17.5 | 25.7 | 11.1 |
+| Web | linear | 40.0 | 54.3 | 36.2 | 37.8 |
+| Lab + web | linear | 81.5 | 57.7 | 35.2 | 13.3 |
+| Lab + web | gated | 83.6 | 56.3 | 31.4 | 6.7 |
+| Lab + web | gated + YNLT | 81.0 | 55.5 | 32.4 | 2.2 |
+
+- Adding the web images is the biggest effect: keeps lab accuracy, triples web accuracy,
+  +10 points outdoors. Heads are within one std of each other at matched data.
+- YNLT costs 1–6 points of 21-way accuracy and cuts invasive FNR everywhere (outdoor
+  63–70 % → 37 %). Trigger rate 14–21 % lab, 31–34 % web, 38–41 % outdoor.
+- Encoders (lab+web, linear): V2 Tiny 82.9/56.0/34.9; V1 Tiny 78.6/53.6/**47.6**;
+  ViT-B 74.4/51.5/32.5; Nano 75.2/52.9/33.3; Pico 61.5/40.2/22.2; Atto 56.4/38.5/27.8;
+  ResNet-50 59.0/40.4/22.2; EffNetV2-B0 60.7/36.2/14.3. Nano is the rover fallback.
+- Learning curve (6/12/22/40 images per class): lab and web still rising ~10 points per
+  doubling; outdoor flat at ~33 % from 22 images/class. Gated head is not more
+  data-hungry than linear.
+- GPU latencies (batch 1 / reviewed image): Tiny 5.2/209 ms, Nano 4.2/129, Pico 3.9/94,
+  Atto 3.9/61, V1 Tiny 3.8/153, ResNet-50 3.6/129, EffNetV2-B0 5.7/59, ViT-B 5.0/383.
+
+Caveat for the paper: ConvNeXt-V1 Tiny beating V2 on the 42 outdoor images (47.6 vs
+34.9, ~5 images) is flagged in the text as needing a larger outdoor set.
+
+### Remaining
+
+1. Compile `main_v3.tex` (XeLaTeX/LuaLaTeX; `Paper/figs/` still lacks map, data_dist,
+   augmentations and the qualitative figures) and proofread the new Results/Discussion.
+2. Optional: re-download iNaturalist originals as a fourth source; BioCLIP encoder;
+   a larger outdoor test set (the V1-vs-V2 outdoor gap and all outdoor FNRs are noisy).
+
+### Files touched this session
+
+| File | Change |
+|---|---|
+| `config.py` | `WEB_DATA_DIR`, `WEB_MANIFEST`, `SPLITS_DIR`, `DATA_CONFIGS`, `split_csv_path`; `num_workers=8`, `eval_workers=2`, `persistent_workers`, `prefetch_factor=4`; `ynlt_patch_source="input224"`; Nano/Pico/Atto presets |
+| `scripts/build_splits.py` | new; deterministic observation-grouped splits |
+| `scripts/parameter_budget.py` | new; capacity vs. samples tables |
+| `scripts/plot_learning_curve.py` | new |
+| `scripts/fill_paper_tables.py` | new; fills `tab:datagrid` / `tab:backbones` rows from `results.json` |
+| `scripts/run_matrix.py` | rewritten around `Job(data, head, backbone, seed, fraction)` and the four suites |
+| `scripts/aggregate_results.py` | rewritten; groups by data config, three test sets, hides `ynlt_original` unless `--show-original` |
+| `scripts/benchmark_efficiency.py` | patch-source sizes now 224 / 1500x1000 / 1536x2048 / 3000x4000 |
+| `src/data.py` | `ManifestDataset`, `read_split_records`, `subsample_train_groups`, `get_split_loaders(..., test_csv=)`, worker init |
+| `src/gpu_data.py` | new; `ImageBank`, `gpu_augment`, `gpu_eval_transform`, `GpuSplit`, `get_gpu_splits` |
+| `train.py`, `evaluate.py` | `--data`, `--split-csv`, `--train-fraction`; val-accuracy selection; three test sets |
+| `Paper/main_v3.tex` | abstract, intro, dataset (`tab:data`), capacity subsection, rover motivation, 8-row `tab:cost`, results restructured into `tab:datagrid` / `tab:backbones` / `fig:curve`, discussion and conclusion rewritten; `\tbd` placeholders |
+| `Reports/Parameters_vs_Samples.md`, `Reports/parameter_budget_tables.md` | new |
+| `Reports/WeeklyReport_Week6_2026-10-05.md` | new |
+| `README.md`, root `Readme.md` | updated for the new protocol |
+
+---
+
+## 0b. Update, 21 Sep 2026
 
 **YNLT was never looking at the high-resolution image.** Table 1 came from
 `n26_validate_ood_ynlt.ipynb` -> `PredictPlants.predict` -> `critical_review`, which patches
-the `224x224` tensor the dataloader produced, not the source file. The clean repo copied
-that faithfully. It is now a switch: `--ynlt-source original | input224 | both`
-(default `both`). `original` re-opens the file and patches the full-resolution photograph,
-which is what the paper describes; `input224` reproduces Table 1. The paper text, Table 1
-caption and limitations now say which one produced the published numbers.
+the `224x224` tensor the dataloader produced, not the source file. It became a switch,
+`--ynlt-source original | input224 | both`. (4 Oct: `original` matched `input224` within a
+point at 5–10x the cost, so `input224` is now the default and the paper drops the ablation.)
 
 **Efficiency is measured, not estimated.** The draft's "322 M multiply-adds" was wrong by
 about 14x. Measured on the RTX 3070 Ti with `scripts/benchmark_efficiency.py`:
-4.47 GMACs and 5.0 ms for one 224 pass, 1.8 ms per patch in batches of 16, 99 patches for a
-reviewed 3000x4000 image (111 for a 224 one), so about 187 ms per reviewed image. These are
-in `Paper/main_v3.tex` as Table `tab:cost`.
+4.47 GMACs and 5.0 ms for one 224 pass, 1.8 ms per patch in batches of 16, 111 patches for
+a reviewed 224 input, about 205 ms per reviewed image. These are in `tab:cost`.
 
 **Two bugs were fixed.** `src/patching.py` raised on the second scale because it stacked
-different-sized patches into one array, so YNLT would have crashed on any real image. And
-the `convnext` preset used a timm tag that does not exist; the correct ConvNeXt-V1
-counterpart is `convnext_tiny.fb_in22k_ft_in1k`.
+different-sized patches into one array. And the `convnext` preset used a timm tag that does
+not exist; the correct ConvNeXt-V1 counterpart is `convnext_tiny.fb_in22k_ft_in1k`.
 
-New tooling, all smoke-tested end to end on synthetic images:
-
-| Script | What it does |
-|---|---|
-| `scripts/run_matrix.py` | ablation x backbone x seed grid, sequential, skips finished runs |
-| `scripts/aggregate_results.py` | mean +/- std tables from `results.json`, plus a LaTeX tabular body |
-| `scripts/benchmark_efficiency.py` | params, MACs, latency, patch counts; needs no images |
-
-Every training run now writes `results.json` next to `best.pth` with accuracies, binary
-FNR, confusion counts, YNLT trigger rate, patches per reviewed image and ms per image.
-The same folder also gets TensorBoard event files (per-epoch curves, final metrics, an
-HParams entry, and the results JSON as text), so `tensorboard --logdir runs\models`
-overlays every run. `--no-tensorboard` disables it.
-
-The deprecated `v2.ToTensor()` in `config.py` was replaced by its documented equivalent
-`v2.ToImage()` + `v2.ToDtype(torch.float32, scale=True)`; every dataloader worker used to
-print a warning for it. `src/patching.py` now reuses `cfg.basic_tf` instead of keeping a
-second copy of the same eval transform.
-
-Still blocked on the same thing: **the images are not on this machine**, and `Paper/figs/`
-is missing so the draft cannot be compiled. Sections 6 and 9 below are still accurate
-about what that blocks.
+Every training run writes `results.json` next to `best.pth` and TensorBoard event files
+(`tensorboard --logdir runs\models`; `--no-tensorboard` disables it).
 
 ---
 
 ## 1. Project goal (advisor feedback)
 
-**Paper contribution (reframed):** not “design a new network,” but **small-data aquatic computer vision + lab-to-field domain shift + confidence-aware adaptive inference (YNLT)**.
+**Paper contribution:** small-data aquatic computer vision + lab-to-field domain shift +
+confidence-aware adaptive inference (YNLT), with a frozen encoder chosen for deployment on
+an underwater rover.
 
-**Task:** classify 21 Michigan aquatic plant species (5 invasive) from limited lab images, and generalize to crowd-sourced field photos.
+**Task:** classify 21 Michigan aquatic plant species (5 invasive) from limited lab images
+plus web-sourced field photographs, and generalize to unseen outdoor photographs.
 
-**Reported results (single split, not yet repeated):**
+**Original single-split numbers (archive notebooks, 230/33 image lists, OOD-selected
+checkpoint; kept in the paper as `tab:ablation` for reference):**
 
 | Setting | Baseline | With full method |
 |---|---|---|
@@ -67,320 +202,98 @@ about what that blocks.
 
 **Advisor priorities (in rough order):**
 
-1. Paper LaTeX updates (intro, YNLT math, efficiency, ablation text)
-2. Stronger baselines (ResNet, EfficientNet, ViT, ConvNeXt) under same frozen-backbone recipe
-3. Repeated stratified splits (mean ± std) — **not** 5-fold CV (some species have only 2 lab images)
-4. Ablation: isolate ConvNeXt-V2 backbone vs gated head vs YNLT
-5. Computational efficiency / underwater-robot claim (measure or remove)
-6. Reference verification (`ref.bib` was missing; partially recreated)
-7. Paper reading (BioCLIP, etc.) — **deprioritized** by user in favor of paper + experiments
+1. Paper LaTeX updates — done, numbers pending the grid
+2. Stronger baselines under the same frozen-backbone recipe — `backbones` suite
+3. Repeated stratified splits (mean ± std), not 5-fold — seeds 8–12
+4. Ablation: backbone vs. head vs. YNLT — `data` suite rows
+5. Computational efficiency / rover claim — measured, `tab:cost`
+6. Reference verification (`ref.bib`) — 11 `% UNVERIFIED` entries remain
+7. Weights vs. samples — `Reports/Parameters_vs_Samples.md` + learning curve
 
 ---
 
-## 2. Repository layout (after cleanup)
-
-### This repo — **active training workspace**
+## 2. Repository layout
 
 ```
 Yaman-Aquatic_Plants_Classification/
-  train.py              # main entry: train frozen backbone + head
-  evaluate.py           # score checkpoint with/without YNLT
-  config.py             # paths, hyperparams, YNLT thresholds
-  requirements.txt
-  README.md             # quick start
-  HANDOFF.md            # this file
-  src/
-    model.py            # timm backbones + linear / gated / MLP heads
-    data.py             # lab + OOD splits, folder-name remapping
-    ynlt.py             # confidence-gated second look
-    patching.py         # multi-scale high-res patches
-    metrics.py          # accuracy + invasive binary FNR
-  scripts/
-    run_matrix.py           # experiment grid, skips finished runs
-    aggregate_results.py    # mean +/- std tables, LaTeX fragment
-    benchmark_efficiency.py # params, MACs, latency, patch counts
-  runs/models/          # checkpoints + results.json (created on first train)
+  train.py  evaluate.py  config.py  requirements.txt  README.md  HANDOFF.md
+  data/splits/            15 split CSVs (lab, web, lab_web x seeds 8-12)
+  src/                    model.py data.py ynlt.py patching.py metrics.py
+  scripts/                build_splits.py run_matrix.py aggregate_results.py
+                          plot_learning_curve.py parameter_budget.py benchmark_efficiency.py
+  runs/models/            checkpoints + results.json + TensorBoard events
+  runs/logs/              matrix logs
 ```
 
-**Images are not in this repo.** By default, training reads sibling folders (adjust paths in `config.py` or env vars):
+Images live one level up (`config.py` or env vars): `Aquatic Plant lab` (203),
+`Larger_Plants_Dataset/aquatic_dataset_report/aquatic_plant_images` (1,140 +
+`download_manifest.csv`), `Aquatic Plant outdoor` (42).
 
-- Lab: `../Aquatic Plant lab` or `AQUATIC_LAB_DATA`
-- Field/OOD: `../Aquatic Plant outdoor` or `AQUATIC_OOD_DATA`
-
-### Sibling folders under `YamanA/` (may or may not be in the same GitHub repo)
-
-| Path | Role |
-|---|---|
-| `Paper/main_v3.tex` | Updated LaTeX draft |
-| `Paper/ref.bib` | Recreated bibliography (ecology entries need verification against original) |
-| `Work_Notes/YNLT_math_and_literature.md` | Working notes tied to paper edits |
-| `AquaticPlantsClassification/` | **Archive only** — original notebooks, figures, Linux paths; do not train here |
+Sibling folders at the repository root: `Paper/` (`main_v3.tex`, `ref.bib`; `figs/` is
+still missing except what `plot_learning_curve.py` will create), `Reports/`,
+`Work_Notes/`, `AquaticPlantsClassification/` (archive only).
 
 ---
 
-## 3. What was changed in the paper (`Paper/main_v3.tex`)
-
-**No new training was run.** Table numbers were kept; text was corrected to match the code.
-
-### Introduction
-
-- Shortened and reframed around: small lab data, field shift, confidence-gated second look.
-- Added literature contrast: RAM, RA-CNN, multi-crop, MSDNet, selective prediction, OHEM, calibration papers.
-- Removed unsupported claim that the model is ready for underwater robots (moved to limitations / future work).
-
-### Abstract
-
-- Fixed lab count: **225 → 230** images (matches training notebook split 138/46/46).
-
-### Gated attention head (methods)
-
-- Documented actual implementation from code:
-  - \(u = \mathrm{GELU}(W_u h + b_u)\)
-  - \(g = \sigma(\tanh(W_g h + b_g))\)
-  - logits from \(u \odot g\) → dropout → linear
-  - attention dim **168**, **261,933** trainable params, backbone frozen
-
-### YNLT math (critical fix)
-
-The draft previously had incomplete/wrong math. **Ground truth is the code** (`AquaticPlantsClassification/.../predict.py` + `config.py`, now mirrored in `src/ynlt.py` + `config.py`):
-
-**Softmax probabilities** from logits \(z\): \(p_i = \mathrm{softmax}(z)_i\).
-
-**Metrics (natural log, not log₂):**
-
-- Confidence = \(p_{(1)}\)
-- Margin = \(p_{(1)} - p_{(2)}\)
-- Entropy = \(-\sum_i p_i \log p_i\)
-
-**Confusion count** \(c \in \{0,1,2,3\}\):
-
-- +1 if confidence **< 0.5**
-- +1 if margin **< 0.2**
-- +1 if entropy **> 2.0**
-
-**Trigger YNLT** if \(c \ge 1\) (`critical_confusion_level = 1`).
-
-**Skip YNLT** if first prediction is already **invasive** (`ignore_invasive_predictions = True`).
-
-**Patching:** scales `[0.2, 0.3, 0.4, 0.5]`, overlaps `[0.0, 0.1, 0.2, 0.3]`.
-
-**Vote weight:** \(w = (3 - c_{\text{patch}}) / 3\), class scores start at 1.0, sum weights. **Tie-break:** prefer invasive class (not a top-k override).
-
-### Training / efficiency section
-
-- Documented: PyTorch, frozen ConvNeXt-V2 Tiny, AdamW, cosine LR, 250 epochs, label smoothing 0.05, batch 4 on paper laptop (4 GB A500).
-- Stated ~28.1M params, ~322M MACs per 224×224 forward; YNLT multiplies cost by number of patches.
-- Robot deployment = **future work** until measured on embedded hardware.
-
-### Ablation (Results text)
-
-- Table 1 already had 4 rows (linear, linear+YNLT, gated, gated+YNLT on shared ConvNeXt-V2 Tiny).
-- **Fixed narrative:** old text wrongly attributed gated-attention gain to the “second row” (which is linear+YNLT).
-- Added honesty: single split, 46 lab test images → ~2.2% per one flip; need repeated splits + other backbones.
-
-### Conclusion / broader impact
-
-- Softened deployment claims; framed as laptop/field screening until latency is measured.
-
----
-
-## 4. Bibliography (`Paper/ref.bib`)
-
-- **Was missing**; created so `\bibliography{ref}` compiles.
-- Added CV-related keys used in the new intro (Mnih RAM, Fu RA-CNN, Geifman selective, Huang MSDNet, etc.).
-- **Several ecology/AIS entries are placeholders** reconstructed from cite keys — replace with Aaryan’s original `.bib` when available.
-
----
-
-## 5. Clean training repo (`Yaman-Aquatic_Plants_Classification`)
-
-Built to avoid 40+ notebooks in `AquaticPlantsClassification`. Only the pipeline needed for paper experiments.
-
-### Design choices
-
-- **Frozen timm backbone**, train classifier head only (same as paper).
-- **Head types:** `linear`, `gated_attention`, `mlp`.
-- **Backbone presets** in `config.py`: `convnextv2`, `convnext`, `resnet50`, `efficientnet`, `vit`.
-- **OOD model selection:** save checkpoint with best **OOD validation accuracy** (matches phase-7 notebook behavior).
-- **Folder names:** strips parentheticals, e.g. `Brasenia schreberi (watershield)` → `Brasenia schreberi`.
-
-### Hardware defaults (user machine)
-
-- **GPU:** RTX 3070 Ti (8 GB)
-- **CPU:** i9-12900K
-- Defaults vs paper laptop: `batch_size=32`, `num_workers=4`, `pin_memory=True`, **AMP on**
-- Fallbacks: `--batch-size 16`, `--workers 0`, `--no-amp`
-
-### Commands
-
-```powershell
-cd Yaman-Aquatic_Plants_Classification
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-
-# Ablation-style runs (seed 8)
-python train.py --head linear --backbone convnextv2
-python train.py --head gated_attention --backbone convnextv2
-python train.py --head gated_attention --backbone convnextv2 --with-ynlt
-
-# Stronger backbones (linear head, same recipe)
-python train.py --head linear --backbone resnet50
-python train.py --head linear --backbone efficientnet
-python train.py --head linear --backbone vit
-python train.py --head linear --backbone convnext
-
-# Repeated splits (advisor request) — NOT 5-fold
-python train.py --head gated_attention --backbone convnextv2 --seed 8
-python train.py --head gated_attention --backbone convnextv2 --seed 9
-# ... through seed 12
-
-# Or run the whole grid at once (skips anything already finished)
-python scripts\run_matrix.py --suite all --dry-run
-python scripts\run_matrix.py --suite all
-python scripts\aggregate_results.py --latex
-
-# Evaluate saved checkpoint
-python evaluate.py runs\models\<timestamp_folder>\best.pth --with-ynlt
-
-# Cost numbers for the paper; needs no images
-python scripts\benchmark_efficiency.py
-```
-
-Checkpoints: `runs/models/<timestamp>_<head>_<backbone>_seed<N>/best.pth`
-
----
-
-## 6. Dataset caveat (important)
-
-| Source | Lab images | OOD/field |
-|---|---|---|
-| Paper / training notebook | **230** (138 train / 46 val / 46 test) | **33** (16 val / 17 test) |
-| Folders counted on disk earlier | **203** | **42** |
-
-The clean repo **will load** the 203/42 folders, but those are **not** the exact list behind Table 1 in the paper. To replicate 84.78% → 93.48% / 47.06% → 64.71%, you need the **original preprocessed set** (likely `squared_reflected` + `hand` from the Linux project), or confirm with Aaryan which image list is official.
-
-Rare classes (problem for stratified splits): e.g. *Hydrocharis morsus-ranae* (2), *Nymphaea odorata* (2), *Nuphar variegata* (3), *Potamogeton praelongus* (3).
-
----
-
-## 7. Ablation table (paper Table 1 — existing numbers, single split)
-
-All rows use **frozen ConvNeXt-V2 Tiny** (`convnextv2_tiny.fcmae_ft_in22k_in1k`).
-
-| Model | Lab class acc | Lab bin acc | Lab bin FNR | OOD class acc | OOD bin acc | OOD bin FNR |
-|---|---|---|---|---|---|---|
-| Linear classifier | 84.78 | 93.48 | 30.0 | 47.06 | 58.82 | 62.5 |
-| Linear + YNLT | 91.30 | 93.48 | 30.0 | 52.94 | 58.82 | 62.5 |
-| Gated attention | 86.96 | 97.83 | 10.0 | 52.94 | 76.47 | 12.5 |
-| Gated + YNLT | **93.48** | **97.83** | **10.0** | **64.71** | **76.47** | **12.5** |
-
-**Interpretation (for paper):**
-
-- YNLT on linear head: big lab gain, modest OOD gain; FNR unchanged on reported split.
-- Gated head alone: helps OOD and strongly cuts invasive FNR.
-- Full system: best 21-way lab and OOD accuracy.
-
-**Still missing for advisor:**
-
-- Same table with **ResNet / EfficientNet / ViT / ConvNeXt** backbones
-- **Mean ± std** over seeds 8–12 (or 5 repeated 60/20/20 splits)
-- Optional: BioCLIP linear probe as biology-specific baseline
-- % of test images that trigger YNLT + latency (ms) with and without YNLT
-
----
-
-## 8. YNLT implementation reference (config.py)
+## 3. YNLT implementation reference (config.py)
 
 ```python
-critical_confusion_level = 1
-ignore_invasive_predictions = True
-margin_threshold = 0.2
-entropy_threshold = 2.0
+critical_confusion_level = 1        # trigger if >= 1 of the three flags fires
+ignore_invasive_predictions = True  # skip review when the first guess is invasive
 confidence_threshold = 0.5
+margin_threshold = 0.2
+entropy_threshold = 2.0             # natural log
 patching_method = "multi-scale"
 ms_scale = [0.2, 0.3, 0.4, 0.5]
 ms_overlap = [0.0, 0.1, 0.2, 0.3]
-
-ynlt_patch_source = "original"   # "original" = full-res file, "input224" = Table 1 behaviour
+ynlt_patch_source = "input224"      # "original" = full-res file (ablation only)
 ynlt_patch_batch_size = 16
 ```
 
-Training hyperparams (paper): `num_epochs=250`, `lr=0.0005`, `weight_decay=2e-5`, `label_smoothing=0.05`, `gated_attention_dim=168`, `classifier_head_dropout=0.1`.
+Vote weight per patch \(w = (3 - c)/3\), class scores start at 1.0; tie-break prefers the
+invasive class. Training: 250 epochs, AdamW, lr 5e-4, weight decay 2e-5, cosine schedule,
+label smoothing 0.05, gated dim 168, head dropout 0.1, batch 32, AMP.
 
 ---
 
-## 9. TODO list for next session
+## 4. Paper status (`Paper/main_v3.tex`)
 
-### Experiments (highest impact) — all blocked on the images
+Structure after 4 Oct: Introduction (rover motivation, 4 contributions) → Materials and
+Methods (study area; Dataset with lab / web / outdoor subsections and `tab:data`;
+preprocessing; backbone with rover paragraph; `subsec:capacity`; gated head; YNLT math;
+`tab:ynlt_outcomes`; `tab:cost` with eight backbones; training protocol) → Results
+(`tab:ablation` original single split; `subsec:datagrid` / `tab:datagrid`;
+`subsec:backbones` / `tab:backbones`; `subsec:curve` / `fig:curve`; qualitative figures)
+→ Discussion → Conclusion.
 
-- [ ] Obtain official **230 lab + 33 OOD** image paths (or confirm 203/42 is acceptable)
-- [ ] `python scripts/run_matrix.py --suite all` covers the next four items in one command
-- [ ] Run 4-row ablation with `train.py` on seed 8; compare to Table 1
-- [ ] Run linear head on `resnet50`, `efficientnet`, `vit`, `convnext`
-- [ ] Repeat main config for seeds **8, 9, 10, 11, 12**; report mean ± std
-- [ ] Compare `--ynlt-source original` against `input224` (the new, most informative row)
-- [x] Log **YNLT trigger rate** and wall-clock time per image — in every `results.json`
-- [ ] (Optional) BioCLIP frozen encoder + linear head
-
-### Paper
-
-- [ ] Merge new results into Table 1 / add backbone comparison table
-      (`python scripts/aggregate_results.py --latex` prints the tabular body)
-- [x] Efficiency subsection now has measured numbers (Table `tab:cost` in `main_v3.tex`)
-- [x] Document which patch source produced Table 1
-- [ ] Replace the 11 `% UNVERIFIED` entries in `ref.bib` with Aaryan's originals
-      (11 others are now verified with DOIs)
-- [ ] Recover `Paper/figs/` — it is **not** in this repository, so the draft will not build
-- [ ] Compile `main_v3.tex` with **XeLaTeX or LuaLaTeX** (it uses `fontspec` and Times New
-      Roman); the `svg` package also needs Inkscape on `PATH`
-
-### Code / repo
-
-- [x] Aggregation script for multi-seed results (`scripts/aggregate_results.py`)
-- [x] Root `Readme.md`, root `.gitignore`, and removal of the stale `D:\Aquatic_Research` paths
-- [ ] Consider copying `Paper/` into the training repo, or leave it at the repo root as now
-
-### Deprioritized
-
-- [ ] Paper reading (BioCLIP, BioCLIP 2) — user chose to focus on paper + code first
-- [ ] Full notebook archive in `AquaticPlantsClassification` — reference only
+All tables and the learning-curve figure are filled from the 93-run grid; the `\tbd`
+macro is unused and can be deleted. All `\ref`s resolve.
+The draft needs XeLaTeX/LuaLaTeX (`fontspec`) and Inkscape for `svg`; `Paper/figs/` is
+still absent apart from the learning-curve figure.
 
 ---
 
-## 10. Key files to open in a new chat
+## 5. What was **not** done
 
-| File | Why |
-|---|---|
-| `config.py` | paths, batch size, YNLT thresholds |
-| `train.py` | training entry point |
-| `src/ynlt.py` | second-look logic |
-| `Paper/main_v3.tex` | draft with advisor-driven edits |
-| `Paper/ref.bib` | citations (needs verification) |
-| `../Work_Notes/YNLT_math_and_literature.md` | extra notes on math + literature |
+- `Paper/figs/` (map, data distribution, augmentations, qualitative figures) not recovered.
+- 11 `% UNVERIFIED` bibliography entries unresolved.
+- iNaturalist originals not re-downloaded (the earlier rows were 75-px thumbnails).
+- `AquaticPlantsClassification` kept as archive, untouched.
 
 ---
 
-## 11. Suggested prompt for the next conversation
+## 6. Suggested prompt for the next conversation
 
-Copy-paste something like:
-
-> I'm continuing work on the aquatic plant YNLT paper. Read `Yaman-Aquatic_Plants_Classification/HANDOFF.md` first. My repo is the clean training folder; paper is in `Paper/main_v3.tex`. I have an RTX 3070 Ti. Next I want to [run ablation / add backbone baselines / repeated splits / update LaTeX with new numbers]. Help me with [specific task].
-
----
-
-## 12. What was **not** done
-
-- No training on real data, so **no new accuracy numbers** are in the paper tables. The
-  only runs executed were synthetic smoke tests, and their output was deleted.
-- `Paper/figs/` was not recovered, so `main_v3.tex` has not been compiled
-- The 11 `% UNVERIFIED` bibliography entries were not resolved
-- `AquaticPlantsClassification` was not deleted (intentionally kept as archive); the
-  patching and preset bugs were fixed only in the clean repo, not in the archive
-- GitHub remote / CI / release tags not configured
+> I'm continuing the aquatic plant YNLT paper. Read
+> `Yaman-Aquatic_Plants_Classification/HANDOFF.md` first (section 0). The experiment grid
+> from `scripts/run_matrix.py` has [finished / is at job N]. Help me run
+> `aggregate_results.py --latex`, `plot_learning_curve.py` and `benchmark_efficiency.py`,
+> fill the `\tbd` cells and `% TODO(results)` comments in `Paper/main_v3.tex`, and rewrite
+> the Discussion around the actual numbers.
 
 ---
 
-*Last updated 21 Sep 2026: YNLT patch-source fix, measured efficiency numbers, experiment
-scripts, TensorBoard logging, bibliography verification. Earlier session: paper revision + clean repo extraction
-for GitHub. User: Yaman. Advisor context: Fengying Dang, Michigan Tech.*
+*Last updated 4 Oct 2026: combined lab+web protocol, observation-grouped splits, held-out
+field test, capacity-vs-samples report, rover motivation, paper restructured, grid
+launched. Earlier: 21 Sep 2026 YNLT patch-source fix and measured efficiency; first session
+paper revision + clean repo. User: Yaman. Advisor: Fengying Dang, Michigan Tech.*

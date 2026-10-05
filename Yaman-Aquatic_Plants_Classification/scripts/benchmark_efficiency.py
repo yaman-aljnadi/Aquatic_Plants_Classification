@@ -29,9 +29,10 @@ from src.model import build_model, freeze_backbone
 from src.patching import ImagePatchedDataset
 
 PATCH_SOURCE_SIZES = {
-    "224 network input (Table 1 behaviour)": (224, 224),
-    "3000x4000 original photograph": (3000, 4000),
-    "4000x4000 squared_reflected": (4000, 4000),
+    "224 network input (default)": (224, 224),
+    "1500x1000 laboratory photograph": (1500, 1000),
+    "1536x2048 web photograph (median)": (1536, 2048),
+    "3000x4000 field photograph": (3000, 4000),
 }
 
 

@@ -1,10 +1,25 @@
-"""Lab and OOD dataloaders. Folder names like 'Brasenia schreberi (watershield)' are remapped."""
+"""Dataloaders.
+
+Two ways to get data:
+
+* ``get_split_loaders(cfg, split_csv)`` reads a split list written by
+  ``scripts/build_splits.py`` (lab, web or lab+web, observation-grouped). This is what
+  ``train.py`` uses.
+* ``get_3_dataloaders`` / ``get_ood_dataloaders`` are the original ImageFolder path with an
+  on-the-fly stratified split, kept for the archived lab-only runs and ``evaluate.py``
+  without a split CSV. Folder names like 'Brasenia schreberi (watershield)' are remapped.
+"""
+
+import csv
+import os
+import random
+from collections import defaultdict
 
 import numpy as np
 import torch
 from PIL import Image
 from sklearn.model_selection import train_test_split
-from torch.utils.data import DataLoader, Subset
+from torch.utils.data import DataLoader, Dataset, Subset
 from torchvision import datasets
 
 
@@ -34,13 +49,164 @@ def remap_imagefolder_to_canonical(dataset, cfg):
     return dataset
 
 
-def _loader_kwargs(cfg, shuffle=False):
+def _worker_init(_worker_id):
+    """One compute thread per worker.
+
+    The v2 transforms run torch ops inside each worker; with the default thread count
+    eight workers on a 24-thread CPU oversubscribe it badly, and OpenBLAS in numpy
+    allocates a per-thread buffer set per process, which has run out of memory and
+    hung the loader. Both are avoided by making each worker single-threaded.
+    """
+    torch.set_num_threads(1)
+    try:
+        import cv2
+
+        cv2.setNumThreads(0)
+    except ImportError:
+        pass
+
+
+def _loader_kwargs(cfg, shuffle=False, workers=None):
+    workers = int(getattr(cfg, "num_workers", 0)) if workers is None else int(workers)
     kwargs = {
         "shuffle": shuffle,
-        "num_workers": int(getattr(cfg, "num_workers", 0)),
+        "num_workers": workers,
         "pin_memory": bool(getattr(cfg, "pin_memory", False) and torch.cuda.is_available()),
     }
+    if workers > 0:
+        # Without persistent workers Windows re-spawns (and re-imports torch in) every
+        # worker at the start of every epoch, which dominated the old two-hour runs.
+        kwargs["persistent_workers"] = bool(getattr(cfg, "persistent_workers", True))
+        kwargs["prefetch_factor"] = int(getattr(cfg, "prefetch_factor", 2))
+        kwargs["worker_init_fn"] = _worker_init
     return kwargs
+
+
+# --------------------------------------------------------------------------------------
+# Split-list datasets (data/splits/*.csv written by scripts/build_splits.py)
+# --------------------------------------------------------------------------------------
+class ManifestDataset(Dataset):
+    """Images listed in split records. Exposes ``samples`` so YNLT can re-open files."""
+
+    def __init__(self, records, cfg, transform=None):
+        # Keep only plain data (no module reference): Windows DataLoader workers pickle this.
+        self.records = list(records)
+        self.repo_root = cfg.REPO_ROOT
+        self.transform = transform
+        self.samples = [(self._abs(r["path"]), int(r["label_idx"])) for r in self.records]
+        self.imgs = self.samples
+        self.targets = [label for _, label in self.samples]
+        self.classes = list(cfg.CANONICAL_CLASSNAMES_LIST)
+        self.class_to_idx = dict(cfg.CANONICAL_CLASS_TO_INDEX)
+
+    def _abs(self, path):
+        return path if os.path.isabs(path) else os.path.join(self.repo_root, path)
+
+    def __len__(self):
+        return len(self.samples)
+
+    def __getitem__(self, index):
+        path, label = self.samples[index]
+        image = Image.open(path).convert("RGB")
+        if self.transform is not None:
+            image = self.transform(image)
+        return image, label
+
+
+def read_split_records(split_csv):
+    with open(split_csv, encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    for row in rows:
+        row["label_idx"] = int(row["label_idx"])
+    return rows
+
+
+def subsample_train_groups(records, fraction, seed):
+    """Keep about ``fraction`` of the training images per class, whole groups at a time.
+
+    Used for the learning curve. Every class keeps at least one group so no species
+    disappears from training.
+    """
+    if fraction is None or fraction >= 1.0:
+        return list(records)
+    rng = random.Random(seed * 7919 + int(round(fraction * 1000)))
+    by_class = defaultdict(lambda: defaultdict(list))
+    for record in records:
+        by_class[record["label_idx"]][record["group"]].append(record)
+    kept = []
+    for label in sorted(by_class):
+        groups = sorted(by_class[label].items())
+        rng.shuffle(groups)
+        target = fraction * sum(len(m) for _, m in groups)
+        taken = 0
+        for i, (_, members) in enumerate(groups):
+            if i > 0 and taken >= target:
+                break
+            kept.extend(members)
+            taken += len(members)
+    return kept
+
+
+def get_split_loaders(cfg, split_csv, batch_size=None, train_fraction=None, seed=0, test_csv=None):
+    """DataLoaders for one split CSV.
+
+    ``train`` and ``val`` come from ``split_csv``. The test loaders (``lab_test``,
+    ``web_test``: source-specific rows of the ``test`` split; ``field_test``: the outdoor
+    photographs) come from ``test_csv`` when given, otherwise from ``split_csv``. Passing
+    the lab+web list of the same seed as ``test_csv`` scores a lab-only or web-only model
+    on all three test sets; this is leak-free because the per-source partitions are seeded
+    identically, so a lab-only model's training rows never overlap the lab+web test rows.
+    Missing splits map to ``None``. Per-loader image counts are returned under ``sizes``.
+    """
+    batch_size = batch_size or cfg.batch_size
+    records = read_split_records(split_csv)
+    test_records = read_split_records(test_csv) if test_csv and test_csv != split_csv else records
+    train_records = subsample_train_groups([r for r in records if r["split"] == "train"], train_fraction, seed)
+    val_records = [r for r in records if r["split"] == "val"]
+    tests = {
+        "lab_test": [r for r in test_records if r["split"] == "test" and r["source"] == "lab"],
+        "web_test": [r for r in test_records if r["split"] == "test" and r["source"] == "web"],
+        "field_test": [r for r in test_records if r["split"] == "field_test"],
+    }
+    if not train_records:
+        raise ValueError(f"No training rows in {split_csv}")
+    if test_records is not records:
+        train_paths = {r["path"] for r in records if r["split"] in ("train", "val")}
+        for name, recs in tests.items():
+            overlap = train_paths.intersection(r["path"] for r in recs)
+            if overlap:
+                raise RuntimeError(f"{len(overlap)} {name} image(s) also appear in train/val of {split_csv}")
+
+    n_workers = int(getattr(cfg, "num_workers", 0))
+    eval_workers = min(n_workers, int(getattr(cfg, "eval_workers", 2)))
+
+    def make(recs, transform, shuffle=False, workers=None):
+        if not recs:
+            return None
+        return DataLoader(
+            ManifestDataset(recs, cfg, transform),
+            batch_size=batch_size,
+            **_loader_kwargs(cfg, shuffle=shuffle, workers=workers),
+        )
+
+    # Only the training loader does augmentation; evaluation loaders need few workers,
+    # and every persistent worker is a 600 MB process on Windows.
+    loaders = {
+        "train": make(train_records, cfg.aug_tf, shuffle=True),
+        "val": make(val_records, cfg.basic_tf, workers=eval_workers),
+    }
+    for name, recs in tests.items():
+        loaders[name] = make(recs, cfg.basic_tf, workers=eval_workers)
+    loaders["sizes"] = {
+        "train": len(train_records),
+        "val": len(val_records),
+        **{name: len(recs) for name, recs in tests.items()},
+    }
+    print(
+        "Split  " + "  ".join(f"{k}={v}" for k, v in loaders["sizes"].items())
+        + (f"  (train fraction {train_fraction})" if train_fraction and train_fraction < 1.0 else "")
+    )
+    return loaders
 
 
 class PlantData:
