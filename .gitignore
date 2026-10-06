@@ -2,7 +2,6 @@
 __pycache__/
 *.pyc
 *.pth
-runs/
 .ipynb_checkpoints/
 
 # Image sets live outside version control (see Readme.md)
@@ -19,5 +18,9 @@ Aquatic Plant outdoor/
 *.out
 *.synctex.gz
 *.toc
+
+# Keep training matrix logs under runs/ (overrides *.log above)
+!runs/**/*.log
+!**/runs/**/*.log
 
 Yaman-Aquatic_Plants_Classification/data/cache/

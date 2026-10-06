@@ -1,0 +1,120 @@
+{
+  "run": "20261004_034349_lab_gated_attention_convnextv2_seed9",
+  "timestamp": "20261004_034349",
+  "data": "lab",
+  "train_fraction": 1.0,
+  "split_csv": "data/splits/lab_seed9.csv",
+  "test_csv": "data/splits/lab_web_seed9.csv",
+  "head": "gated_attention",
+  "backbone_key": "convnextv2",
+  "backbone": "convnextv2_tiny.fcmae_ft_in22k_in1k",
+  "seed": 9,
+  "epochs": 250,
+  "best_epoch": 166,
+  "selection_metric": "val_accuracy",
+  "best_selection_score": 0.7894736842105263,
+  "batch_size": 32,
+  "lr": 0.0005,
+  "amp": true,
+  "device": "NVIDIA GeForce RTX 3070 Ti",
+  "trainable_params": 261933,
+  "total_params": 28128429,
+  "train_minutes": 4.971823386351267,
+  "splits": {
+    "train": 126,
+    "val": 38,
+    "lab_test": 39,
+    "web_test": 206,
+    "field_test": 42
+  },
+  "checkpoint": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Yaman-Aquatic_Plants_Classification\\runs\\models\\20261004_034349_lab_gated_attention_convnextv2_seed9\\best.pth",
+  "metrics": {
+    "lab_test": {
+      "accuracy": 0.8717948717948718,
+      "binary_accuracy": 0.9487179487179487,
+      "binary_FNR": 0.2222222222222222,
+      "confusion": {
+        "TP": 7,
+        "TN": 30,
+        "FP": 0,
+        "FN": 2
+      }
+    },
+    "web_test": {
+      "accuracy": 0.18932038834951456,
+      "binary_accuracy": 0.7475728155339806,
+      "binary_FNR": 0.75,
+      "confusion": {
+        "TP": 12,
+        "TN": 142,
+        "FP": 16,
+        "FN": 36
+      }
+    },
+    "field_test": {
+      "accuracy": 0.21428571428571427,
+      "binary_accuracy": 0.8571428571428571,
+      "binary_FNR": 0.8333333333333334,
+      "confusion": {
+        "TP": 1,
+        "TN": 35,
+        "FP": 1,
+        "FN": 5
+      }
+    },
+    "lab_test_ynlt_input224": {
+      "accuracy": 0.8205128205128205,
+      "binary_accuracy": 0.9487179487179487,
+      "binary_FNR": 0.1111111111111111,
+      "confusion": {
+        "TP": 8,
+        "TN": 29,
+        "FP": 1,
+        "FN": 1
+      },
+      "patch_source": "input224",
+      "n_reviewed": 7,
+      "n_total": 39,
+      "trigger_rate": 0.1794871794871795,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 85.41183844686319,
+      "ms_per_image_first_pass": 11.105864081913845
+    },
+    "web_test_ynlt_input224": {
+      "accuracy": 0.1650485436893204,
+      "binary_accuracy": 0.7184466019417476,
+      "binary_FNR": 0.6666666666666666,
+      "confusion": {
+        "TP": 16,
+        "TN": 132,
+        "FP": 26,
+        "FN": 32
+      },
+      "patch_source": "input224",
+      "n_reviewed": 150,
+      "n_total": 206,
+      "trigger_rate": 0.7281553398058253,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 232.39167378785865,
+      "ms_per_image_first_pass": 6.096963121926466
+    },
+    "field_test_ynlt_input224": {
+      "accuracy": 0.11904761904761904,
+      "binary_accuracy": 0.8095238095238095,
+      "binary_FNR": 0.8333333333333334,
+      "confusion": {
+        "TP": 1,
+        "TN": 33,
+        "FP": 3,
+        "FN": 5
+      },
+      "patch_source": "input224",
+      "n_reviewed": 29,
+      "n_total": 42,
+      "trigger_rate": 0.6904761904761905,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 223.8443571508729,
+      "ms_per_image_first_pass": 6.316671436209054
+    }
+  }
+}

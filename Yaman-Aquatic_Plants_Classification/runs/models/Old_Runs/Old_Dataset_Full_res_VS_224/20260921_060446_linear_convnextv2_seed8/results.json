@@ -1,0 +1,125 @@
+{
+  "run": "20260921_060446_linear_convnextv2_seed8",
+  "timestamp": "20260921_060446",
+  "head": "linear",
+  "backbone_key": "convnextv2",
+  "backbone": "convnextv2_tiny.fcmae_ft_in22k_in1k",
+  "seed": 8,
+  "epochs": 250,
+  "best_epoch": 2,
+  "selection_metric": "ood_val_accuracy",
+  "best_selection_score": 0.09523809523809523,
+  "batch_size": 32,
+  "lr": 0.0005,
+  "amp": true,
+  "device": "NVIDIA GeForce RTX 3070 Ti",
+  "trainable_params": 16149,
+  "total_params": 27882645,
+  "train_minutes": 132.72844460407893,
+  "lab_data_dir": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Aquatic Plant lab",
+  "ood_data_dir": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Aquatic Plant outdoor",
+  "splits": {
+    "lab_train": 121,
+    "lab_val": 41,
+    "lab_test": 41,
+    "ood_val": 21,
+    "ood_test": 21
+  },
+  "checkpoint": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Yaman-Aquatic_Plants_Classification\\runs\\models\\20260921_060446_linear_convnextv2_seed8\\best.pth",
+  "metrics": {
+    "lab": {
+      "accuracy": 0.14634146341463414,
+      "binary_accuracy": 0.7073170731707317,
+      "binary_FNR": 0.6666666666666666,
+      "confusion": {
+        "TP": 3,
+        "TN": 26,
+        "FP": 6,
+        "FN": 6
+      }
+    },
+    "ood": {
+      "accuracy": 0.14285714285714285,
+      "binary_accuracy": 0.5238095238095238,
+      "binary_FNR": 0.5,
+      "confusion": {
+        "TP": 1,
+        "TN": 10,
+        "FP": 9,
+        "FN": 1
+      }
+    },
+    "lab_ynlt_original": {
+      "accuracy": 0.14634146341463414,
+      "binary_accuracy": 0.4146341463414634,
+      "binary_FNR": 0.2222222222222222,
+      "confusion": {
+        "TP": 7,
+        "TN": 10,
+        "FP": 22,
+        "FN": 2
+      },
+      "patch_source": "original",
+      "n_reviewed": 32,
+      "n_total": 41,
+      "trigger_rate": 0.7804878048780488,
+      "mean_patches_per_reviewed": 104.0,
+      "ms_per_image": 328.50512195798774,
+      "ms_per_image_first_pass": 14.67232195598005
+    },
+    "ood_ynlt_original": {
+      "accuracy": 0.047619047619047616,
+      "binary_accuracy": 0.14285714285714285,
+      "binary_FNR": 0.5,
+      "confusion": {
+        "TP": 1,
+        "TN": 2,
+        "FP": 17,
+        "FN": 1
+      },
+      "patch_source": "original",
+      "n_reviewed": 11,
+      "n_total": 21,
+      "trigger_rate": 0.5238095238095238,
+      "mean_patches_per_reviewed": 110.18181818181819,
+      "ms_per_image": 767.975419039084,
+      "ms_per_image_first_pass": 25.291985710195842
+    },
+    "lab_ynlt_input224": {
+      "accuracy": 0.17073170731707318,
+      "binary_accuracy": 0.4146341463414634,
+      "binary_FNR": 0.2222222222222222,
+      "confusion": {
+        "TP": 7,
+        "TN": 10,
+        "FP": 22,
+        "FN": 2
+      },
+      "patch_source": "input224",
+      "n_reviewed": 32,
+      "n_total": 41,
+      "trigger_rate": 0.7804878048780488,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 259.2091731735641,
+      "ms_per_image_first_pass": 6.468843904369306
+    },
+    "ood_ynlt_input224": {
+      "accuracy": 0.047619047619047616,
+      "binary_accuracy": 0.14285714285714285,
+      "binary_FNR": 0.0,
+      "confusion": {
+        "TP": 2,
+        "TN": 1,
+        "FP": 18,
+        "FN": 0
+      },
+      "patch_source": "input224",
+      "n_reviewed": 11,
+      "n_total": 21,
+      "trigger_rate": 0.5238095238095238,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 172.07369999960065,
+      "ms_per_image_first_pass": 6.682347622700036
+    }
+  }
+}
