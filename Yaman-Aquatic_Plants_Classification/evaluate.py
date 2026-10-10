@@ -84,11 +84,14 @@ def main():
     model = load_model(args.checkpoint).to(device)
     sources = list(PATCH_SOURCES) if args.ynlt_source == "both" else [args.ynlt_source]
     split_csv = args.split_csv or ensure_split(args.data, args.seed)
-    test_csv = split_csv if args.split_csv else ensure_split("lab+web", args.seed)
+    if args.split_csv or args.data == "lab+web+field":
+        test_csv = split_csv
+    else:
+        test_csv = ensure_split("lab+web", args.seed)
     out = {"checkpoint": args.checkpoint, "split_csv": split_csv, "test_csv": test_csv}
 
     loaders = get_split_loaders(cfg, split_csv, test_csv=test_csv)
-    for name in ("lab_test", "web_test", "field_test"):
+    for name in ("lab_test", "web_test", "field_test", "pooled_test"):
         loader = loaders.get(name)
         if loader is None:
             continue

@@ -48,7 +48,7 @@ WEB_MANIFEST = os.path.join(WEB_DATA_DIR, "download_manifest.csv") if WEB_DATA_D
 
 # Frozen split lists written by scripts/build_splits.py and read by train.py / evaluate.py.
 SPLITS_DIR = os.path.join(PROJECT_ROOT, "data", "splits")
-DATA_CONFIGS = ("lab", "web", "lab+web")
+DATA_CONFIGS = ("lab", "web", "lab+web", "lab+web+field")
 
 
 def split_csv_path(data_config, seed):

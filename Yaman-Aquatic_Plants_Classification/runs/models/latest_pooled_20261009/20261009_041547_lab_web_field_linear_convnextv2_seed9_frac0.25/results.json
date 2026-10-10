@@ -1,0 +1,151 @@
+{
+  "run": "20261009_041547_lab_web_field_linear_convnextv2_seed9_frac0.25",
+  "timestamp": "20261009_041547",
+  "data": "lab+web+field",
+  "train_fraction": 0.25,
+  "split_csv": "data/splits/lab_web_field_seed9.csv",
+  "test_csv": "data/splits/lab_web_field_seed9.csv",
+  "head": "linear",
+  "backbone_key": "convnextv2",
+  "backbone": "convnextv2_tiny.fcmae_ft_in22k_in1k",
+  "seed": 9,
+  "epochs": 250,
+  "best_epoch": 80,
+  "selection_metric": "val_accuracy",
+  "best_selection_score": 0.4300518035888672,
+  "batch_size": 32,
+  "lr": 0.0005,
+  "amp": true,
+  "loader": "gpu",
+  "device": "NVIDIA GeForce RTX 3070 Ti",
+  "trainable_params": 16149,
+  "total_params": 27882645,
+  "train_minutes": 1.5867238322893777,
+  "splits": {
+    "train": 190,
+    "val": 193,
+    "lab_test": 39,
+    "web_test": 142,
+    "field_test": 8,
+    "pooled_test": 189
+  },
+  "checkpoint": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Yaman-Aquatic_Plants_Classification\\runs\\models\\20261009_041547_lab_web_field_linear_convnextv2_seed9_frac0.25\\best.pth",
+  "metrics": {
+    "lab_test": {
+      "accuracy": 0.48717948717948717,
+      "binary_accuracy": 0.7692307692307693,
+      "binary_FNR": 0.4444444444444444,
+      "confusion": {
+        "TP": 5,
+        "TN": 25,
+        "FP": 5,
+        "FN": 4
+      }
+    },
+    "web_test": {
+      "accuracy": 0.39436619718309857,
+      "binary_accuracy": 0.7605633802816901,
+      "binary_FNR": 0.5945945945945946,
+      "confusion": {
+        "TP": 15,
+        "TN": 93,
+        "FP": 12,
+        "FN": 22
+      }
+    },
+    "field_test": {
+      "accuracy": 0.625,
+      "binary_accuracy": 0.75,
+      "binary_FNR": 0.5,
+      "confusion": {
+        "TP": 1,
+        "TN": 5,
+        "FP": 1,
+        "FN": 1
+      }
+    },
+    "pooled_test": {
+      "accuracy": 0.42328042328042326,
+      "binary_accuracy": 0.7619047619047619,
+      "binary_FNR": 0.5625,
+      "confusion": {
+        "TP": 21,
+        "TN": 123,
+        "FP": 18,
+        "FN": 27
+      }
+    },
+    "lab_test_ynlt_input224": {
+      "accuracy": 0.46153846153846156,
+      "binary_accuracy": 0.7948717948717948,
+      "binary_FNR": 0.3333333333333333,
+      "confusion": {
+        "TP": 6,
+        "TN": 25,
+        "FP": 5,
+        "FN": 3
+      },
+      "patch_source": "input224",
+      "n_reviewed": 16,
+      "n_total": 39,
+      "trigger_rate": 0.41025641025641024,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 270.1596564104712,
+      "ms_per_image_first_pass": 31.18801282088941
+    },
+    "web_test_ynlt_input224": {
+      "accuracy": 0.45774647887323944,
+      "binary_accuracy": 0.7394366197183099,
+      "binary_FNR": 0.43243243243243246,
+      "confusion": {
+        "TP": 21,
+        "TN": 84,
+        "FP": 21,
+        "FN": 16
+      },
+      "patch_source": "input224",
+      "n_reviewed": 69,
+      "n_total": 142,
+      "trigger_rate": 0.4859154929577465,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 245.05346478875086,
+      "ms_per_image_first_pass": 19.595367605804096
+    },
+    "field_test_ynlt_input224": {
+      "accuracy": 0.625,
+      "binary_accuracy": 0.75,
+      "binary_FNR": 0.5,
+      "confusion": {
+        "TP": 1,
+        "TN": 5,
+        "FP": 1,
+        "FN": 1
+      },
+      "patch_source": "input224",
+      "n_reviewed": 3,
+      "n_total": 8,
+      "trigger_rate": 0.375,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 199.14513749972684,
+      "ms_per_image_first_pass": 19.251800001256925
+    },
+    "pooled_test_ynlt_input224": {
+      "accuracy": 0.4656084656084656,
+      "binary_accuracy": 0.7513227513227513,
+      "binary_FNR": 0.4166666666666667,
+      "confusion": {
+        "TP": 28,
+        "TN": 114,
+        "FP": 27,
+        "FN": 20
+      },
+      "patch_source": "input224",
+      "n_reviewed": 88,
+      "n_total": 189,
+      "trigger_rate": 0.4656084656084656,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 233.94384179904128,
+      "ms_per_image_first_pass": 20.450797354796023
+    }
+  }
+}

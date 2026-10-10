@@ -31,8 +31,8 @@ HEAD_LABELS = {"linear": "Linear", "mlp": "MLP", "gated_attention": "Gated atten
 HEAD_ORDER = ["linear", "mlp", "gated_attention"]
 VARIANT_LABELS = {"plain": "", "ynlt_input224": " + YNLT", "ynlt_original": " + YNLT (full-res)"}
 VARIANT_ORDER = ["plain", "ynlt_input224", "ynlt_original"]
-DATA_ORDER = ["lab", "web", "lab+web"]
-DATA_LABELS = {"lab": "Lab", "web": "Web", "lab+web": "Lab + web"}
+DATA_ORDER = ["lab", "web", "lab+web", "lab+web+field"]
+DATA_LABELS = {"lab": "Lab", "web": "Web", "lab+web": "Lab + web", "lab+web+field": "Lab + web + outdoor"}
 BACKBONE_LABELS = {
     "convnextv2": "ConvNeXt-V2 Tiny",
     "convnextv2_nano": "ConvNeXt-V2 Nano",
@@ -44,13 +44,14 @@ BACKBONE_LABELS = {
     "vit": "ViT-B/16",
 }
 SPLITS = [("lab_test", "Lab"), ("web_test", "Web"), ("field_test", "Field")]
+METRIC_SPLITS = SPLITS + [("pooled_test", "Pooled")]
 COMPACT_FIELDS = [("accuracy", "acc"), ("binary_FNR", "FNR")]
 FULL_FIELDS = [("accuracy", "acc"), ("binary_accuracy", "bin acc"), ("binary_FNR", "FNR")]
 
 
 def load_runs(runs_dir):
     records, legacy = [], 0
-    for path in sorted(glob.glob(os.path.join(runs_dir, "*", "results.json"))):
+    for path in sorted(glob.glob(os.path.join(runs_dir, "**", "results.json"), recursive=True)):
         with open(path, encoding="utf-8") as handle:
             try:
                 record = json.load(handle)
@@ -87,7 +88,7 @@ def collect(records, show_original):
             bucket = groups.setdefault((*key_base, variant, fraction), {"seeds": [], "n_train": []})
             bucket["seeds"].append(record.get("seed"))
             bucket["n_train"].append(record.get("splits", {}).get("train"))
-            for split, _ in SPLITS:
+            for split, _ in METRIC_SPLITS:
                 name = split if variant == "plain" else f"{split}_{variant}"
                 entry = metrics.get(name, {})
                 for field in ("accuracy", "binary_accuracy", "binary_FNR", "trigger_rate", "ms_per_image"):
@@ -134,9 +135,10 @@ def row_label(key, with_data=True, with_backbone=True, with_fraction=False):
     return " / ".join(parts)
 
 
-def columns(full):
+def columns(full, splits=None):
     fields = FULL_FIELDS if full else COMPACT_FIELDS
-    return [(split, field, f"{label} {short}") for split, label in SPLITS for field, short in fields]
+    splits = splits or SPLITS
+    return [(split, field, f"{label} {short}") for split, label in splits for field, short in fields]
 
 
 def print_table(title, keys, groups, cols, latex=False, with_data=True, with_backbone=True, with_fraction=False):
@@ -208,24 +210,33 @@ def main():
         return
     print(f"{len(records)} run(s) from {args.runs}" + (f" (seeds {args.seeds})" if args.seeds else ""))
     groups = collect(records, args.show_original)
-    cols = columns(args.full)
+    table_splits = list(SPLITS)
+    if args.data == "lab+web+field":
+        table_splits = table_splits + [("pooled_test", "Pooled")]
+    cols = columns(args.full, table_splits)
     keys = sorted(groups, key=sort_key)
     if args.data:
         keys = [k for k in keys if k[0] == args.data]
 
     main_keys = [k for k in keys if k[1] == "convnextv2" and k[4] >= 1.0]
     backbone_keys = [k for k in keys if k[1] != "convnextv2" and k[4] >= 1.0]
-    curve_keys = [
-        k for k in keys
-        if k[0] == "lab+web" and k[1] == "convnextv2" and k[3] == "plain" and k[2] in ("linear", "gated_attention")
-    ]
-    curve_keys.sort(key=lambda k: (HEAD_ORDER.index(k[2]), k[4]))
+    curve_sources = [args.data] if args.data else ["lab+web", "lab+web+field"]
+    curve_blocks = []
+    for source in curve_sources:
+        block = [
+            k for k in keys
+            if k[0] == source and k[1] == "convnextv2" and k[3] == "plain" and k[2] in ("linear", "gated_attention")
+        ]
+        block.sort(key=lambda k: (HEAD_ORDER.index(k[2]), k[4]))
+        curve_blocks.append((source, block))
 
     print_table("Training data x head, frozen ConvNeXt-V2 Tiny", main_keys, groups, cols, args.latex, with_backbone=False)
     print_table("Other encoders (lab+web)", backbone_keys, groups, cols, args.latex, with_data=False)
-    if any(k[4] < 1.0 for k in curve_keys):
-        print_table("Learning curve (lab+web, first pass only)", curve_keys, groups, cols, args.latex,
-                    with_data=False, with_backbone=False, with_fraction=True)
+    for source, curve_keys in curve_blocks:
+        if any(k[4] < 1.0 for k in curve_keys):
+            label = DATA_LABELS.get(source, source)
+            print_table(f"Learning curve ({label}, first pass only)", curve_keys, groups, cols, args.latex,
+                        with_data=False, with_backbone=False, with_fraction=True)
     print_cost([k for k in main_keys + backbone_keys if k[3] != "plain"], groups)
 
 

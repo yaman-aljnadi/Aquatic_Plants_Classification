@@ -13,7 +13,10 @@ Why a script and not ``train_test_split`` inside the dataloader:
 * Splits are stratified per (source, species) and seeded per (source, species), so the lab
   partition of ``lab+web_seed8.csv`` is identical to ``lab_seed8.csv``. The "lab test" column
   is therefore the same 41 images whichever data the model was trained on.
-* The 42 outdoor photographs are never split: they are all ``field_test``.
+* For ``lab``, ``web`` and ``lab+web`` the outdoor photographs are never split: they are all
+  ``field_test``. For ``lab+web+field`` they are pooled with the other sources and split
+  60/20/20 per species, same as the laboratory photographs. Handheld images live in a
+  separate folder and are not scanned.
 * The CSV is small, human-readable, committed to git, and records the licence and rights
   holder of every web image so the paper's data statement can be generated from it.
 
@@ -131,37 +134,46 @@ def split_groups(groups, n_images, rng):
     return assignment
 
 
+def assign_splits(source_records, source, seed):
+    """Fill ``split`` with train/val/test, stratified per species and grouped by observation."""
+    by_class = defaultdict(lambda: defaultdict(list))
+    for record in source_records:
+        by_class[record["label"]][record["group"]].append(record)
+    for label, groups in by_class.items():
+        rng = random.Random(_class_seed(seed, source, label))
+        n_images = sum(len(v) for v in groups.values())
+        assignment = split_groups(sorted(groups.items()), n_images, rng)
+        for gid, members in groups.items():
+            for record in members:
+                record["split"] = assignment[gid]
+    return source_records
+
+
 def build_split(data_config, seed):
     """Records with the ``split`` column filled for one data configuration and seed."""
     if data_config not in cfg.DATA_CONFIGS:
         raise ValueError(f"data_config must be one of {cfg.DATA_CONFIGS}, got {data_config!r}")
+    parts = data_config.split("+")
     sources = []
-    if "lab" in data_config.split("+"):
+    if "lab" in parts:
         sources.append(("lab", cfg.LAB_DATA_DIR, None))
-    if "web" in data_config.split("+"):
+    if "web" in parts:
         sources.append(("web", cfg.WEB_DATA_DIR, load_manifest(cfg.WEB_MANIFEST)))
+    if "field" in parts:
+        sources.append(("field", cfg.OOD_DATA_DIR, None))
 
     records = []
     for source, root, manifest in sources:
-        source_records = scan_root(root, source, manifest)
-        by_class = defaultdict(lambda: defaultdict(list))
-        for record in source_records:
-            by_class[record["label"]][record["group"]].append(record)
-        for label, groups in by_class.items():
-            rng = random.Random(_class_seed(seed, source, label))
-            n_images = sum(len(v) for v in groups.values())
-            assignment = split_groups(sorted(groups.items()), n_images, rng)
-            for gid, members in groups.items():
-                for record in members:
-                    record["split"] = assignment[gid]
-        records.extend(source_records)
+        records.extend(assign_splits(scan_root(root, source, manifest), source, seed))
 
-    if cfg.OOD_DATA_DIR:
-        for record in scan_root(cfg.OOD_DATA_DIR, "field"):
-            record["split"] = "field_test"
-            records.append(record)
-    else:
-        print("  outdoor folder not found; no field_test rows written")
+    # Older configs keep every outdoor photograph as an unseen field test.
+    if "field" not in parts:
+        if cfg.OOD_DATA_DIR:
+            for record in scan_root(cfg.OOD_DATA_DIR, "field"):
+                record["split"] = "field_test"
+                records.append(record)
+        else:
+            print("  outdoor folder not found; no field_test rows written")
 
     check_leakage(records)
     return records
@@ -210,6 +222,45 @@ def summarize(records):
         print(f"  web observations (groups): {n_groups}")
 
 
+def write_class_counts(records, path):
+    """Per-species image counts for the pooled collection, one row per class."""
+    buckets = ("train", "val", "test")
+    counts = {name: {bucket: Counter() for bucket in (*buckets, "all")} for name in cfg.CANONICAL_CLASSNAMES_LIST}
+    for record in records:
+        if record["split"] not in buckets:
+            continue
+        counts[record["label"]][record["split"]][record["source"]] += 1
+        counts[record["label"]]["all"][record["source"]] += 1
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    lines = [
+        "# Pooled collection counts",
+        "",
+        "Lab, cleaned web, and outdoor photographs. Handheld images are not included.",
+        "Train / val / test are the seed-8 observation-grouped split.",
+        "",
+        "| Species | Lab | Web | Outdoor | Total | Train | Val | Test |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|",
+    ]
+    totals = Counter()
+    for name in cfg.CANONICAL_CLASSNAMES_LIST:
+        row = counts[name]
+        lab, web, field = row["all"]["lab"], row["all"]["web"], row["all"]["field"]
+        train = sum(row["train"].values())
+        val = sum(row["val"].values())
+        test = sum(row["test"].values())
+        totals.update({"lab": lab, "web": web, "field": field, "all": lab + web + field,
+                       "train": train, "val": val, "test": test})
+        lines.append(f"| {name} | {lab} | {web} | {field} | {lab + web + field} | {train} | {val} | {test} |")
+    lines.append(
+        f"| **Total** | {totals['lab']} | {totals['web']} | {totals['field']} | {totals['all']} "
+        f"| {totals['train']} | {totals['val']} | {totals['test']} |"
+    )
+    lines.append("")
+    with open(path, "w", encoding="utf-8") as handle:
+        handle.write("\n".join(lines))
+    print(f"  class counts: {path}")
+
+
 def ensure_split(data_config, seed, force=False, verbose=True):
     """Return the CSV path for (data_config, seed), building it if needed."""
     path = cfg.split_csv_path(data_config, seed)
@@ -238,7 +289,10 @@ def main():
             if os.path.isfile(path) and not args.force:
                 print(f"exists: {path}")
                 continue
-            ensure_split(data_config, seed, force=args.force)
+            path = ensure_split(data_config, seed, force=args.force)
+            if data_config == "lab+web+field" and seed == args.seeds[0]:
+                counts_path = os.path.join(cfg.REPO_ROOT, "Reports", "pooled_split_counts.md")
+                write_class_counts(read_split_csv(path), counts_path)
 
 
 if __name__ == "__main__":

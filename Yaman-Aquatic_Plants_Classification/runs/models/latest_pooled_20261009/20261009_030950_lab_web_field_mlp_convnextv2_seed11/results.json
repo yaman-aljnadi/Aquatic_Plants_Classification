@@ -1,0 +1,151 @@
+{
+  "run": "20261009_030950_lab_web_field_mlp_convnextv2_seed11",
+  "timestamp": "20261009_030950",
+  "data": "lab+web+field",
+  "train_fraction": 1.0,
+  "split_csv": "data/splits/lab_web_field_seed11.csv",
+  "test_csv": "data/splits/lab_web_field_seed11.csv",
+  "head": "mlp",
+  "backbone_key": "convnextv2",
+  "backbone": "convnextv2_tiny.fcmae_ft_in22k_in1k",
+  "seed": 11,
+  "epochs": 250,
+  "best_epoch": 177,
+  "selection_metric": "val_accuracy",
+  "best_selection_score": 0.625,
+  "batch_size": 32,
+  "lr": 0.0005,
+  "amp": true,
+  "loader": "gpu",
+  "device": "NVIDIA GeForce RTX 3070 Ti",
+  "trainable_params": 33201,
+  "total_params": 27899697,
+  "train_minutes": 5.005886538823446,
+  "splits": {
+    "train": 648,
+    "val": 192,
+    "lab_test": 39,
+    "web_test": 143,
+    "field_test": 8,
+    "pooled_test": 190
+  },
+  "checkpoint": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Yaman-Aquatic_Plants_Classification\\runs\\models\\20261009_030950_lab_web_field_mlp_convnextv2_seed11\\best.pth",
+  "metrics": {
+    "lab_test": {
+      "accuracy": 0.8205128205128205,
+      "binary_accuracy": 0.9230769230769231,
+      "binary_FNR": 0.1111111111111111,
+      "confusion": {
+        "TP": 8,
+        "TN": 28,
+        "FP": 2,
+        "FN": 1
+      }
+    },
+    "web_test": {
+      "accuracy": 0.5244755244755245,
+      "binary_accuracy": 0.7832167832167832,
+      "binary_FNR": 0.2894736842105263,
+      "confusion": {
+        "TP": 27,
+        "TN": 85,
+        "FP": 20,
+        "FN": 11
+      }
+    },
+    "field_test": {
+      "accuracy": 0.75,
+      "binary_accuracy": 0.75,
+      "binary_FNR": 0.5,
+      "confusion": {
+        "TP": 1,
+        "TN": 5,
+        "FP": 1,
+        "FN": 1
+      }
+    },
+    "pooled_test": {
+      "accuracy": 0.5947368421052631,
+      "binary_accuracy": 0.8105263157894737,
+      "binary_FNR": 0.2653061224489796,
+      "confusion": {
+        "TP": 36,
+        "TN": 118,
+        "FP": 23,
+        "FN": 13
+      }
+    },
+    "lab_test_ynlt_input224": {
+      "accuracy": 0.8205128205128205,
+      "binary_accuracy": 0.9230769230769231,
+      "binary_FNR": 0.1111111111111111,
+      "confusion": {
+        "TP": 8,
+        "TN": 28,
+        "FP": 2,
+        "FN": 1
+      },
+      "patch_source": "input224",
+      "n_reviewed": 8,
+      "n_total": 39,
+      "trigger_rate": 0.20512820512820512,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 148.1881153843297,
+      "ms_per_image_first_pass": 32.53475897415625
+    },
+    "web_test_ynlt_input224": {
+      "accuracy": 0.5314685314685315,
+      "binary_accuracy": 0.7832167832167832,
+      "binary_FNR": 0.10526315789473684,
+      "confusion": {
+        "TP": 34,
+        "TN": 78,
+        "FP": 27,
+        "FN": 4
+      },
+      "patch_source": "input224",
+      "n_reviewed": 39,
+      "n_total": 143,
+      "trigger_rate": 0.2727272727272727,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 140.27596853168313,
+      "ms_per_image_first_pass": 17.03349650382403
+    },
+    "field_test_ynlt_input224": {
+      "accuracy": 0.75,
+      "binary_accuracy": 0.75,
+      "binary_FNR": 0.5,
+      "confusion": {
+        "TP": 1,
+        "TN": 5,
+        "FP": 1,
+        "FN": 1
+      },
+      "patch_source": "input224",
+      "n_reviewed": 0,
+      "n_total": 8,
+      "trigger_rate": 0.0,
+      "mean_patches_per_reviewed": 0.0,
+      "ms_per_image": 20.23588749943883,
+      "ms_per_image_first_pass": 20.199987499836425
+    },
+    "pooled_test_ynlt_input224": {
+      "accuracy": 0.6,
+      "binary_accuracy": 0.8105263157894737,
+      "binary_FNR": 0.12244897959183673,
+      "confusion": {
+        "TP": 43,
+        "TN": 111,
+        "FP": 30,
+        "FN": 6
+      },
+      "patch_source": "input224",
+      "n_reviewed": 47,
+      "n_total": 190,
+      "trigger_rate": 0.24736842105263157,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 131.90281263171192,
+      "ms_per_image_first_pass": 17.896598421334364
+    }
+  }
+}

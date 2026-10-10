@@ -37,7 +37,7 @@ import torch.nn.functional as F
 from PIL import Image
 from torch.utils.data import DataLoader, Dataset
 
-from src.data import read_split_records, subsample_train_groups
+from src.data import read_split_records, subsample_train_groups, test_record_groups
 
 # ----------------------------------------------------------------------------------------
 # Image bank (decode once, cache on disk, live on the GPU)
@@ -354,11 +354,7 @@ def get_gpu_splits(cfg, split_csv, device, batch_size=None, train_fraction=None,
 
     train_records = subsample_train_groups([r for r in records if r["split"] == "train"], train_fraction, seed)
     val_records = [r for r in records if r["split"] == "val"]
-    tests = {
-        "lab_test": [r for r in test_records if r["split"] == "test" and r["source"] == "lab"],
-        "web_test": [r for r in test_records if r["split"] == "test" and r["source"] == "web"],
-        "field_test": [r for r in test_records if r["split"] == "field_test"],
-    }
+    tests = test_record_groups(test_records)
     if not train_records:
         raise ValueError(f"No training rows in {split_csv}")
     if test_records is not records:

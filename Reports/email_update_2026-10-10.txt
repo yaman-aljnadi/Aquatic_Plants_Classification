@@ -1,0 +1,22 @@
+Subject: Update on the aquatic plant classifier
+
+Dear Dr. Dang,
+
+Quick update from the last meeting.
+
+Handheld and unrelated photos are out of training. The model now trains on one pool of 1,030 images (203 lab, 785 web, 42 outdoor). Validation loss flattens after about 40 epochs and does not rise, so it is not overfitting.
+
+Best three setups on the held-out mix, mean of five seeds:
+
+1. Linear head: 59.5% accuracy, 31.3% invasive miss rate.
+2. MLP head: 59.4% accuracy, 28.4% invasive miss rate.
+3. Gated attention with the second look: 58.8% accuracy, 17.4% invasive miss rate.
+
+Accuracy is essentially tied. The second look is what cuts missed invasive plants (about 31% to 17%).
+
+Against the 4 October runs, lab accuracy is about the same (~80% vs 81–84%) and web accuracy is a few points lower (~53% vs 56–58%) after the cleanup. Outdoor accuracy looks higher (~70% vs ~35%), but that is not a fair comparison: outdoor photos are now in training, and the outdoor test slice is only 8 images.
+
+Grad-CAM heatmaps of every test image are ready. On correct photos the model looks at the plant, not the background. Mistakes are look-alike species, with the highlight still on the leaves.
+
+Best regards,
+Yaman

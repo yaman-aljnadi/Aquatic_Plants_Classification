@@ -4,6 +4,7 @@
     python scripts/run_matrix.py --suite data            # data x head x seed on ConvNeXt-V2 Tiny
     python scripts/run_matrix.py --suite backbones       # other encoders on lab+web, linear head
     python scripts/run_matrix.py --suite curve           # learning curve on lab+web
+    python scripts/run_matrix.py --suite pooled         # lab+web+field heads and learning curve
     python scripts/run_matrix.py --suite all
 
 A job is one training run identified by (data, head, backbone, seed, train_fraction).
@@ -35,6 +36,7 @@ Job = namedtuple("Job", "data head backbone seed fraction")
 
 MAIN_BACKBONE = "convnextv2"
 MAIN_DATA = "lab+web"
+POOLED_DATA = "lab+web+field"
 DATA_CONFIGS = list(cfg.DATA_CONFIGS)                      # lab, web, lab+web
 HEADS = ["linear", "mlp", "gated_attention"]                # mlp = parameter-matched control
 BASELINE_BACKBONES = ["convnext", "resnet50", "efficientnet", "vit"]
@@ -63,6 +65,13 @@ def suite_jobs(suite, seeds):
         for fraction in CURVE_FRACTIONS:
             for head in ("linear", "gated_attention"):
                 jobs += [Job(MAIN_DATA, head, MAIN_BACKBONE, seed, fraction) for seed in seeds[:3]]
+    if suite == "pooled":
+        # One training collection: cleaned lab + web + outdoor. Handheld folder is not in the splits.
+        for head in HEADS:
+            jobs += [Job(POOLED_DATA, head, MAIN_BACKBONE, seed, 1.0) for seed in seeds]
+        for fraction in CURVE_FRACTIONS:
+            for head in ("linear", "gated_attention"):
+                jobs += [Job(POOLED_DATA, head, MAIN_BACKBONE, seed, fraction) for seed in seeds[:3]]
     seen, unique = set(), []
     for job in jobs:
         if job not in seen:
@@ -73,7 +82,7 @@ def suite_jobs(suite, seeds):
 
 def completed_jobs(runs_dir):
     done = set()
-    for path in glob.glob(os.path.join(runs_dir, "*", "results.json")):
+    for path in glob.glob(os.path.join(runs_dir, "**", "results.json"), recursive=True):
         try:
             with open(path, encoding="utf-8") as handle:
                 record = json.load(handle)
@@ -93,7 +102,7 @@ def completed_jobs(runs_dir):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--suite", choices=["data", "backbones", "small", "curve", "all"], default="data")
+    parser.add_argument("--suite", choices=["data", "backbones", "small", "curve", "pooled", "all"], default="data")
     parser.add_argument("--seeds", type=int, nargs="+", default=SEEDS)
     parser.add_argument("--epochs", type=int, default=None)
     parser.add_argument("--batch-size", type=int, default=None)

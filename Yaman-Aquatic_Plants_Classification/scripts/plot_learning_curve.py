@@ -34,7 +34,7 @@ def load(runs_dir, data="lab+web", backbone="convnextv2"):
     few per seed because whole observations are kept); the x position is the mean count.
     """
     points = defaultdict(lambda: defaultdict(lambda: {"acc": [], "n_train": []}))
-    for path in glob.glob(os.path.join(runs_dir, "*", "results.json")):
+    for path in glob.glob(os.path.join(runs_dir, "**", "results.json"), recursive=True):
         with open(path, encoding="utf-8") as handle:
             try:
                 record = json.load(handle)
@@ -58,6 +58,7 @@ def load(runs_dir, data="lab+web", backbone="convnextv2"):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--runs", default=os.path.join(ROOT, "runs", "models"))
+    parser.add_argument("--data", default="lab+web")
     parser.add_argument("--out", default=os.path.join(ROOT, "..", "Paper", "figs", "learning_curve.pdf"))
     parser.add_argument("--splits", nargs="+", default=["lab_test", "web_test", "field_test"])
     args = parser.parse_args()
@@ -71,7 +72,7 @@ def main():
         print("matplotlib is required: pip install matplotlib")
         return 1
 
-    points = load(args.runs)
+    points = load(args.runs, data=args.data)
     if not points:
         print("No lab+web ConvNeXt-V2 runs found. Run: python scripts/run_matrix.py --suite curve")
         return 1

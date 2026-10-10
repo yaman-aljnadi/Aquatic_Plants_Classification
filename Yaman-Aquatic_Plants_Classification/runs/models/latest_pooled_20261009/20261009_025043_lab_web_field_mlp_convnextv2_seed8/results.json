@@ -1,0 +1,151 @@
+{
+  "run": "20261009_025043_lab_web_field_mlp_convnextv2_seed8",
+  "timestamp": "20261009_025043",
+  "data": "lab+web+field",
+  "train_fraction": 1.0,
+  "split_csv": "data/splits/lab_web_field_seed8.csv",
+  "test_csv": "data/splits/lab_web_field_seed8.csv",
+  "head": "mlp",
+  "backbone_key": "convnextv2",
+  "backbone": "convnextv2_tiny.fcmae_ft_in22k_in1k",
+  "seed": 8,
+  "epochs": 250,
+  "best_epoch": 45,
+  "selection_metric": "val_accuracy",
+  "best_selection_score": 0.6507936120033264,
+  "batch_size": 32,
+  "lr": 0.0005,
+  "amp": true,
+  "loader": "gpu",
+  "device": "NVIDIA GeForce RTX 3070 Ti",
+  "trainable_params": 33201,
+  "total_params": 27899697,
+  "train_minutes": 4.995247741540273,
+  "splits": {
+    "train": 655,
+    "val": 189,
+    "lab_test": 39,
+    "web_test": 139,
+    "field_test": 8,
+    "pooled_test": 186
+  },
+  "checkpoint": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Yaman-Aquatic_Plants_Classification\\runs\\models\\20261009_025043_lab_web_field_mlp_convnextv2_seed8\\best.pth",
+  "metrics": {
+    "lab_test": {
+      "accuracy": 0.7435897435897436,
+      "binary_accuracy": 0.8461538461538461,
+      "binary_FNR": 0.0,
+      "confusion": {
+        "TP": 9,
+        "TN": 24,
+        "FP": 6,
+        "FN": 0
+      }
+    },
+    "web_test": {
+      "accuracy": 0.5179856115107914,
+      "binary_accuracy": 0.7769784172661871,
+      "binary_FNR": 0.35294117647058826,
+      "confusion": {
+        "TP": 22,
+        "TN": 86,
+        "FP": 19,
+        "FN": 12
+      }
+    },
+    "field_test": {
+      "accuracy": 0.875,
+      "binary_accuracy": 0.875,
+      "binary_FNR": 0.0,
+      "confusion": {
+        "TP": 2,
+        "TN": 5,
+        "FP": 1,
+        "FN": 0
+      }
+    },
+    "pooled_test": {
+      "accuracy": 0.5806451612903226,
+      "binary_accuracy": 0.7956989247311828,
+      "binary_FNR": 0.26666666666666666,
+      "confusion": {
+        "TP": 33,
+        "TN": 115,
+        "FP": 26,
+        "FN": 12
+      }
+    },
+    "lab_test_ynlt_input224": {
+      "accuracy": 0.717948717948718,
+      "binary_accuracy": 0.8205128205128205,
+      "binary_FNR": 0.0,
+      "confusion": {
+        "TP": 9,
+        "TN": 23,
+        "FP": 7,
+        "FN": 0
+      },
+      "patch_source": "input224",
+      "n_reviewed": 5,
+      "n_total": 39,
+      "trigger_rate": 0.1282051282051282,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 142.29150000046968,
+      "ms_per_image_first_pass": 36.400294871829175
+    },
+    "web_test_ynlt_input224": {
+      "accuracy": 0.4892086330935252,
+      "binary_accuracy": 0.7482014388489209,
+      "binary_FNR": 0.23529411764705882,
+      "confusion": {
+        "TP": 26,
+        "TN": 78,
+        "FP": 27,
+        "FN": 8
+      },
+      "patch_source": "input224",
+      "n_reviewed": 55,
+      "n_total": 139,
+      "trigger_rate": 0.39568345323741005,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 217.1109467627051,
+      "ms_per_image_first_pass": 20.535443884864108
+    },
+    "field_test_ynlt_input224": {
+      "accuracy": 0.875,
+      "binary_accuracy": 0.875,
+      "binary_FNR": 0.0,
+      "confusion": {
+        "TP": 2,
+        "TN": 5,
+        "FP": 1,
+        "FN": 0
+      },
+      "patch_source": "input224",
+      "n_reviewed": 2,
+      "n_total": 8,
+      "trigger_rate": 0.25,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 145.38464999805,
+      "ms_per_image_first_pass": 16.81738749903161
+    },
+    "pooled_test_ynlt_input224": {
+      "accuracy": 0.553763440860215,
+      "binary_accuracy": 0.7688172043010753,
+      "binary_FNR": 0.17777777777777778,
+      "confusion": {
+        "TP": 37,
+        "TN": 106,
+        "FP": 35,
+        "FN": 8
+      },
+      "patch_source": "input224",
+      "n_reviewed": 62,
+      "n_total": 186,
+      "trigger_rate": 0.3333333333333333,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 177.2257155916445,
+      "ms_per_image_first_pass": 17.552603763604527
+    }
+  }
+}

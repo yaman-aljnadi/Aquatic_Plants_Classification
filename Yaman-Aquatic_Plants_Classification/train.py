@@ -21,6 +21,7 @@ with ``tensorboard --logdir runs/models``.
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import os
 import sys
@@ -48,7 +49,7 @@ from src.metrics import binary_fnr, evaluate_loader
 from src.model import create_model_from_config, freeze_backbone, load_model, save_model_weights
 from src.ynlt import PATCH_SOURCES, evaluate_with_ynlt
 
-TEST_SPLITS = ("lab_test", "web_test", "field_test")
+TEST_SPLITS = ("lab_test", "web_test", "field_test", "pooled_test")
 
 try:
     from torch.utils.tensorboard import SummaryWriter
@@ -243,9 +244,12 @@ def main():
     print(f"AMP: {use_amp}  batch={cfg.batch_size}  loader={loader_kind}"
           + (f"  workers={cfg.num_workers}" if loader_kind == "cpu" else f"  cache={cfg.gpu_cache_size}px"))
     split_csv = args.split_csv or ensure_split(args.data, args.seed)
-    # Every run is scored on the same three test sets, taken from the lab+web list of this
-    # seed (identical per-source partitions, verified leak-free inside get_split_loaders).
-    test_csv = split_csv if args.split_csv else ensure_split("lab+web", args.seed)
+    # lab / web / lab+web are scored on the shared lab+web test lists of this seed.
+    # The pooled collection is scored on its own held-out rows (outdoor images are in train).
+    if args.split_csv or args.data == "lab+web+field":
+        test_csv = split_csv
+    else:
+        test_csv = ensure_split("lab+web", args.seed)
     print(f"Data: {args.data}  split list: {split_csv}")
     print(f"Backbone: {cfg.train_timm_model_name}  Head: {cfg.classification_head_type}  Seed: {args.seed}")
 
@@ -279,31 +283,40 @@ def main():
     save_dir = os.path.join(cfg.MODELS_DIR, f"{stamp}_{data_tag}_{args.head}_{args.backbone}_seed{args.seed}{frac_tag}")
     os.makedirs(save_dir, exist_ok=True)
     best_path = os.path.join(save_dir, "best.pth")
+    history_path = os.path.join(save_dir, "history.csv")
     best_val_acc = -1.0
     best_epoch = 0
     writer = open_writer(save_dir, args.no_tensorboard)
+    history_handle = open(history_path, "w", encoding="utf-8", newline="")
+    history_writer = csv.writer(history_handle)
+    history_writer.writerow(["epoch", "train_loss", "train_acc", "val_loss", "val_acc", "lr"])
 
     t0 = time.time()
-    for epoch in range(1, cfg.num_epochs + 1):
-        lr_now = optimizer.param_groups[0]["lr"]
-        tr_loss, tr_acc = run_epoch(model, train_loader, criterion, optimizer, scaler, device, train=True)
-        if val_cache is not None:
-            va_loss, va_acc = validate_on_features(model, criterion, *val_cache)
-        else:
-            va_loss, va_acc = run_epoch(model, val_loader, criterion, optimizer, scaler, device, train=False)
-        scheduler.step()
-        print(f"Epoch {epoch:03d}/{cfg.num_epochs}  train {tr_loss:.3f}/{tr_acc:.3f}  val {va_loss:.3f}/{va_acc:.3f}")
-        if writer is not None:
-            writer.add_scalar("loss/train", tr_loss, epoch)
-            writer.add_scalar("loss/val", va_loss, epoch)
-            writer.add_scalar("accuracy/train", tr_acc, epoch)
-            writer.add_scalar("accuracy/val", va_acc, epoch)
-            writer.add_scalar("lr", lr_now, epoch)
-            writer.add_scalar("accuracy/best_selection", max(va_acc, best_val_acc), epoch)
-        if va_acc >= best_val_acc:
-            best_val_acc = va_acc
-            best_epoch = epoch
-            save_model_weights(model, best_path, verbose=False)
+    try:
+        for epoch in range(1, cfg.num_epochs + 1):
+            lr_now = optimizer.param_groups[0]["lr"]
+            tr_loss, tr_acc = run_epoch(model, train_loader, criterion, optimizer, scaler, device, train=True)
+            if val_cache is not None:
+                va_loss, va_acc = validate_on_features(model, criterion, *val_cache)
+            else:
+                va_loss, va_acc = run_epoch(model, val_loader, criterion, optimizer, scaler, device, train=False)
+            scheduler.step()
+            print(f"Epoch {epoch:03d}/{cfg.num_epochs}  train {tr_loss:.3f}/{tr_acc:.3f}  val {va_loss:.3f}/{va_acc:.3f}")
+            history_writer.writerow([epoch, f"{tr_loss:.6f}", f"{tr_acc:.6f}", f"{va_loss:.6f}", f"{va_acc:.6f}", f"{lr_now:.8f}"])
+            history_handle.flush()
+            if writer is not None:
+                writer.add_scalar("loss/train", tr_loss, epoch)
+                writer.add_scalar("loss/val", va_loss, epoch)
+                writer.add_scalar("accuracy/train", tr_acc, epoch)
+                writer.add_scalar("accuracy/val", va_acc, epoch)
+                writer.add_scalar("lr", lr_now, epoch)
+                writer.add_scalar("accuracy/best_selection", max(va_acc, best_val_acc), epoch)
+            if va_acc >= best_val_acc:
+                best_val_acc = va_acc
+                best_epoch = epoch
+                save_model_weights(model, best_path, verbose=False)
+    finally:
+        history_handle.close()
 
     train_minutes = (time.time() - t0) / 60
     print(f"Training wall time: {train_minutes:.1f} min  (best epoch {best_epoch}, val acc {best_val_acc:.4f})")

@@ -147,6 +147,23 @@ def subsample_train_groups(records, fraction, seed):
     return kept
 
 
+def test_record_groups(test_records):
+    """Held-out loaders: per-source test rows, plus the pooled test when sources were mixed.
+
+    Outdoor photographs are ``field_test`` in the older lists and ``source=field, split=test``
+    once they are pooled into training (``lab+web+field``).
+    """
+    return {
+        "lab_test": [r for r in test_records if r["split"] == "test" and r["source"] == "lab"],
+        "web_test": [r for r in test_records if r["split"] == "test" and r["source"] == "web"],
+        "field_test": [
+            r for r in test_records
+            if r["split"] == "field_test" or (r["split"] == "test" and r["source"] == "field")
+        ],
+        "pooled_test": [r for r in test_records if r["split"] == "test"],
+    }
+
+
 def get_split_loaders(cfg, split_csv, batch_size=None, train_fraction=None, seed=0, test_csv=None):
     """DataLoaders for one split CSV.
 
@@ -163,11 +180,7 @@ def get_split_loaders(cfg, split_csv, batch_size=None, train_fraction=None, seed
     test_records = read_split_records(test_csv) if test_csv and test_csv != split_csv else records
     train_records = subsample_train_groups([r for r in records if r["split"] == "train"], train_fraction, seed)
     val_records = [r for r in records if r["split"] == "val"]
-    tests = {
-        "lab_test": [r for r in test_records if r["split"] == "test" and r["source"] == "lab"],
-        "web_test": [r for r in test_records if r["split"] == "test" and r["source"] == "web"],
-        "field_test": [r for r in test_records if r["split"] == "field_test"],
-    }
+    tests = test_record_groups(test_records)
     if not train_records:
         raise ValueError(f"No training rows in {split_csv}")
     if test_records is not records:

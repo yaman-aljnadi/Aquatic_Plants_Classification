@@ -1,0 +1,151 @@
+{
+  "run": "20261009_040605_lab_web_field_gated_attention_convnextv2_seed9_frac0.1",
+  "timestamp": "20261009_040605",
+  "data": "lab+web+field",
+  "train_fraction": 0.1,
+  "split_csv": "data/splits/lab_web_field_seed9.csv",
+  "test_csv": "data/splits/lab_web_field_seed9.csv",
+  "head": "gated_attention",
+  "backbone_key": "convnextv2",
+  "backbone": "convnextv2_tiny.fcmae_ft_in22k_in1k",
+  "seed": 9,
+  "epochs": 250,
+  "best_epoch": 110,
+  "selection_metric": "val_accuracy",
+  "best_selection_score": 0.36269429326057434,
+  "batch_size": 32,
+  "lr": 0.0005,
+  "amp": true,
+  "loader": "gpu",
+  "device": "NVIDIA GeForce RTX 3070 Ti",
+  "trainable_params": 261933,
+  "total_params": 28128429,
+  "train_minutes": 0.8410650372505188,
+  "splits": {
+    "train": 93,
+    "val": 193,
+    "lab_test": 39,
+    "web_test": 142,
+    "field_test": 8,
+    "pooled_test": 189
+  },
+  "checkpoint": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Yaman-Aquatic_Plants_Classification\\runs\\models\\20261009_040605_lab_web_field_gated_attention_convnextv2_seed9_frac0.1\\best.pth",
+  "metrics": {
+    "lab_test": {
+      "accuracy": 0.46153846153846156,
+      "binary_accuracy": 0.7948717948717948,
+      "binary_FNR": 0.4444444444444444,
+      "confusion": {
+        "TP": 5,
+        "TN": 26,
+        "FP": 4,
+        "FN": 4
+      }
+    },
+    "web_test": {
+      "accuracy": 0.31690140845070425,
+      "binary_accuracy": 0.676056338028169,
+      "binary_FNR": 0.6216216216216216,
+      "confusion": {
+        "TP": 14,
+        "TN": 82,
+        "FP": 23,
+        "FN": 23
+      }
+    },
+    "field_test": {
+      "accuracy": 0.125,
+      "binary_accuracy": 0.625,
+      "binary_FNR": 1.0,
+      "confusion": {
+        "TP": 0,
+        "TN": 5,
+        "FP": 1,
+        "FN": 2
+      }
+    },
+    "pooled_test": {
+      "accuracy": 0.3386243386243386,
+      "binary_accuracy": 0.6984126984126984,
+      "binary_FNR": 0.6041666666666666,
+      "confusion": {
+        "TP": 19,
+        "TN": 113,
+        "FP": 28,
+        "FN": 29
+      }
+    },
+    "lab_test_ynlt_input224": {
+      "accuracy": 0.41025641025641024,
+      "binary_accuracy": 0.7435897435897436,
+      "binary_FNR": 0.4444444444444444,
+      "confusion": {
+        "TP": 5,
+        "TN": 24,
+        "FP": 6,
+        "FN": 4
+      },
+      "patch_source": "input224",
+      "n_reviewed": 12,
+      "n_total": 39,
+      "trigger_rate": 0.3076923076923077,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 220.07069230741575,
+      "ms_per_image_first_pass": 31.689302563907592
+    },
+    "web_test_ynlt_input224": {
+      "accuracy": 0.28169014084507044,
+      "binary_accuracy": 0.6197183098591549,
+      "binary_FNR": 0.5945945945945946,
+      "confusion": {
+        "TP": 15,
+        "TN": 73,
+        "FP": 32,
+        "FN": 22
+      },
+      "patch_source": "input224",
+      "n_reviewed": 67,
+      "n_total": 142,
+      "trigger_rate": 0.47183098591549294,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 241.18877887360188,
+      "ms_per_image_first_pass": 18.28452676057514
+    },
+    "field_test_ynlt_input224": {
+      "accuracy": 0.125,
+      "binary_accuracy": 0.5,
+      "binary_FNR": 1.0,
+      "confusion": {
+        "TP": 0,
+        "TN": 4,
+        "FP": 2,
+        "FN": 2
+      },
+      "patch_source": "input224",
+      "n_reviewed": 5,
+      "n_total": 8,
+      "trigger_rate": 0.625,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 339.9284125025588,
+      "ms_per_image_first_pass": 20.2935500019521
+    },
+    "pooled_test_ynlt_input224": {
+      "accuracy": 0.30158730158730157,
+      "binary_accuracy": 0.6402116402116402,
+      "binary_FNR": 0.5833333333333334,
+      "confusion": {
+        "TP": 20,
+        "TN": 101,
+        "FP": 40,
+        "FN": 28
+      },
+      "patch_source": "input224",
+      "n_reviewed": 84,
+      "n_total": 189,
+      "trigger_rate": 0.4444444444444444,
+      "mean_patches_per_reviewed": 111.0,
+      "ms_per_image": 237.28030158717138,
+      "ms_per_image_first_pass": 20.17006296297214
+    }
+  }
+}
