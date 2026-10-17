@@ -71,6 +71,11 @@ def parse_args():
     parser.add_argument("--epochs", type=int, default=cfg.num_epochs)
     parser.add_argument("--batch-size", type=int, default=cfg.batch_size)
     parser.add_argument("--lr", type=float, default=cfg.lr_initial)
+    parser.add_argument(
+        "--unfreeze-last-stage", action="store_true",
+        help="also train the last ConvNeXt stage at --backbone-lr; the rest of the encoder stays frozen",
+    )
+    parser.add_argument("--backbone-lr", type=float, default=1e-4, help="learning rate for the unfrozen last stage")
     parser.add_argument("--workers", type=int, default=cfg.num_workers)
     parser.add_argument("--no-amp", action="store_true")
     parser.add_argument("--with-ynlt", action="store_true")
@@ -263,24 +268,40 @@ def main():
     test_loaders = {name: loaders[name] for name in TEST_SPLITS if loaders.get(name) is not None}
 
     model = create_model_from_config(cfg)
-    n_trainable, n_total_params = freeze_backbone(model)
+    n_trainable, n_total_params = freeze_backbone(model, unfreeze_last_stage=args.unfreeze_last_stage)
     model.to(device)
     if device.type == "cuda":
         model.to(memory_format=torch.channels_last)  # faster convolutions under AMP; no-op for ViT
 
     criterion = nn.CrossEntropyLoss(label_smoothing=cfg.label_smoothing)
-    val_cache = cache_features(model, val_loader, device, use_amp) if loader_kind == "gpu" else None
-    optimizer = torch.optim.AdamW(
-        [p for p in model.parameters() if p.requires_grad],
-        lr=cfg.lr_initial,
-        weight_decay=cfg.weight_decay,
+    # Cached features are only valid while the encoder is frozen.
+    val_cache = (
+        cache_features(model, val_loader, device, use_amp)
+        if loader_kind == "gpu" and not args.unfreeze_last_stage else None
     )
+    if args.unfreeze_last_stage:
+        head_params = [p for p in model.classifier.parameters() if p.requires_grad]
+        stage_params = [p for p in model.backbone.stages[-1].parameters() if p.requires_grad]
+        optimizer = torch.optim.AdamW(
+            [
+                {"params": head_params, "lr": cfg.lr_initial},
+                {"params": stage_params, "lr": args.backbone_lr},
+            ],
+            weight_decay=cfg.weight_decay,
+        )
+    else:
+        optimizer = torch.optim.AdamW(
+            [p for p in model.parameters() if p.requires_grad],
+            lr=cfg.lr_initial,
+            weight_decay=cfg.weight_decay,
+        )
     scheduler = CosineAnnealingLR(optimizer, T_max=cfg.num_epochs, eta_min=cfg.lr_cosine_minimum)
 
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     data_tag = args.data.replace("+", "_")
     frac_tag = "" if args.train_fraction >= 1.0 else f"_frac{args.train_fraction:g}"
-    save_dir = os.path.join(cfg.MODELS_DIR, f"{stamp}_{data_tag}_{args.head}_{args.backbone}_seed{args.seed}{frac_tag}")
+    stage_tag = "_laststage" if args.unfreeze_last_stage else ""
+    save_dir = os.path.join(cfg.MODELS_DIR, f"{stamp}_{data_tag}_{args.head}_{args.backbone}{stage_tag}_seed{args.seed}{frac_tag}")
     os.makedirs(save_dir, exist_ok=True)
     best_path = os.path.join(save_dir, "best.pth")
     history_path = os.path.join(save_dir, "history.csv")
@@ -330,6 +351,8 @@ def main():
         "split_csv": os.path.relpath(split_csv, ROOT).replace("\\", "/"),
         "test_csv": os.path.relpath(test_csv, ROOT).replace("\\", "/"),
         "head": args.head,
+        "unfreeze_last_stage": bool(args.unfreeze_last_stage),
+        "backbone_lr": args.backbone_lr if args.unfreeze_last_stage else None,
         "backbone_key": args.backbone,
         "backbone": backbone,
         "seed": args.seed,

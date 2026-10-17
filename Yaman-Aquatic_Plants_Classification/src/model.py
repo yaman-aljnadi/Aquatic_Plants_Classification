@@ -127,11 +127,19 @@ def create_model_from_config(config, pretrained=True):
     )
 
 
-def freeze_backbone(model):
+def freeze_backbone(model, unfreeze_last_stage=False):
+    """Freeze the encoder. Optionally leave the last ConvNeXt stage trainable.
+
+    The last stage is the only backbone block that sees the full feature resolution
+    used by the head, so it is the smallest change that can separate look-alike species.
+    """
     for param in model.parameters():
         param.requires_grad = False
     for param in model.classifier.parameters():
         param.requires_grad = True
+    if unfreeze_last_stage:
+        for param in model.backbone.stages[-1].parameters():
+            param.requires_grad = True
     n_train = sum(p.numel() for p in model.parameters() if p.requires_grad)
     n_total = sum(p.numel() for p in model.parameters())
     print(f"Trainable parameters: {n_train:,} / {n_total:,}")

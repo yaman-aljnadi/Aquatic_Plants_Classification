@@ -1,0 +1,81 @@
+{
+  "run": "20261015_161246_lab_web_field_linear_convnextv2_laststage_seed12",
+  "timestamp": "20261015_161246",
+  "data": "lab+web+field",
+  "train_fraction": 1.0,
+  "split_csv": "data/splits/lab_web_field_seed12.csv",
+  "test_csv": "data/splits/lab_web_field_seed12.csv",
+  "head": "linear",
+  "unfreeze_last_stage": true,
+  "backbone_lr": 0.0001,
+  "backbone_key": "convnextv2",
+  "backbone": "convnextv2_tiny.fcmae_ft_in22k_in1k",
+  "seed": 12,
+  "epochs": 250,
+  "best_epoch": 153,
+  "selection_metric": "val_accuracy",
+  "best_selection_score": 0.6927083333333334,
+  "batch_size": 32,
+  "lr": 0.0005,
+  "amp": true,
+  "loader": "gpu",
+  "device": "NVIDIA GeForce RTX 3070 Ti",
+  "trainable_params": 15502869,
+  "total_params": 27882645,
+  "train_minutes": 6.724487535158793,
+  "splits": {
+    "train": 648,
+    "val": 192,
+    "lab_test": 39,
+    "web_test": 143,
+    "field_test": 8,
+    "pooled_test": 190
+  },
+  "checkpoint": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Yaman-Aquatic_Plants_Classification\\runs\\models\\20261015_161246_lab_web_field_linear_convnextv2_laststage_seed12\\best.pth",
+  "metrics": {
+    "lab_test": {
+      "accuracy": 0.7948717948717948,
+      "binary_accuracy": 0.9230769230769231,
+      "binary_FNR": 0.2222222222222222,
+      "confusion": {
+        "TP": 7,
+        "TN": 29,
+        "FP": 1,
+        "FN": 2
+      }
+    },
+    "web_test": {
+      "accuracy": 0.5594405594405595,
+      "binary_accuracy": 0.8041958041958042,
+      "binary_FNR": 0.2894736842105263,
+      "confusion": {
+        "TP": 27,
+        "TN": 88,
+        "FP": 17,
+        "FN": 11
+      }
+    },
+    "field_test": {
+      "accuracy": 0.875,
+      "binary_accuracy": 0.875,
+      "binary_FNR": 0.0,
+      "confusion": {
+        "TP": 2,
+        "TN": 5,
+        "FP": 1,
+        "FN": 0
+      }
+    },
+    "pooled_test": {
+      "accuracy": 0.6210526315789474,
+      "binary_accuracy": 0.8315789473684211,
+      "binary_FNR": 0.2653061224489796,
+      "confusion": {
+        "TP": 36,
+        "TN": 122,
+        "FP": 19,
+        "FN": 13
+      }
+    }
+  }
+}

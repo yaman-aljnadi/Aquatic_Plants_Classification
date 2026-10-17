@@ -1,0 +1,81 @@
+{
+  "run": "20261015_160549_lab_web_field_linear_convnextv2_laststage_seed11",
+  "timestamp": "20261015_160549",
+  "data": "lab+web+field",
+  "train_fraction": 1.0,
+  "split_csv": "data/splits/lab_web_field_seed11.csv",
+  "test_csv": "data/splits/lab_web_field_seed11.csv",
+  "head": "linear",
+  "unfreeze_last_stage": true,
+  "backbone_lr": 0.0001,
+  "backbone_key": "convnextv2",
+  "backbone": "convnextv2_tiny.fcmae_ft_in22k_in1k",
+  "seed": 11,
+  "epochs": 250,
+  "best_epoch": 195,
+  "selection_metric": "val_accuracy",
+  "best_selection_score": 0.6979166666666666,
+  "batch_size": 32,
+  "lr": 0.0005,
+  "amp": true,
+  "loader": "gpu",
+  "device": "NVIDIA GeForce RTX 3070 Ti",
+  "trainable_params": 15502869,
+  "total_params": 27882645,
+  "train_minutes": 6.758491845925649,
+  "splits": {
+    "train": 648,
+    "val": 192,
+    "lab_test": 39,
+    "web_test": 143,
+    "field_test": 8,
+    "pooled_test": 190
+  },
+  "checkpoint": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Yaman-Aquatic_Plants_Classification\\runs\\models\\20261015_160549_lab_web_field_linear_convnextv2_laststage_seed11\\best.pth",
+  "metrics": {
+    "lab_test": {
+      "accuracy": 0.9487179487179487,
+      "binary_accuracy": 1.0,
+      "binary_FNR": 0.0,
+      "confusion": {
+        "TP": 9,
+        "TN": 30,
+        "FP": 0,
+        "FN": 0
+      }
+    },
+    "web_test": {
+      "accuracy": 0.5454545454545454,
+      "binary_accuracy": 0.7902097902097902,
+      "binary_FNR": 0.5,
+      "confusion": {
+        "TP": 19,
+        "TN": 94,
+        "FP": 11,
+        "FN": 19
+      }
+    },
+    "field_test": {
+      "accuracy": 0.875,
+      "binary_accuracy": 0.875,
+      "binary_FNR": 0.5,
+      "confusion": {
+        "TP": 1,
+        "TN": 6,
+        "FP": 0,
+        "FN": 1
+      }
+    },
+    "pooled_test": {
+      "accuracy": 0.6421052631578947,
+      "binary_accuracy": 0.8368421052631579,
+      "binary_FNR": 0.40816326530612246,
+      "confusion": {
+        "TP": 29,
+        "TN": 130,
+        "FP": 11,
+        "FN": 20
+      }
+    }
+  }
+}
