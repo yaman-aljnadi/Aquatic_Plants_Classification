@@ -37,6 +37,8 @@ def load_histories(runs_dir, data="lab+web+field", fraction=1.0):
                 continue
         if record.get("data") != data or float(record.get("train_fraction", 1.0)) != fraction:
             continue
+        if record.get("unfreeze_last_stage"):
+            continue
         history_path = os.path.join(os.path.dirname(path), "history.csv")
         if not os.path.isfile(history_path):
             continue
@@ -124,6 +126,10 @@ def main():
     fig.tight_layout()
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     fig.savefig(args.out, dpi=150)
+    if args.out.lower().endswith(".png"):
+        pdf_path = os.path.splitext(args.out)[0] + ".pdf"
+        fig.savefig(pdf_path)
+        print(f"Wrote {pdf_path}")
     print(f"Wrote {args.out}")
     if diverged:
         print("VALIDATION LOSS DIVERGED:")

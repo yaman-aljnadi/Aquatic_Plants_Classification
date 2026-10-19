@@ -24,7 +24,12 @@ if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
 HEAD_LABELS = {"linear": "Linear head", "mlp": "MLP head", "gated_attention": "Gated attention head"}
-SPLIT_LABELS = {"lab_test": "Lab test", "web_test": "Web test", "field_test": "Field test (outdoor)"}
+SPLIT_LABELS = {
+    "pooled_test": "Pooled test",
+    "lab_test": "Laboratory test",
+    "web_test": "Web test",
+    "field_test": "Outdoor test",
+}
 
 
 def load(runs_dir, data="lab+web", backbone="convnextv2"):
@@ -41,6 +46,8 @@ def load(runs_dir, data="lab+web", backbone="convnextv2"):
             except json.JSONDecodeError:
                 continue
         if record.get("data") != data or record.get("backbone_key") != backbone:
+            continue
+        if record.get("unfreeze_last_stage"):
             continue
         n_train = record.get("splits", {}).get("train")
         if not n_train:
@@ -74,7 +81,7 @@ def main():
 
     points = load(args.runs, data=args.data)
     if not points:
-        print("No lab+web ConvNeXt-V2 runs found. Run: python scripts/run_matrix.py --suite curve")
+        print(f"No {args.data} ConvNeXt-V2 runs found.")
         return 1
 
     fig, axes = plt.subplots(1, len(args.splits), figsize=(4.2 * len(args.splits), 3.4), sharey=True)
@@ -98,10 +105,10 @@ def main():
         ax.set_title(SPLIT_LABELS[split])
         ax.set_xlabel("Training images")
         ax.set_xscale("log")
-        ax.set_xticks([125, 250, 500, 1000])
+        ax.set_xticks([100, 200, 400, 700])
         ax.set_xticks([], minor=True)
-        ax.set_xticklabels(["125", "250", "500", "1000"])
-        ax.set_xlim(100, 1100)
+        ax.set_xticklabels(["100", "200", "400", "700"])
+        ax.set_xlim(60, 900)
         ax.grid(alpha=0.3, which="both")
     axes[0].set_ylabel("Top-1 accuracy (%)")
     axes[0].legend(fontsize=8)
