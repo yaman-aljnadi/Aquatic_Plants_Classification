@@ -1,24 +1,15 @@
 # Revision log for `main_v3.tex`
 
-This note lists the substantive changes made so the manuscript reports the cleaned 1,030-image collection (handheld photographs excluded). Each entry gives the location, the reason, the previous wording, and the wording now in the paper.
-
-The numerical results come from the five-seed pooled runs (frozen ConvNeXt-V2 Tiny; linear, MLP, and gated-attention heads, with and without YNLT) and from the five-seed last-stage runs (linear head, last ConvNeXt stage trained). They were checked against `results.json` before they were written into the tables.
-
 ## 1. Title
 
-**Location.** Title.
 
-**Why.** The previous title described a controlled-training, out-of-distribution experiment. That is not the experiment being reported.
+The previous title described a controlled-training, out-of-distribution experiment. That is not the experiment being reported.
 
 **Previous text.** Improving Out-of-Distribution Aquatic Plant Classification from Limited Controlled Training Data Using Confidence-Aware Re-Evaluation
 
 **Revised text.** Confidence-Aware Identification of Michigan Aquatic Plants from a Mixed Photograph Collection
 
 ## 2. Abstract
-
-**Location.** Abstract.
-
-**Why.** The abstract cited 1,140 web photographs, a single 230-image laboratory split (84.78% to 93.48%), and a 17-image field split (47.06% to 64.71%). Those numbers are from an earlier protocol. The reported collection is 1,030 images, and the reported scores are five-seed means.
 
 **Previous text.**
 
@@ -32,9 +23,7 @@ The numerical results come from the five-seed pooled runs (frozen ConvNeXt-V2 Ti
 
 ## 3. Introduction and contributions
 
-**Location.** Last three paragraphs of the Introduction, including the contribution list.
-
-**Why.** The introduction framed the paper as laboratory-to-field transfer, stated that the gated head suppresses laboratory background, and described a 1,140-image web set with a laboratory / web / both ablation. On the 1,030-image runs the three heads are tied on accuracy, and the outdoor photographs are inside the pool.
+Last three paragraphs of the Introduction, including the contribution list.
 
 **Previous text.**
 
@@ -60,9 +49,7 @@ The sentence that said models “fail on handheld or in situ images” was rewri
 
 ## 4. Dataset
 
-**Location.** Dataset details, including Table `tab:data`.
-
-**Why.** The table still listed 1,140 web images and treated 42 outdoor photographs as a held-out field test. After cleaning, the web source is 785 images, handheld photographs (307) are unused, and the three remaining sources are pooled (203 + 785 + 42 = 1,030).
+Dataset details, including Table `tab:data`.
 
 **Previous text.**
 
@@ -86,9 +73,7 @@ The per-species web counts in the table were replaced with the cleaned counts (f
 
 ## 5. Methods paragraphs that carried old counts
 
-**Location.** Augmentation; model capacity; patch source; training procedure; ConvNeXt-V2 Tiny paragraph.
-
-**Why.** These paragraphs still referred to 834 training images, a 230/33 ablation, held-out outdoor photographs, and a backbone-accuracy section that was not rerun on the cleaned collection.
+Augmentation; model capacity; patch source; training procedure; ConvNeXt-V2 Tiny paragraph.
 
 **Previous text (representative).**
 
@@ -118,9 +103,7 @@ AdamW, label smoothing, and random erasing now have citations (see Section 9).
 
 ## 6. Results tables that were removed
 
-**Location.** Former Tables `tab:ablation`, `tab:datagrid`, and `tab:backbones`, and the “Best model performance” subsection that used the old example figures.
-
-**Why.** Those tables were not recomputed on the cleaned 1,030-image pool. Leaving them in the paper would mix two datasets. The single-split claim that gated attention plus YNLT is the best model (93.48% laboratory, 64.71% field) does not describe the current runs.
+Former Tables `tab:ablation`, `tab:datagrid`, and `tab:backbones`, and the “Best model performance” subsection that used the old example figures.
 
 **Previous text.**
 
@@ -168,8 +151,6 @@ The prose states that the FNR change (31.3% ± 7.6 to 28.8% ± 9.6) is smaller t
 
 **Location.** Learning curve, and the new loss, recall, and Grad-CAM figures.
 
-**Why.** The previous learning curve was fit on the older laboratory + web protocol and included a held-out outdoor panel. The example prediction figures belonged to that protocol. The meeting asked for the figures to be redone and for heatmaps and the error analysis to be added.
-
 **Previous text.**
 
 > Caption: Test accuracy against the number of training images [...] Panels: laboratory test, web test, outdoor test.
@@ -198,8 +179,6 @@ Figures kept, with no change to the graphic: the Michigan map, the augmentation 
 
 **Location.** Discussion and Conclusion.
 
-**Why.** Both sections still concluded from the single-split 230/33 experiment and from the 1,140-image, outdoor-held-out protocol, including the claim that the gated head produced 64.71% accuracy on unseen crowd-sourced images and that outdoor accuracy had risen from about 25% to about 35%.
-
 **Previous text (conclusion, shortened).**
 
 > A frozen ConvNeXt-V2 Tiny backbone [...], a gated attention head [...], and [...] YNLT raised laboratory accuracy from 84.78% to 93.48% and field accuracy from 47.06% to 64.71% on a single stratified split of 230 laboratory and 33 field images. [...] 1,140 openly licensed field photographs [...] Training on laboratory and web images together is the best combination: it keeps laboratory accuracy at 82–84%, triples web accuracy to 56–58% and raises outdoor accuracy from about 25% to about 35% [...] YNLT cuts the invasive false negative rate [...] to 2% on the laboratory test and from 63–70% to 37% outdoors. [...] Nano keeps more than 90% of its accuracy at 55% of the cost.
@@ -212,11 +191,7 @@ The discussion now says explicitly that the paper does not measure transfer from
 
 ## 10. References
 
-**Location.** `ref.bib`, cited from the new paragraphs.
-
-**Why.** The new dataset statement, the training recipe, and the heatmaps needed sources that were not cited. Existing unverified introduction entries were left unchanged.
-
-**Previous keys used in the new passages.** ConvNeXt-V2 only (`Wooetal2023`). Label smoothing cited Müller et al. only. No Grad-CAM, GBIF, iNaturalist, Pl@ntNet, AdamW, or random-erasing entries.
+**Previous keys used in the new passages.** ConvNeXt-V2 only (`Wooetal2023`). Label smoothing cited Müller et al. only. No Grad-CAM, GBIF, Pl@ntNet, AdamW, or random-erasing entries.
 
 **Added and cited.**
 

@@ -1,0 +1,618 @@
+%% This is file `elsarticle-template-1-num.tex',
+%%
+%% Copyright 2009 Elsevier Ltd
+%%
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for Elsevier's document class `elsarticle'
+%% with numbered style bibliographic references
+%%
+%% $Id: elsarticle-template-1-num.tex 149 2009-10-08 05:01:15Z rishi $
+%% $URL: http://lenova.river-valley.com/svn/elsbst/trunk/elsarticle-template-1-num.tex $
+%%
+% \documentclass[preprint,12pt]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn]{elsarticle}
+%  \documentclass[final,3p,times]{elsarticle}
+ \documentclass[final,3p,times,twocolumn]{elsarticle}
+%% \documentclass[final,5p,times]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn]{elsarticle}
+
+%% if you use PostScript figures in your article
+%% use the graphics package for simple commands
+%% \usepackage{graphics}
+%% or use the graphicx package for more complicated commands
+%% \usepackage{graphicx}
+%% or use the epsfig package if you prefer to use the old commands
+%% \usepackage{epsfig}
+
+\usepackage[utf8]{inputenc} 
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{lscape}
+\usepackage{amsmath}
+\usepackage{multirow}
+% if you have landscape tables
+\usepackage[figuresright]{rotating}
+\usepackage{lineno}
+\usepackage{algorithm} 
+\usepackage{algpseudocode} 
+\usepackage{comment}
+\usepackage{lineno}
+
+\usepackage{natbib}
+\bibliographystyle{abbrvnat}
+\setcitestyle{authoryear,open={(},close={)},citesep={;}} 
+
+\usepackage{calc}
+\setlength{\footskip}{\paperheight
+  -(1in+\voffset+\topmargin+\headheight+\headsep+\textheight)
+  -0.95in}
+
+% for SVG figures
+\usepackage{svg}
+
+% For using LuaLaTeX or XeLaTeX compilers instead of pdflatex (memory limit)
+\usepackage{fontspec} 
+\setmainfont{Times New Roman}
+
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\itshape}{\thesubsection}{1em}{}
+
+% Placeholder for numbers that come from runs still in progress. Fill from
+%   python scripts/aggregate_results.py --latex      (tables)
+%   python scripts/benchmark_efficiency.py           (latency)
+% and delete this macro once no \tbd remains.
+\newcommand{\tbd}{\textemdash}
+
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Confidence-Aware Identification of Michigan Aquatic Plants from a Mixed Photograph Collection}
+
+\author[label1]{Aaryan Panigrahi}
+\author[label1]{Fengying Dang}
+
+
+\address{Fengying Dang (fdang1@mtu.edu) is the corresponding author}
+\address[label1]{Department of Electrical and Computer Engineering, Michigan Technological University, Houghton, MI 49931, USA}
+
+
+\begin{abstract}
+Aquatic invasive species threaten fisheries and aquaculture through ecological damage and economic loss. The long-term aim of this work is a classifier that can run on a camera-equipped underwater rover. Underwater photographs are costly to collect, so the study uses a mixed collection of 1{,}030 photographs of 21 Michigan aquatic plant species, five of them invasive: 203 laboratory photographs, 785 openly licensed field photographs drawn from Global Biodiversity Information Facility (GBIF) with the addition of 42 outdoor photographs locally taken. Handheld photographs were excluded from the dataset. Photographs from the same observation are placed in a single split. A ConvNeXt-V2 Tiny backbone is paired with a linear, multilayer-perceptron, or gated-attention head. The You Need to Look Twice (YNLT) module re-evaluates an image with multi-scale patches only when confidence, margin, and entropy indicate an unreliable first prediction. Over five seeds, with the encoder frozen, the three heads reach 58.6--59.5\% top-1 accuracy on the pooled test. Training the last ConvNeXt stage, with earlier stages left frozen, raises pooled accuracy to \(65.1\% \pm 5.0\%\). YNLT with the gated-attention head lowers the invasive false-negative rate (FNR) from \(32.6\% \pm 3.9\%\) to \(17.4\% \pm 5.7\%\), while pooled accuracy changes by less than one point. Gradient-weighted class activation maps and a species-level error analysis show that the remaining mistakes concentrate on morphologically similar pondweeds.
+\end{abstract}
+
+\begin{keyword}
+Aquatic invasive species \sep Computer vision \sep Fine-grained recognition \sep Environmental monitoring
+\end{keyword}
+
+\end{frontmatter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% main text
+\section{Introduction}
+\label{sec:intro}
+
+Invasive species threaten biosecurity, agriculture, and human health, with global control and damage costs estimated in the trillions of dollars~\cite{tasker2024nuanced, macedo2024economic, shen2024typical, vaissiere2022nature, cuthbert2021global}. In the United States, recent estimates place annual losses near \$138 billion, a large fraction of which is attributable to freshwater plants, especially submerged and floating taxa~\cite{pimentel2000environmental, lovell2006economic, warziniack2021economics, macedo2024economic}. In fisheries and aquaculture, dense mats of invasive macrophytes reduce dissolved oxygen, obstruct spawning habitat, clog equipment, and raise operating costs. Early, accurate identification is therefore a practical management need rather than a purely taxonomic one.
+
+Existing identification methods do not scale to routine monitoring. Field identification depends on botanical expertise~\cite{dehez2023investigation}. Molecular assays are accurate but require specialized sampling and laboratory capacity~\cite{angles2019detection, ghahramanzadeh2013efficient, scriver2015development}. Remote sensing covers large areas but lacks the spatial detail needed to separate morphologically similar submerged species~\cite{brooks2019implementing, unitis2018remote, jochems4883509active}. Image-based computer vision is attractive because it uses ordinary cameras~\cite{wang2026realtime}. The difficulty is not the camera; it is the data. High-quality underwater photographs are expensive to collect, so training sets are small and usually captured in the laboratory, while deployment images come from the field.
+
+Prior aquatic plant classifiers show that convolutional networks can work when data are plentiful and classes are visually distinct, as in seagrass benchmarks~\cite{DeepSeaGrass1, Nawaz2025Seagrass, Paul2023LWDS, baos_cnn} and in citizen-science plant identification~\cite{joly2016plantnet}. Freshwater monitoring in the Great Lakes is a different problem: native and invasive species often share the same coarse appearance, and only a few dozen labeled photographs may be available per species. Transfer learning from ImageNet, and earlier hierarchical support-vector machines for kelp~\cite{Kelps_SVMs}, reduce the data requirement but still discard fine botanical detail when images are resized to a standard $224\times 224$ input. Morphologically similar species therefore remain difficult when photographs differ in background, scale, and viewpoint.
+
+Several computer-vision lines of work already try to ``look closer,'' but they are a poor fit for this regime. Recurrent attention models select a sequence of glimpses with reinforcement learning~\cite{mnih2014recurrent}. Coarse-to-fine and recurrent attention CNNs learn where to zoom for fine-grained recognition~\cite{fu2017look}. Multi-resolution networks and multi-crop test-time augmentation evaluate extra scales or crops for every image~\cite{krizhevsky2012imagenet, huang2018multiscale}. Attention-based fine-grained heads localize discriminative parts, typically on large bird or car datasets~\cite{fu2017look}. Hard-example mining reweights difficult samples during training~\cite{shrivastava2016training}. Uncertainty-aware and selective prediction methods either study calibration~\cite{Guoetal2017, Ovadiaetal2019, hendrycks2017baseline} or abstain when the model is unsure~\cite{geifman2017selective}. Learned zoom, always-on multi-crop, and abstention each assume either abundant labeled data, a budget to process every image at many scales, or the option to refuse a decision. None of those assumptions holds for aquatic plant identification from a few hundred labeled photographs, where missing an invasive plant is costly.
+
+The intended platform shapes the design. The classifier is meant to run on a camera-equipped underwater rover that surveys lake beds for invasive macrophytes, where the onboard computer has a fraction of the compute of a workstation GPU and must also run navigation and perception. This rules out large vision transformers and always-on multi-scale inference, and it argues for a compact convolutional backbone that is run once per image and only re-run where needed. We therefore build on ConvNeXt-V2 Tiny~\cite{liu2022convnet, Wooetal2023}: 28~M parameters and 4.5~G multiply--adds for a $224\times 224$ input, about a quarter of the cost of ViT-B/16 at the same input size (Table~\ref{tab:cost}). In the head comparison the encoder is frozen, so only a head of 16~k to 262~k weights is trained. A further experiment trains the last ConvNeXt stage at a lower learning rate and leaves the earlier stages frozen.
+
+This paper evaluates that design on one mixed collection of 21 Michigan aquatic species, five of them invasive. The collection contains 1{,}030 photographs: laboratory images, cleaned web images from GBIF-mediated iNaturalist observations~\cite{gbif2026, inaturalist2026}, and a small number of outdoor photographs. Handheld photographs are excluded. The proposed You Need to Look Twice (YNLT) module is a confidence-aware second look: if the first downsampled pass is ambiguous, the system extracts multi-scale patches and aggregates a weighted vote. Errors are treated asymmetrically. Failing to flag an invasive species, a false negative, is treated as more serious than the reverse. Results are means and standard deviations over five seeds, with a learning curve, class-activation maps, and a species-level account of the remaining errors.
+
+Our contributions are:
+\begin{enumerate}
+\item A 1{,}030-image collection of 21 Michigan aquatic species, combining laboratory, cleaned web, and outdoor photographs, with handheld photographs excluded and with splits grouped by observation.
+\item YNLT, a test-time module that spends extra computation only when confidence, margin, and entropy indicate an unreliable first look, instead of always cropping or abstaining.
+\item A five-seed comparison of linear, multilayer-perceptron, and gated-attention heads on a frozen ConvNeXt-V2 Tiny encoder, and of training the last encoder stage, on this collection.
+\item A learning curve, gradient-weighted class activation maps~\cite{selvaraju2017gradcam}, and a species-level error analysis relating accuracy to sample size and to look-alike taxa.
+\end{enumerate}
+
+The remainder of the paper is organized as follows. Materials and methods are presented in Section~\ref{sec:materials_methods}. Results are reported in Section~\ref{sec:results}. Limitations and computational cost are discussed before the conclusions in Section~\ref{sec:conclu}.
+
+
+\section{Materials and Methods}
+\label{sec:materials_methods}
+
+\subsection{Study area}
+\label{subsec:study_area}
+
+The geographic focus of this study is the state of Michigan, which encompasses portions of four Great Lakes (Lake Superior, Lake Michigan, Lake Huron, and Lake Erie) alongside numerous smaller inland lakes. These freshwater systems support highly diverse ecological communities, including a wide variety of native aquatic plant and fish species. However, the balance of these habitats is increasingly threatened by the introduction and proliferation of aquatic invasive plants. This study focuses on identifying 21 specific aquatic plant species found within this region, five of which are classified as invasive. Figure \ref{fig:map} illustrates the study area and the approximate occurrence distribution of these species.
+
+\begin{figure*}[!h]
+\centering
+\includegraphics[width=1.0\textwidth]{figs/map.pdf}
+\caption{Map of Michigan illustrating the geographic focus of the study. The approximate occurrences of 21 aquatic plant species are plotted based on data from the Global Biodiversity Information Facility (GBIF). The five invasive species are denoted by diamond markers, while the 16 native species are denoted by circular markers. The inset map (bottom left) indicates Michigan's location within the contiguous United States.} 
+\label{fig:map}
+\end{figure*}
+
+\subsection{Dataset details}
+\label{subsec:dataset}
+Data collection in underwater environments is difficult. This study therefore uses one mixed collection of the same 21 species (Table~\ref{tab:data}). The collection contains laboratory photographs, openly licensed field photographs from biodiversity databases, and outdoor photographs. These three sources are pooled and split together. Handheld photographs, 307 images, are stored separately and are not used for training, validation, or testing.
+
+\subsubsection{Laboratory photographs}
+The laboratory source contains 203 photographs at \(1500\times 1000\) pixels. Several species have only two or three photographs. Basic preprocessing removed reference artifacts such as coins and scales where they could be cropped without removing the plant.
+
+\subsubsection{Web-sourced field photographs}
+\label{subsec:webdata}
+
+The web source was obtained by querying GBIF for research-grade iNaturalist observations of each of the 21 species and downloading the associated photographs~\cite{gbif2026, inaturalist2026}. The download was then reviewed. Duplicate photographs, photographs that did not show the named species, and handheld photographs were removed. After that review the web source contains 785 images. \emph{Elodea canadensis} has no remaining web photographs, so that species is represented only by its 15 laboratory images. Every retained image is stored with its licence and rights holder. Records that do not permit redistribution are used for research only and are not released as a dataset.
+
+An iNaturalist observation often carries several photographs of the same plant. Splitting by image would place photographs of one plant in both the training and test sets. Web photographs are therefore split at the observation level.
+
+\subsubsection{Outdoor photographs}
+The outdoor source contains 42 photographs of 9 species, 16 of them \emph{Nuphar variegata}. In the experiments reported here these photographs are part of the same pool as the laboratory and web images. They are not held out as a separate test. Because a 60/20/20 split leaves about eight outdoor images in the test portion, source-wise outdoor accuracy is reported only with that sample size in view and is not used to rank models.
+
+\subsubsection{Splits}
+Within each species, 60\% of the images are assigned to training, 20\% to validation, and 20\% to test. Web photographs that belong to one observation stay in one split. For seed 8 the pooled split is 655 training, 189 validation, and 186 test images. Other seeds move a few web images between splits, so the pooled test contains 186 to 190 images. Split lists are stored as CSV files with the released code.
+
+\begin{table}[!ht]
+    \centering
+    \caption{Images per species in the 1{,}030-image collection. Invasive species are marked with an asterisk. Handheld photographs are excluded. \emph{Elodea canadensis} has no web or outdoor photographs after cleaning.}
+    \label{tab:data}
+    \renewcommand{\arraystretch}{1.1}
+    \small
+    \begin{tabular}{lrrr}
+        \hline
+        \textbf{Species} & \textbf{Laboratory} & \textbf{Web} & \textbf{Outdoor} \\
+        \hline
+        Brasenia schreberi & 8 & 45 & 0 \\
+        Cabomba$^{*}$ & 5 & 45 & 0 \\
+        Ceratophyllum demersum & 21 & 31 & 1 \\
+        Elodea canadensis & 15 & 0 & 0 \\
+        Heteranthera dubia & 7 & 28 & 0 \\
+        Hydrocharis morsus-ranae$^{*}$ & 2 & 27 & 0 \\
+        Myriophyllum sibiricum & 4 & 26 & 0 \\
+        Myriophyllum spicatum$^{*}$ & 13 & 42 & 3 \\
+        Najas flexilis & 5 & 20 & 0 \\
+        Nitellopsis obtusa$^{*}$ & 5 & 35 & 2 \\
+        Nuphar variegata & 3 & 34 & 16 \\
+        Nymphaea odorata & 2 & 33 & 1 \\
+        Potamogeton crispus$^{*}$ & 20 & 56 & 1 \\
+        Potamogeton gramineus & 17 & 94 & 7 \\
+        Potamogeton illinoensis & 36 & 33 & 0 \\
+        Potamogeton natans & 8 & 37 & 0 \\
+        Potamogeton praelongus & 3 & 52 & 0 \\
+        Potamogeton richardsonii & 6 & 24 & 6 \\
+        Potamogeton robbinsii & 8 & 22 & 0 \\
+        Ranunculus aquatilis & 5 & 62 & 5 \\
+        Vallisneria americana & 10 & 39 & 0 \\
+        \hline
+        Total & 203 & 785 & 42 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Preprocessing and Augmentation}
+
+\begin{figure*}[!h]
+\centering
+\includegraphics[width=0.9\textwidth]{figs/augmentations.pdf}
+\caption{Various data augmentation techniques applied to the original images. The first row demonstrates basic geometric augmentations. The augmentations in the second row were specifically tuned to improve generalization from a small dataset. The close-up crop allows the model to learn from high-resolution details that would otherwise be lost during downsampling.} 
+\label{fig:augmentations}
+\end{figure*}
+
+Given a training split of a few hundred images, a data augmentation pipeline, illustrated in Figure \ref{fig:augmentations}, was applied to every training photograph. Validation and test photographs are only resized and normalized.
+
+Standard pretrained convolutional backbones expect a small input, here \(224\times 224\) pixels. Downsampling a high-resolution photograph directly to that size discards fine leaf and stem detail. Training therefore uses a random resized crop that keeps 10--100\% of the image area and is then resized to \(224\times 224\). The same crop prepares the network for the patch review used by YNLT.
+
+Geometric and photometric transforms follow the crop: horizontal and vertical flips, rotation up to \(90^\circ\), perspective distortion, colour jitter, and TrivialAugmentWide. The final stage is random erasing~\cite{zhong2020random}, which masks a rectangle covering 2--10\% of the image. Images are then normalized with the ImageNet mean and standard deviation. The schedule is implemented as batched GPU operations on images stored at \(320\times 320\) pixels. A 250-epoch run on about 650 training images takes about five minutes on an NVIDIA RTX 3070 Ti. At evaluation, images are resized to \(224\times 224\) and normalized, with no random transform.
+
+% \subsection{Plant Species Classification Method}
+
+% \begin{figure}[!h]
+% \centering
+% \includegraphics[width=0.5\textwidth]{figs/figs26/SimpleBlocksUpdated.drawio.pdf}
+% \caption{Block diagram of the proposed Plant Species Classification Model. The image is first passed to the classification model, which outputs logits corresponding to each plant species. Based on this output, a candidate prediction as well as a corresponding evaluation of how confused the model is, is carried out. If the model is not confused, then the candidate prediction is finalized. Otherwise the Patching subsystem creates patches and passes them onto the ensemble subsystem, which makes the final prediction after a closer look.} 
+% \label{fig:model_block}
+% \end{figure}
+
+% % \begin{figure*}[!h]
+% % \centering
+% % \includegraphics[width=1.0\textwidth]{figs/figs26/PlantClassification26.drawio.pdf}
+% % \caption{The first stage in our proposed solution is a classification model. The input image is resized and fed to a pretrained ConvNeXt-v2 backbone for feature extraction. The output of the pretrained model is passed on to a our Gated-Attention classification head. This module has 2 parallel tracks - one for the classification features and another to compute the attention weights of those features. The outputs of both of these tracks are multiplied and the last layer outputs logits corresponding to each plant species.} 
+% % \label{fig:model_block}
+% % \end{figure*}
+
+
+% % \begin{figure*}[!h]
+% % \centering
+% % \includegraphics[width=1.0\textwidth]{figs/figs26/PlantClassification26.drawio.pdf}
+% % \caption{The first stage in our proposed solution is a classification model. The input image is resized and fed to a pretrained ConvNeXt-v2 backbone for feature extraction. The output of the pretrained model is passed on to a our Gated-Attention classification head. This module has 2 parallel tracks - one for the classification features and another to compute the attention weights of those features. The outputs of both of these tracks are multiplied and the last layer outputs logits corresponding to each plant species.} 
+% % \label{fig:model_block}
+% % \end{figure*}
+
+
+% \begin{figure*}[!h]
+% \centering
+% \includegraphics[width=1.0\textwidth]{figs/figs26/CombinedClassificatioAndConfusion.drawio.pdf}
+% \caption{First 2 Modules} 
+% \label{fig:model_block}
+% \end{figure*}
+
+\subsection{Plant Species Classification Method}
+
+\begin{figure*}[!h]
+\centering
+\includegraphics[width=1.0\textwidth]{figs/figs26/CombinedClassificatioAndConfusion_simplified.drawio.pdf}
+\caption{Block diagram of the proposed Plant Species Classification pipeline. The system consists of two primary modules: (1) a feature extraction and classification network that outputs initial class logits, and (2) an uncertainty evaluation and ensembling system (YNLT) that assesses prediction confidence and re-evaluates the image using high-resolution patches if necessary.} 
+\label{fig:model_block}
+\end{figure*}
+
+As illustrated in Figure \ref{fig:model_block}, the proposed architecture consists of two primary pathways. The first is the classification module, which processes an input image or patch to generate class-specific logits. The second module is the uncertainty evaluation system, which assesses the confidence of the initial prediction and, if necessary, triggers a high-resolution re-examination to finalize the classification.
+
+\subsubsection{Pretrained ConvNeXt-V2 Backbone}
+
+ConvNeXt-V2 integrates architectural choices studied for modern ConvNets~\cite{liu2022convnet} into a convolutional framework~\cite{Wooetal2023}. It incorporates mechanisms such as larger convolutional kernels and global response normalization (GRN) while retaining the spatial inductive biases characteristic of standard convolutional operations. This architecture provides high representational capacity without introducing the excessive parameter count typically associated with pure transformer models. Parameter efficiency is particularly critical for this study, as the limited training dataset significantly increases the risk of overfitting.
+
+A primary advantage of utilizing ConvNeXt-V2 for this specific problem is its rigorous pretraining methodology. The model was pretrained using a Fully Convolutional Masked Autoencoder (FCMAE) framework \cite{Wooetal2023}, followed by supervised training on ImageNet-22k and final fine-tuning on ImageNet-1k. The ImageNet-22k dataset encompasses a vast hierarchical class structure, including several aquatic plant species within the same taxonomic families as those in the target dataset, such as pondweeds and waterlilies. Consequently, the pretrained backbone is used as a feature extractor for the 21 target species.
+
+The Tiny variant was chosen with the deployment target in mind. An underwater rover carries an embedded computer whose GPU budget is shared with navigation, so the per-image cost of the backbone bounds the survey rate. ConvNeXt-V2 Tiny costs 4.47~G multiply--adds per $224\times 224$ image, against 16.9~G for ViT-B/16 with the same 768-dimensional output, and because it is fully convolutional it runs on embedded inference runtimes without attention-specific kernels. The same family offers Nano (15.2~M parameters, 2.46~G multiply--adds), Pico (8.7~M, 1.37~G) and Atto (3.5~M, 0.55~G) members. Table~\ref{tab:cost} records their cost on the workstation used for this study. Those smaller encoders were not re-trained on the 1{,}030-image collection, so they are not ranked by accuracy here.
+
+\subsubsection{Model capacity and sample size}
+\label{subsec:capacity}
+
+In the head comparison only the classification head is trained, so the number of fitted weights is small compared with the 27.9~M frozen backbone weights: 16{,}149 for a linear head, 33{,}201 for a two-layer multilayer perceptron (MLP) with 42 hidden units, and 261{,}933 for the gated attention head of Section~\ref{subsec:gated}. The pooled training split contains about 650 images, which is still smaller than the gated head, so the classical heuristic of ten samples per free parameter is not met, and it is not the relevant yardstick. The head is a regularised probe on a fixed 768-dimensional representation. Weight decay, dropout, label smoothing, augmentation, and validation-based checkpoint selection bound its effective capacity. What governs such a probe is the number of examples per class, here on the order of 30 in the full training split. Section~\ref{subsec:curve} measures that relationship directly, training the linear and gated heads on 10\%, 25\%, 50\%, and 100\% of the training split. Section~\ref{subsec:heads} includes the MLP as an intermediate parameter count between the linear and gated heads. When the last ConvNeXt stage is trained (Section~\ref{subsec:laststage}), the trainable count rises to 15.5~M parameters.
+
+\subsubsection{Gated Attention Classification Head}
+\label{subsec:gated}
+
+The ConvNeXt-V2 backbone extracts a global feature vector of length 768. A linear classifier maps these features directly to the 21 species. A gated head can reweight channels before that map. A standard multi-head self-attention module would add many more trainable parameters on a training split of a few hundred images, so it is not used.
+
+To resolve this architectural trade-off, a parameter-efficient gated attention head was implemented, drawing on gated linear units~\cite{Dauphinetal2017} and query-dependent gating~\cite{Qiuetal2025}. Let \(h \in \mathbb{R}^{D}\) be the frozen backbone feature, with \(D=768\) for ConvNeXt-V2 Tiny, and let \(d=168\) be the bottleneck width. A classification branch and a gate branch are computed in parallel:
+
+\[
+u = \mathrm{GELU}(W_u h + b_u), \qquad
+g = \sigma\bigl(\tanh(W_g h + b_g)\bigr),
+\]
+where \(\sigma\) is the logistic sigmoid and \(W_u, W_g \in \mathbb{R}^{d \times D}\)~\cite{HendrycksandGimpel2016}. The gated hidden state is the element-wise product \(u \odot g\), followed by dropout and a linear map to \(K=21\) logits. Only these head parameters (261{,}933 weights) are trained.
+
+\subsection{You Need To Look Twice (YNLT) Module}
+
+YNLT follows a simple rule: take a closer look only when the first look is unreliable. Many native and invasive aquatic plants are similar at low resolution and are distinguished by fine leaf or stem structure that is lost when a $3000\times 4000$ photograph is resized to $224\times 224$. Unlike always-on multi-crop testing~\cite{krizhevsky2012imagenet} or selective classifiers that abstain~\cite{geifman2017selective}, YNLT keeps the first prediction when it is confident and otherwise re-evaluates high-resolution patches of the original image.
+
+\subsubsection{Uncertainty Evaluation Subsystem}
+
+Let \(z \in \mathbb{R}^{K}\) be the head logits and
+\[
+p_i = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}, \qquad i=1,\ldots,K.
+\]
+Write \(p_{(1)}\ge p_{(2)}\ge \cdots \ge p_{(K)}\) for the sorted probabilities. Three scalar diagnostics are used~\cite{Guoetal2017, Ovadiaetal2019, hendrycks2017baseline}:
+
+\[
+\mathrm{Conf}(p) = p_{(1)}, \qquad
+\mathrm{Marg}(p) = p_{(1)}-p_{(2)}, \qquad
+H(p) = -\sum_{i=1}^{K} p_i \log p_i,
+\]
+where \(\log\) is the natural logarithm, matching the implementation. For \(K=21\), \(H(p)\) ranges from \(0\) (a point mass) to \(\log 21 \approx 3.04\) (the uniform distribution).
+
+Each diagnostic contributes one count if it crosses a fixed threshold:
+
+\[
+\begin{aligned}
+b_{\mathrm{conf}} &= \mathbf{1}\bigl[\mathrm{Conf}(p) < \tau_{\mathrm{conf}}\bigr], \\
+b_{\mathrm{marg}} &= \mathbf{1}\bigl[\mathrm{Marg}(p) < \tau_{\mathrm{marg}}\bigr], \\
+b_{\mathrm{ent}}  &= \mathbf{1}\bigl[H(p) > \tau_{H}\bigr], \\
+c &= b_{\mathrm{conf}} + b_{\mathrm{marg}} + b_{\mathrm{ent}} \in \{0,1,2,3\}.
+\end{aligned}
+\]
+The operating point used throughout this paper is \(\tau_{\mathrm{conf}}=0.5\), \(\tau_{\mathrm{marg}}=0.2\), \(\tau_{H}=2.0\). A first-pass prediction is sent to high-resolution review if \(c \ge \tau_{c}\) with \(\tau_{c}=1\), except when the predicted class is already invasive: in that case the invasive label is kept, so that YNLT cannot talk the model out of a positive detection.
+
+\subsubsection{High-Resolution Patching Subsystem}
+\label{subsec:patching}
+
+When a prediction is flagged, the $224\times 224$ input is treated as insufficient and the image is re-examined at several scales. Patches are cut at relative scales \(s \in \{0.2, 0.3, 0.4, 0.5\}\) of the shorter side, with fractional overlaps \(\{0.0, 0.1, 0.2, 0.3\}\) respectively. Reflected padding is applied at each scale so that the stride tiles the image exactly, uniform patches (for example padding) are discarded, and every remaining patch is resized to $224\times 224$ and scored by the same frozen backbone and head. More scales and overlap improve coverage and increase the number of forward passes.
+
+\paragraph{Patch source.} Which image the patches are cut from is a design choice in its own right. In the \emph{downsampled} setting the crops are taken from the $224\times 224$ network input, so the second look re-weights evidence the model has already seen; the schedule above yields 111 patches per reviewed image. In the \emph{full-resolution} setting the crops are taken from the original photograph, so the second look can recover detail that downsampling removed; a $1500\times 1000$ laboratory photograph yields 104 patches between 200 and 500 pixels wide, a $3000\times 4000$ one 99 patches between 600 and 1500 pixels. Both settings are implemented in the released code. All YNLT results in this paper use the downsampled source, which yields 111 patches per reviewed image.
+
+\subsubsection{Ensemble Subsystem}
+
+The Ensemble subsystem executes the actual ``second look" within the YNLT framework. It receives the collection of localized, high-resolution patches generated by the preceding subsystem and evaluates them to resolve the initial visual ambiguity. By shifting the model's focus from the downsampled global image to these detailed morphological features, the system gathers the precise evidence needed to make an informed final classification.
+
+\begin{figure*}[!h]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/figs26/ensemble26_simplified.drawio.pdf}
+  \caption{Workflow of the Ensemble subsystem. An image flagged for high uncertainty is divided into high-resolution patches. Each patch is processed independently by the classification pipeline and contributes a weighted vote to the final aggregated prediction.}
+  \label{fig:ensemble}
+\end{figure*}
+
+
+Each patch is classified independently. Random-resized-crop training makes these partial views admissible inputs. Patch \(i\) with confusion count \(c_i\) contributes a normalized vote
+\[
+w_i = \frac{c_{\max}-c_i}{c_{\max}}, \qquad c_{\max}=3,
+\]
+to its predicted class. Accumulated class scores are initialized at \(1\) the first time a class appears, then incremented by \(w_i\). The class with the largest score is returned. If two classes share the maximum, an invasive class is preferred. This is a tie-break, not a top-\(k\) override: YNLT does not replace a unique non-invasive winner with an invasive runner-up.
+
+\subsection{Evaluation Metrics}
+
+During training, the primary indicators used to monitor model convergence were validation accuracy and loss. To prevent the network from generating overconfident predictions, which would compromise the YNLT module's ability to accurately detect uncertainty, label smoothing was applied in conjunction with standard cross-entropy. As demonstrated by \citet{Mulleretal2019}, label smoothing not only improves generalization but also significantly aids in model calibration by preventing the network from assigning full probability to the target class, thereby keeping the logits constrained. The smoothed cross-entropy loss is defined as:
+
+\[
+\mathcal{L}_{\text{smooth}} = - \sum_{i=1}^{K} q_i \log p_i
+\]
+where \( p_i \) is the predicted probability corresponding to class \( i \), \( K \) is the total number of classes, and the smoothed target distribution \( q_i \) is calculated as:
+
+\[
+ q_i = (1 - \epsilon) \delta_{i,y} + \frac{\epsilon}{K} 
+\]
+with \(\epsilon=0.05\) in the reported runs.
+
+Overall model performance was evaluated using standard multi-class metrics, including overall accuracy and class-wise recall. However, given the ecological context of the study, predictions were also aggregated into a binary classification: Invasive (positive class) versus Native (negative class). In this binary framework, the most critical evaluation metric is the False Negative Rate (FNR). The ecological consequences of failing to identify an invasive species (a false negative) severely outweigh the operational costs of misclassifying a native plant as invasive (a false positive). Therefore, minimizing the FNR was a primary objective:
+\[
+\text{FNR} = \frac{\text{FN}}{\text{TP} + \text{FN}}
+\]
+where FN represents False Negatives and TP represents True Positives.
+
+To specifically isolate and evaluate the utility of the proposed YNLT block, model predictions were tracked before and after the ensemble process. For any image flagged for high-resolution re-evaluation due to high uncertainty, there are four possible transition outcomes, as outlined in Table \ref{tab:ynlt_outcomes}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Case} & \textbf{Before YNLT} & \textbf{After YNLT} \\
+        \hline
+        1 & Correct & Correct \\
+        2 & Correct & Incorrect \\
+        3 & Incorrect & Correct \\
+        4 & Incorrect & Incorrect \\
+        \hline
+    \end{tabular}
+    \caption{Possible transition outcomes for images processed by the YNLT ensemble module.}
+    \label{tab:ynlt_outcomes}
+\end{table}
+
+Based on these transition cases, two custom metrics—Success Rate and Effectiveness—were defined to quantify the module's performance:
+
+\[
+\text{Success Rate} = \frac{\text{Total Correct After YNLT}}{\text{Total Images Reviewed by YNLT}}
+\]
+
+\[
+\text{Effectiveness} = \frac{\text{Transitions from Incorrect to Correct}}{\text{Total Images Reviewed by YNLT}}
+\]
+
+These metrics served as key optimization targets for tuning the uncertainty thresholds, as well as the scale and overlap parameters within the patching subsystem.
+
+\subsection{Experimentation}
+\subsubsection{Training}
+The model was implemented in PyTorch. The experiments in Sections~\ref{subsec:heads}--\ref{subsec:curve} were trained on an NVIDIA RTX 3070 Ti (8~GB) at batch size 32 with mixed precision. In the head comparison only the classification head was trained and the backbone remained frozen (27.9~M frozen parameters; 0.26~M trainable for the gated head). Table~\ref{tab:cost} lists the measured cost of each candidate backbone with the gated head, obtained on the RTX 3070 Ti with batch size 1 after warm-up. A single \(224\times 224\) forward pass of ConvNeXt-V2 Tiny requires 4.47~G multiply--adds and 5.2~ms.
+
+This cost is a workstation measurement. It is not a measurement on the rover's embedded computer. When review is triggered, every retained patch is a separate forward pass: a reviewed image costs about 111 patches, or roughly 200~ms on the RTX 3070 Ti. The average cost per image therefore depends on how often the uncertainty test fires. The Nano, Pico, and Atto rows of Table~\ref{tab:cost} give the cost of shrinking the backbone. Accuracy for those encoders is not reported, because they were not trained on the 1{,}030-image collection.
+
+\begin{table*}[!t]
+    \centering
+    \caption{Cost of the candidate frozen backbones with the gated attention head: parameters, multiply--adds for one $224\times 224$ pass, and batch-1 latency on an NVIDIA RTX 3070 Ti. The last column is the latency of one image that YNLT reviews (first pass plus 111 patches in batches of 16); images that are not flagged cost one pass.}
+    \label{tab:cost}
+    \renewcommand{\arraystretch}{1.15}
+    \setlength{\tabcolsep}{5pt}
+    \small
+    \begin{tabular}{@{}lrrrrr@{}}
+        \hline
+        \textbf{Backbone} & \textbf{Params} & \textbf{Trainable} & \textbf{GMACs} & \textbf{ms/pass} & \textbf{ms/review} \\
+        \hline
+        ConvNeXt-V2 Tiny & 28.1~M & 261{,}933 & 4.47 & 5.2 & 209 \\
+        ConvNeXt-V2 Nano & 15.2~M & 218{,}925 & 2.46 & 4.2 & 129 \\
+        ConvNeXt-V2 Pico & 8.7~M & 175{,}917 & 1.37 & 3.9 & 94 \\
+        ConvNeXt-V2 Atto & 3.5~M & 111{,}405 & 0.55 & 3.9 & 61 \\
+        ConvNeXt-V1 Tiny & 28.1~M & 261{,}933 & 4.47 & 3.8 & 153 \\
+        ResNet-50 & 24.2~M & 692{,}013 & 4.11 & 3.6 & 129 \\
+        EfficientNetV2-B0 & 6.3~M & 433{,}965 & 0.73 & 5.7 & 59 \\
+        ViT-B/16 & 86.1~M & 261{,}933 & 16.87 & 5.0 & 383 \\
+        \hline
+    \end{tabular}
+\end{table*}
+
+Training used AdamW~\cite{loshchilov2019adamw}, cosine learning-rate decay to \(2\times 10^{-5}\), 250 epochs, weight decay \(2\times 10^{-5}\), an initial learning rate of \(5\times 10^{-4}\), and label smoothing with \(\epsilon=0.05\)~\cite{szegedy2016rethinking, Mulleretal2019}. The checkpoint with the highest validation accuracy is kept. Each configuration is trained with five seeds (8--12). A seed changes the observation-level split and the initialisation of the head. In the last-stage experiment the last ConvNeXt stage is optimized at \(1\times 10^{-4}\) while the head keeps the learning rate above, and earlier stages stay frozen.
+
+\subsubsection{Tuning YNLT Block}
+YNLT trades accuracy against compute. The scales \(\{0.2,0.3,0.4,0.5\}\) and overlaps \(\{0.0,0.1,0.2,0.3\}\) were held fixed for the reported results. Recursion to still finer patches is implemented but disabled in the experiments here.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{table*}[!ht]
+% \caption{Summary of YOLO variants with open-source software packages.}
+% \label{tab:models}
+% \renewcommand{\arraystretch}{1.4}
+% \centering
+% \resizebox{0.7\textwidth}{!}{
+% \begin{tabular}{llll}
+% \hline
+% Index & YOLO models  & URL & Reference \\ \hline
+% 1     & YOLOv3    & \url{https://github.com/ultralytics/YOLOv3}  & \cite{redmon2018YOLOv3}         \\ 
+% 2     & YOLOv4    & \url{https://github.com/WongKinYiu/PyTorch-YOLOv4}  & \cite{bochkovskiy2020YOLOv4} \\ 
+% 3    & YOLOv5   & \url{https://github.com/ultralytics/YOLOv5}   & \cite{jocher2020YOLOv5}           \\
+% 4   & Scaled-YOLOv4     & \url{https://github.com/WongKinYiu/ScaledYOLOv4}   & \cite{wang2021scaled}           \\ 
+% 5    & YOLOR      & \url{https://github.com/WongKinYiu/yolor} & \cite{wang2021r}           \\ \hline
+% \end{tabular}
+% }
+% \end{table*}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Results}
+\label{sec:results}
+
+All numbers in this section are computed on the 1{,}030-image collection of Section~\ref{subsec:dataset}. Unless a single seed is named, each entry is the mean \(\pm\) standard deviation over seeds 8--12. Accuracy is 21-way top-1 accuracy. FNR is the invasive false-negative rate defined in Section~\ref{sec:materials_methods}.
+
+\subsection{Classification head and YNLT}
+\label{subsec:heads}
+
+Table~\ref{tab:heads} compares the linear, MLP, and gated-attention heads on a frozen ConvNeXt-V2 Tiny encoder, with and without YNLT at test time. YNLT uses the downsampled patch source of Section~\ref{subsec:patching}. The laboratory and web columns are the photographs from those sources that fell in the pooled test split. The pooled column is the quantity used to compare models.
+
+\begin{table*}[!ht]
+    \caption{Frozen ConvNeXt-V2 Tiny on the 1{,}030-image collection. Class accuracy and invasive FNR (\%), mean \(\pm\) standard deviation over five seeds. Laboratory and web columns are the corresponding images inside the pooled test. YNLT uses the downsampled patch source.}
+    \label{tab:heads}
+    \renewcommand{\arraystretch}{1.25}
+    \centering
+    \small
+    \begin{tabular}{lcccccc}
+        \hline
+        \multirow{2}{*}{\textbf{Head}} & \multicolumn{2}{c}{\textbf{Laboratory}} & \multicolumn{2}{c}{\textbf{Web}} & \multicolumn{2}{c}{\textbf{Pooled}} \\
+        \cline{2-3} \cline{4-5} \cline{6-7}
+        & \textbf{Acc.} & \textbf{FNR} & \textbf{Acc.} & \textbf{FNR} & \textbf{Acc.} & \textbf{FNR} \\
+        \hline
+        Linear & 80.0 $\pm$ 8.0 & 15.6 $\pm$ 9.9 & 53.0 $\pm$ 4.7 & 35.4 $\pm$ 9.9 & 59.5 $\pm$ 4.6 & 31.3 $\pm$ 7.6 \\
+        Linear + YNLT & 75.9 $\pm$ 7.2 & 6.7 $\pm$ 9.9 & 50.9 $\pm$ 2.8 & 25.7 $\pm$ 9.4 & 57.1 $\pm$ 2.6 & 22.2 $\pm$ 6.9 \\
+        MLP & 77.4 $\pm$ 10.0 & 11.1 $\pm$ 13.6 & 53.7 $\pm$ 3.5 & 32.6 $\pm$ 5.8 & 59.4 $\pm$ 4.3 & 28.4 $\pm$ 5.5 \\
+        MLP + YNLT & 77.4 $\pm$ 11.2 & 6.7 $\pm$ 9.9 & 52.5 $\pm$ 2.7 & 20.7 $\pm$ 6.8 & 58.5 $\pm$ 3.6 & 18.4 $\pm$ 4.4 \\
+        Gated attention & 80.0 $\pm$ 5.8 & 8.9 $\pm$ 9.3 & 52.0 $\pm$ 5.2 & 37.6 $\pm$ 6.5 & 58.6 $\pm$ 4.6 & 32.6 $\pm$ 3.9 \\
+        Gated attention + YNLT & 79.0 $\pm$ 7.6 & 2.2 $\pm$ 5.0 & 52.5 $\pm$ 3.8 & 19.9 $\pm$ 5.7 & 58.8 $\pm$ 4.0 & 17.4 $\pm$ 5.7 \\
+        \hline
+    \end{tabular}
+\end{table*}
+
+On pooled accuracy the three heads agree. The linear head reaches \(59.5\% \pm 4.6\%\), the MLP \(59.4\% \pm 4.3\%\), and gated attention \(58.6\% \pm 4.6\%\). Each difference is smaller than the seed-to-seed standard deviation, so the extra weights in the gated head do not change 21-way accuracy on this collection. Laboratory accuracy is higher than web accuracy for every head (about 80\% against about 52--54\%), which is consistent with the simpler backgrounds in the laboratory photographs. The outdoor slice of the pooled test contains about eight images. Its accuracy for these frozen heads falls between 70\% and 75\%, with standard deviations of 7 to 15 points, and it is not used to rank models.
+
+YNLT changes the invasive FNR more than it changes accuracy. For the gated head, pooled accuracy moves from \(58.6\% \pm 4.6\%\) to \(58.8\% \pm 4.0\%\), while the pooled invasive FNR falls from \(32.6\% \pm 3.9\%\) to \(17.4\% \pm 5.7\%\). The linear head shows the same pattern: pooled accuracy falls from \(59.5\% \pm 4.6\%\) to \(57.1\% \pm 2.6\%\), and the pooled FNR falls from \(31.3\% \pm 7.6\%\) to \(22.2\% \pm 6.9\%\). The FNR reduction is larger than the accuracy change, and for the gated head it exceeds the standard deviation of the frozen-head FNR.
+
+\subsection{Training the last ConvNeXt stage}
+\label{subsec:laststage}
+
+Table~\ref{tab:laststage} keeps the linear head, the augmentation schedule, and the 1{,}030-image collection, and trains the last ConvNeXt-V2 stage at a learning rate of \(1\times 10^{-4}\). Earlier stages stay frozen. The checkpoint remains the epoch of highest validation accuracy.
+
+\begin{table*}[!ht]
+    \centering
+    \caption{Linear head on the 1{,}030-image collection, five seeds. The second row trains the last ConvNeXt-V2 stage. Accuracy and invasive FNR are percentages, mean \(\pm\) standard deviation.}
+    \label{tab:laststage}
+    \renewcommand{\arraystretch}{1.2}
+    \small
+    \begin{tabular}{lcccc}
+        \hline
+        \textbf{Encoder} & \textbf{Pooled acc.} & \textbf{Laboratory acc.} & \textbf{Web acc.} & \textbf{Pooled FNR} \\
+        \hline
+        Frozen & 59.5 $\pm$ 4.6 & 80.0 $\pm$ 8.0 & 53.0 $\pm$ 4.7 & 31.3 $\pm$ 7.6 \\
+        Last stage trained & 65.1 $\pm$ 5.0 & 85.6 $\pm$ 9.7 & 58.1 $\pm$ 4.8 & 28.8 $\pm$ 9.6 \\
+        \hline
+    \end{tabular}
+\end{table*}
+
+Pooled accuracy rises from \(59.5\% \pm 4.6\%\) to \(65.1\% \pm 5.0\%\), a gain of about five points on both the laboratory and web portions of the test. The invasive FNR moves from \(31.3\% \pm 7.6\%\) to \(28.8\% \pm 9.6\%\). That change is smaller than the standard deviation, so it is not evidence that the last stage improves invasive detection. Among the settings trained on this collection, the last-stage linear model has the highest pooled accuracy. The lowest pooled invasive FNR remains the frozen gated head with YNLT (Table~\ref{tab:heads}).
+
+\subsection{Learning curve}
+\label{subsec:curve}
+
+Figure~\ref{fig:curve} plots test accuracy against the number of training images for the linear and gated heads. Fractions of 10\%, 25\%, 50\%, and 100\% of the pooled training split were used, with whole observations kept together and at least one observation per species. The validation and test splits were held fixed. The 10--50\% points use three seeds, and the 100\% point uses the five seeds of Table~\ref{tab:heads}. YNLT is not applied.
+
+\begin{figure*}[!ht]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/learning_curve.pdf}
+  \caption{Top-1 accuracy against the number of training images for the linear and gated-attention heads on a frozen ConvNeXt-V2 Tiny encoder. Mean \(\pm\) standard deviation; three seeds at the smaller fractions and five seeds at the full split. YNLT is not applied.}
+  \label{fig:curve}
+\end{figure*}
+
+On the pooled test, linear-head accuracy rises from \(32.9\% \pm 1.6\%\) at 95 training images to \(43.6\% \pm 1.2\%\) at 188, \(51.6\% \pm 3.5\%\) at 353, and \(59.5\% \pm 4.6\%\) at 650. The gated head follows the same path, from \(32.4\% \pm 2.9\%\) to \(58.6\% \pm 4.6\%\). Neither curve has flattened. The laboratory panel rises from about 40\% to \(80.0\%\), and the web panel from about 30\% to \(52\)--\(53\%\). Additional photographs of the same kind would still be expected to raise accuracy. The gated head is not more data-hungry than the linear head, which matches the capacity argument of Section~\ref{subsec:capacity}.
+
+\subsection{Training and validation loss}
+\label{subsec:loss}
+
+Figure~\ref{fig:loss} shows the mean training and validation loss for the three frozen heads. For each head the mean validation loss falls during the early epochs and then stays near 1.5 through epoch 250, while the training loss continues to decline slowly under augmentation and label smoothing. The saved checkpoint is the epoch of highest validation accuracy, which lies on that plateau.
+
+\begin{figure*}[!ht]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/loss_curves.pdf}
+  \caption{Mean training and validation loss over five seeds for each frozen head on the 1{,}030-image collection. The checkpoint is the epoch of highest validation accuracy.}
+  \label{fig:loss}
+\end{figure*}
+
+\subsection{Species-level errors and class activation maps}
+\label{subsec:errors}
+
+The species-level counts below are for one checkpoint: the frozen linear head, seed 9, scored on its pooled test of 189 images. That checkpoint classifies 126 images correctly (66.7\%). Nine of 48 invasive test images are missed, an invasive FNR of 18.8\% on this split. These counts illustrate where errors fall. They are not the five-seed means of Tables~\ref{tab:heads} and~\ref{tab:laststage}.
+
+\begin{figure*}[!ht]
+  \centering
+  \includegraphics[width=0.92\textwidth]{figs/species_recall.pdf}
+  \caption{Per-species recall on the pooled test for the frozen linear head, seed 9 (189 images). The dashed line is the accuracy of this checkpoint (66.7\%).}
+  \label{fig:recall}
+\end{figure*}
+
+Figure~\ref{fig:recall} shows that recall is uneven. \emph{Hydrocharis morsus-ranae}, \emph{Potamogeton robbinsii}, and \emph{Ranunculus aquatilis} are correct on every test image of this split. The lowest recalls are \emph{Potamogeton praelongus} (2 of 10), \emph{Potamogeton richardsonii} (2 of 7), and \emph{Potamogeton crispus} (6 of 14). Of the 63 mistakes, 28 (44\%) stay inside the same genus. The most frequent pair is \emph{Potamogeton praelongus} predicted as \emph{Potamogeton crispus} (4 images). \emph{Myriophyllum spicatum} is predicted as \emph{Cabomba} twice. The remaining cross-genus mistakes are mostly between plants that share a growth form, either finely divided submerged leaves or broad floating leaves.
+
+\begin{figure*}[!ht]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/gradcam_panel.pdf}
+  \caption{Gradient-weighted class activation maps~\cite{selvaraju2017gradcam} for the frozen linear head, seed 9. Each pair shows the network input and the map for the predicted class. Correct examples attend to the plant rather than to a coin, a label, or open water. Incorrect examples also attend to foliage, including look-alike species.}
+  \label{fig:gradcam}
+\end{figure*}
+
+Figure~\ref{fig:gradcam} applies Grad-CAM at the last ConvNeXt stage of the same seed-9 checkpoint. On correct laboratory, web, and outdoor photographs the highest weights lie on the leaf, flower, or floating blade, including when a coin or a handwritten label is in the frame. On the two incorrect examples the map still lies on the foliage. The error is a confusion between similar plants, not a response to the background.
+
+\section{Discussion}
+
+\textbf{What the 1{,}030-image collection supports.}
+The reported classifier is trained and tested on one mixed collection of laboratory, web, and outdoor photographs. Handheld photographs were removed and are not part of the evaluation. The results therefore describe identification within this collection. They do not measure transfer from laboratory photographs to a separate field test, and they do not measure performance on underwater rover imagery. That imagery remains future data.
+
+\textbf{Head, second look, and the last encoder stage.}
+With the encoder frozen, pooled accuracy does not separate the linear, MLP, and gated heads (Table~\ref{tab:heads}). The gated head is retained as an option because, together with YNLT, it gives the lowest invasive FNR in that table (\(17.4\% \pm 5.7\%\)). YNLT spends the extra forward passes only when the first prediction is uncertain, which is the intended behavior, and the accuracy cost on the pooled test is about two points or less. Training the last ConvNeXt stage raises pooled accuracy by about five points (Table~\ref{tab:laststage}) without a clear change in invasive FNR. The two results answer different questions: last-stage training for 21-way accuracy, and YNLT for missed invasive species.
+
+\textbf{Where the remaining errors are.}
+The learning curve is still rising at about 650 training images (Figure~\ref{fig:curve}), so more photographs would still be expected to help. The species counts say which photographs. Errors concentrate on \emph{Potamogeton praelongus}, \emph{Potamogeton crispus}, and \emph{Potamogeton richardsonii}, and on feathery species that share a growth form with \emph{Cabomba}. Grad-CAM indicates that these mistakes are not explained by the model ignoring the plant. Adding photographs of those taxa is a more direct next step than changing the head.
+
+\textbf{Sample size and fitted weights.}
+On the frozen encoder, 16{,}149 to 261{,}933 head weights are fit to a 768-dimensional vector. Figure~\ref{fig:curve} shows that the gated head, with sixteen times the weights of the linear head, matches the linear head at every training size that was tried. The number of images per class, not the width of the head, is what moves accuracy. The five-seed standard deviations are several points on the pooled test and larger on the laboratory slice, so differences smaller than that spread are not interpreted as improvements.
+
+\textbf{Computation.}
+A frozen ConvNeXt-V2 Tiny encoder plus the gated head contains 28.1~M parameters, of which 0.26~M are trained. One \(224\times 224\) forward pass is 4.47~G multiply--adds and 5.2~ms on the RTX 3070 Ti used for Table~\ref{tab:cost}. YNLT adds about 111 forward passes, or about 200~ms, for each reviewed image. Training the last stage raises the trainable count to 15.5~M and does not change the inference cost of a single pass. Table~\ref{tab:cost} also lists smaller members of the same family. Their accuracy on this collection has not been measured. Latency on the rover's embedded computer has not been measured either. Until it is, the demonstrated operating point is the workstation used here.
+
+\textbf{Limitations.}
+Several species still have only a few laboratory photographs, and \emph{Elodea canadensis} has no web or outdoor photographs after cleaning. The outdoor source covers 9 of 21 species, and only about eight of those images fall in a given test split. The web photographs are citizen-science images, geographically uneven, and many carry licences that allow research use but not redistribution. Grad-CAM and the per-species recalls are reported for one seed of the frozen linear model, so they should be read as an error analysis of that checkpoint, not as a five-seed estimate. A biology-specific encoder was not trained. Underwater video from the rover is not in the collection.
+
+\textbf{Use of the model.}
+On a workstation, the model can screen photographs of these 21 species before a botanist confirms the record. The invasive FNR, rather than top-1 accuracy alone, is the quantity that should be watched for that use. Onboard screening on an underwater rover requires a measured latency budget and photographs from that camera. Neither is part of the present evaluation.
+
+\section{Conclusion}
+\label{sec:conclu}
+
+This study classifies 21 Michigan aquatic plant species, five of them invasive, from a mixed collection of 1{,}030 photographs. The collection combines 203 laboratory photographs, 785 cleaned web photographs from GBIF-mediated iNaturalist observations, and 42 outdoor photographs. Handheld photographs are excluded, and photographs from the same observation stay in one split.
+
+With a frozen ConvNeXt-V2 Tiny encoder, a linear head, an MLP, and a gated-attention head reach \(58.6\%\) to \(59.5\%\) pooled top-1 accuracy over five seeds. The differences are smaller than the seed-to-seed spread. YNLT, which re-evaluates an image only when the first prediction is uncertain, lowers the pooled invasive FNR of the gated head from \(32.6\% \pm 3.9\%\) to \(17.4\% \pm 5.7\%\). Training the last ConvNeXt stage raises pooled accuracy from \(59.5\% \pm 4.6\%\) to \(65.1\% \pm 5.0\%\) and does not clearly change the invasive FNR. Accuracy is still increasing at about 650 training images. The mistakes that remain are concentrated on look-alike pondweeds, and class activation maps place the network's response on the plant rather than on the background. Inference cost on the rover's computer, and photographs from that camera, are the remaining steps before onboard use.
+
+
+\section*{Authorship Contribution}
+
+\textbf{Aaryan Panigrahi}: Formal analysis, Software, Writing - original draft; \\
+\textbf{Fengying Dang}: Conceptualization, Investigation, Data curation, Supervision, Writing - original \& draft \& review \& editing.  
+
+\section*{Acknowledgement}
+The authors thank Dr. Jo Latimore for providing the weed images that supported the experimental evaluation.
+
+% This work was supported in part by ???. 
+% helping annotate the weed images and Dr. ??? for the assistance in weed identification. 
+
+\typeout{}
+% \bibliographystyle{model1-num-names}
+\bibliography{ref}
+\end{document}
+
