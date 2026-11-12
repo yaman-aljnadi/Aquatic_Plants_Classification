@@ -1,0 +1,518 @@
+{
+  "run": "20261112_134958_protonet_frozen_lab_web_field_convnextv2_noaug_euclidean",
+  "timestamp": "20261112_134958",
+  "method": "protonet_frozen",
+  "data": "lab+web+field",
+  "backbone_key": "convnextv2",
+  "backbone": "convnextv2_tiny.fcmae_ft_in22k_in1k",
+  "seeds": [
+    9
+  ],
+  "shots": [
+    1,
+    5,
+    10
+  ],
+  "include_all": true,
+  "aug_views": 0,
+  "distance": "euclidean",
+  "minutes": 0.5898928085962931,
+  "per_seed": [
+    {
+      "seed": 9,
+      "n_train": 648,
+      "shots": {
+        "1": {
+          "k": 1,
+          "n_support": 21,
+          "support_counts": {
+            "0": 1,
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 1,
+            "17": 1,
+            "18": 1,
+            "19": 1,
+            "20": 1
+          },
+          "prototype_counts": {
+            "0": 1,
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 1,
+            "17": 1,
+            "18": 1,
+            "19": 1,
+            "20": 1
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.28205128205128205,
+              "n": 39,
+              "binary_FNR": 0.7777777777777778,
+              "confusion": {
+                "TP": 2,
+                "TN": 24,
+                "FP": 6,
+                "FN": 7
+              }
+            },
+            "web_test": {
+              "accuracy": 0.14084507042253522,
+              "n": 142,
+              "binary_FNR": 0.6216216216216216,
+              "confusion": {
+                "TP": 14,
+                "TN": 62,
+                "FP": 43,
+                "FN": 23
+              }
+            },
+            "field_test": {
+              "accuracy": 0.25,
+              "n": 8,
+              "binary_FNR": 1.0,
+              "confusion": {
+                "TP": 0,
+                "TN": 5,
+                "FP": 1,
+                "FN": 2
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.1746031746031746,
+              "n": 189,
+              "binary_FNR": 0.6666666666666666,
+              "confusion": {
+                "TP": 16,
+                "TN": 91,
+                "FP": 50,
+                "FN": 32
+              }
+            }
+          }
+        },
+        "5": {
+          "k": 5,
+          "n_support": 105,
+          "support_counts": {
+            "0": 5,
+            "1": 5,
+            "2": 5,
+            "3": 5,
+            "4": 5,
+            "5": 5,
+            "6": 5,
+            "7": 5,
+            "8": 5,
+            "9": 5,
+            "10": 5,
+            "11": 5,
+            "12": 5,
+            "13": 5,
+            "14": 5,
+            "15": 5,
+            "16": 5,
+            "17": 5,
+            "18": 5,
+            "19": 5,
+            "20": 5
+          },
+          "prototype_counts": {
+            "0": 5,
+            "1": 5,
+            "2": 5,
+            "3": 5,
+            "4": 5,
+            "5": 5,
+            "6": 5,
+            "7": 5,
+            "8": 5,
+            "9": 5,
+            "10": 5,
+            "11": 5,
+            "12": 5,
+            "13": 5,
+            "14": 5,
+            "15": 5,
+            "16": 5,
+            "17": 5,
+            "18": 5,
+            "19": 5,
+            "20": 5
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.38461538461538464,
+              "n": 39,
+              "binary_FNR": 0.6666666666666666,
+              "confusion": {
+                "TP": 3,
+                "TN": 28,
+                "FP": 2,
+                "FN": 6
+              }
+            },
+            "web_test": {
+              "accuracy": 0.2676056338028169,
+              "n": 142,
+              "binary_FNR": 0.4594594594594595,
+              "confusion": {
+                "TP": 20,
+                "TN": 79,
+                "FP": 26,
+                "FN": 17
+              }
+            },
+            "field_test": {
+              "accuracy": 0.5,
+              "n": 8,
+              "binary_FNR": 0.5,
+              "confusion": {
+                "TP": 1,
+                "TN": 6,
+                "FP": 0,
+                "FN": 1
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.30158730158730157,
+              "n": 189,
+              "binary_FNR": 0.5,
+              "confusion": {
+                "TP": 24,
+                "TN": 113,
+                "FP": 28,
+                "FN": 24
+              }
+            }
+          }
+        },
+        "10": {
+          "k": 10,
+          "n_support": 209,
+          "support_counts": {
+            "0": 10,
+            "1": 10,
+            "2": 10,
+            "3": 9,
+            "4": 10,
+            "5": 10,
+            "6": 10,
+            "7": 10,
+            "8": 10,
+            "9": 10,
+            "10": 10,
+            "11": 10,
+            "12": 10,
+            "13": 10,
+            "14": 10,
+            "15": 10,
+            "16": 10,
+            "17": 10,
+            "18": 10,
+            "19": 10,
+            "20": 10
+          },
+          "prototype_counts": {
+            "0": 10,
+            "1": 10,
+            "2": 10,
+            "3": 9,
+            "4": 10,
+            "5": 10,
+            "6": 10,
+            "7": 10,
+            "8": 10,
+            "9": 10,
+            "10": 10,
+            "11": 10,
+            "12": 10,
+            "13": 10,
+            "14": 10,
+            "15": 10,
+            "16": 10,
+            "17": 10,
+            "18": 10,
+            "19": 10,
+            "20": 10
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.48717948717948717,
+              "n": 39,
+              "binary_FNR": 0.1111111111111111,
+              "confusion": {
+                "TP": 8,
+                "TN": 28,
+                "FP": 2,
+                "FN": 1
+              }
+            },
+            "web_test": {
+              "accuracy": 0.2887323943661972,
+              "n": 142,
+              "binary_FNR": 0.4864864864864865,
+              "confusion": {
+                "TP": 19,
+                "TN": 81,
+                "FP": 24,
+                "FN": 18
+              }
+            },
+            "field_test": {
+              "accuracy": 0.375,
+              "n": 8,
+              "binary_FNR": 1.0,
+              "confusion": {
+                "TP": 0,
+                "TN": 6,
+                "FP": 0,
+                "FN": 2
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.3333333333333333,
+              "n": 189,
+              "binary_FNR": 0.4375,
+              "confusion": {
+                "TP": 27,
+                "TN": 115,
+                "FP": 26,
+                "FN": 21
+              }
+            }
+          }
+        },
+        "all": {
+          "k": null,
+          "n_support": 648,
+          "support_counts": {
+            "0": 35,
+            "1": 31,
+            "2": 34,
+            "3": 9,
+            "4": 23,
+            "5": 18,
+            "6": 18,
+            "7": 36,
+            "8": 17,
+            "9": 25,
+            "10": 31,
+            "11": 23,
+            "12": 49,
+            "13": 73,
+            "14": 44,
+            "15": 30,
+            "16": 33,
+            "17": 22,
+            "18": 20,
+            "19": 45,
+            "20": 32
+          },
+          "prototype_counts": {
+            "0": 35,
+            "1": 31,
+            "2": 34,
+            "3": 9,
+            "4": 23,
+            "5": 18,
+            "6": 18,
+            "7": 36,
+            "8": 17,
+            "9": 25,
+            "10": 31,
+            "11": 23,
+            "12": 49,
+            "13": 73,
+            "14": 44,
+            "15": 30,
+            "16": 33,
+            "17": 22,
+            "18": 20,
+            "19": 45,
+            "20": 32
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.5128205128205128,
+              "n": 39,
+              "binary_FNR": 0.4444444444444444,
+              "confusion": {
+                "TP": 5,
+                "TN": 30,
+                "FP": 0,
+                "FN": 4
+              }
+            },
+            "web_test": {
+              "accuracy": 0.4084507042253521,
+              "n": 142,
+              "binary_FNR": 0.5135135135135135,
+              "confusion": {
+                "TP": 18,
+                "TN": 79,
+                "FP": 26,
+                "FN": 19
+              }
+            },
+            "field_test": {
+              "accuracy": 0.125,
+              "n": 8,
+              "binary_FNR": 1.0,
+              "confusion": {
+                "TP": 0,
+                "TN": 4,
+                "FP": 2,
+                "FN": 2
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.41798941798941797,
+              "n": 189,
+              "binary_FNR": 0.5208333333333334,
+              "confusion": {
+                "TP": 23,
+                "TN": 113,
+                "FP": 28,
+                "FN": 25
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "1": {
+      "lab_test": {
+        "accuracy_mean": 0.28205128205128205,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 0.7777777777777778,
+        "binary_FNR_std": 0.0
+      },
+      "web_test": {
+        "accuracy_mean": 0.14084507042253522,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 0.6216216216216216,
+        "binary_FNR_std": 0.0
+      },
+      "field_test": {
+        "accuracy_mean": 0.25,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 1.0,
+        "binary_FNR_std": 0.0
+      },
+      "pooled_test": {
+        "accuracy_mean": 0.1746031746031746,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 0.6666666666666666,
+        "binary_FNR_std": 0.0
+      }
+    },
+    "5": {
+      "lab_test": {
+        "accuracy_mean": 0.38461538461538464,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 0.6666666666666666,
+        "binary_FNR_std": 0.0
+      },
+      "web_test": {
+        "accuracy_mean": 0.2676056338028169,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 0.4594594594594595,
+        "binary_FNR_std": 0.0
+      },
+      "field_test": {
+        "accuracy_mean": 0.5,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 0.5,
+        "binary_FNR_std": 0.0
+      },
+      "pooled_test": {
+        "accuracy_mean": 0.30158730158730157,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 0.5,
+        "binary_FNR_std": 0.0
+      }
+    },
+    "10": {
+      "lab_test": {
+        "accuracy_mean": 0.48717948717948717,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 0.1111111111111111,
+        "binary_FNR_std": 0.0
+      },
+      "web_test": {
+        "accuracy_mean": 0.2887323943661972,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 0.4864864864864865,
+        "binary_FNR_std": 0.0
+      },
+      "field_test": {
+        "accuracy_mean": 0.375,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 1.0,
+        "binary_FNR_std": 0.0
+      },
+      "pooled_test": {
+        "accuracy_mean": 0.3333333333333333,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 0.4375,
+        "binary_FNR_std": 0.0
+      }
+    },
+    "all": {
+      "lab_test": {
+        "accuracy_mean": 0.5128205128205128,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 0.4444444444444444,
+        "binary_FNR_std": 0.0
+      },
+      "web_test": {
+        "accuracy_mean": 0.4084507042253521,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 0.5135135135135135,
+        "binary_FNR_std": 0.0
+      },
+      "field_test": {
+        "accuracy_mean": 0.125,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 1.0,
+        "binary_FNR_std": 0.0
+      },
+      "pooled_test": {
+        "accuracy_mean": 0.41798941798941797,
+        "accuracy_std": 0.0,
+        "binary_FNR_mean": 0.5208333333333334,
+        "binary_FNR_std": 0.0
+      }
+    }
+  }
+}
