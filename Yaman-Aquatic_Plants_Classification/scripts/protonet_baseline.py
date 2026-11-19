@@ -182,8 +182,13 @@ def mean_std(values):
     return float(np.mean(values)), float(np.std(values, ddof=1))
 
 
-def print_summary_table(all_seed_results, shots_keys, test_names):
-    print("\n=== ProtoNet frozen baseline (mean +/- std over seeds) ===")
+def print_summary_table(
+    all_seed_results,
+    shots_keys,
+    test_names,
+    title="ProtoNet frozen baseline (mean +/- std over seeds)",
+):
+    print(f"\n=== {title} ===")
     header = f"{'shot':>8}  " + "  ".join(f"{name:>14}" for name in test_names) + f"  {'inv_FNR':>10}"
     print(header)
     for shot_key in shots_keys:

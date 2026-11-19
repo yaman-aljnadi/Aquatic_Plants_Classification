@@ -1,0 +1,127 @@
+Device: cuda  (NVIDIA GeForce RTX 3070 Ti)
+BioCLIP hf-hub:imageomics/bioclip  data=lab+web+field  seeds=[8, 9, 10, 11, 12]  epochs=250
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Visual params: 86,192,640  full CLIP: 149,620,737  linear head: 10,773
+Forward: 8.7 ms/image (batch 1, 224 px, vision tower only)
+Rover line: ConvNeXt-V2 Tiny was chosen for the rover (HANDOFF.md: about 5.2 ms forward, 27.9M params). BioCLIP ViT-B/16 is 86.2M visual params and 8.7 ms/image here.
+
+Seed 8  split=F:\GitHub_Desktop\Aquatic_Plants_Classification\Yaman-Aquatic_Plants_Classification\data\splits\lab_web_field_seed8.csv
+Image bank loaded: F:\GitHub_Desktop\Aquatic_Plants_Classification\Yaman-Aquatic_Plants_Classification\data\cache\images_320_a4a6dc49d93f.pt  (1030 images at 320x320)
+Split  train=655  val=189  lab_test=39  web_test=139  field_test=8  pooled_test=186
+  zeroshot seed 8  lab_test      acc=0.5385  FNR=0.333
+  zeroshot seed 8  web_test      acc=0.5108  FNR=0.588
+  zeroshot seed 8  field_test    acc=0.5000  FNR=0.500
+  zeroshot seed 8  pooled_test   acc=0.5161  FNR=0.533
+  seed 8  epoch 001/250  train 3.004/0.082  val 2.873/0.222
+  seed 8  epoch 025/250  train 1.849/0.557  val 1.590/0.619
+  seed 8  epoch 050/250  train 1.561/0.652  val 1.357/0.677
+  seed 8  epoch 075/250  train 1.442/0.658  val 1.283/0.683
+  seed 8  epoch 100/250  train 1.345/0.687  val 1.246/0.667
+  seed 8  epoch 125/250  train 1.294/0.713  val 1.239/0.667
+  seed 8  epoch 150/250  train 1.297/0.710  val 1.231/0.667
+  seed 8  epoch 175/250  train 1.318/0.696  val 1.226/0.677
+  seed 8  epoch 200/250  train 1.267/0.725  val 1.223/0.677
+  seed 8  epoch 225/250  train 1.270/0.713  val 1.223/0.677
+  seed 8  epoch 250/250  train 1.293/0.696  val 1.223/0.677
+  seed 8  lab_test      acc=0.7692  FNR=0.111
+  seed 8  web_test      acc=0.5971  FNR=0.235
+  seed 8  field_test    acc=0.7500  FNR=0.000
+  seed 8  pooled_test   acc=0.6398  FNR=0.200
+
+Seed 9  split=F:\GitHub_Desktop\Aquatic_Plants_Classification\Yaman-Aquatic_Plants_Classification\data\splits\lab_web_field_seed9.csv
+Image bank loaded: F:\GitHub_Desktop\Aquatic_Plants_Classification\Yaman-Aquatic_Plants_Classification\data\cache\images_320_a4a6dc49d93f.pt  (1030 images at 320x320)
+Split  train=648  val=193  lab_test=39  web_test=142  field_test=8  pooled_test=189
+  zeroshot seed 9  lab_test      acc=0.4615  FNR=0.444
+  zeroshot seed 9  web_test      acc=0.4155  FNR=0.595
+  zeroshot seed 9  field_test    acc=0.2500  FNR=1.000
+  zeroshot seed 9  pooled_test   acc=0.4180  FNR=0.583
+  seed 9  epoch 001/250  train 2.999/0.085  val 2.889/0.161
+  seed 9  epoch 025/250  train 1.853/0.571  val 1.625/0.570
+  seed 9  epoch 050/250  train 1.639/0.608  val 1.411/0.617
+  seed 9  epoch 075/250  train 1.466/0.664  val 1.338/0.674
+  seed 9  epoch 100/250  train 1.370/0.696  val 1.309/0.689
+  seed 9  epoch 125/250  train 1.364/0.698  val 1.309/0.684
+  seed 9  epoch 150/250  train 1.290/0.708  val 1.306/0.668
+  seed 9  epoch 175/250  train 1.287/0.702  val 1.305/0.668
+  seed 9  epoch 200/250  train 1.253/0.727  val 1.301/0.674
+  seed 9  epoch 225/250  train 1.297/0.707  val 1.299/0.679
+  seed 9  epoch 250/250  train 1.242/0.738  val 1.300/0.674
+  seed 9  lab_test      acc=0.7949  FNR=0.000
+  seed 9  web_test      acc=0.6690  FNR=0.270
+  seed 9  field_test    acc=0.8750  FNR=0.500
+  seed 9  pooled_test   acc=0.7037  FNR=0.229
+
+Seed 10  split=F:\GitHub_Desktop\Aquatic_Plants_Classification\Yaman-Aquatic_Plants_Classification\data\splits\lab_web_field_seed10.csv
+Image bank loaded: F:\GitHub_Desktop\Aquatic_Plants_Classification\Yaman-Aquatic_Plants_Classification\data\cache\images_320_a4a6dc49d93f.pt  (1030 images at 320x320)
+Split  train=651  val=192  lab_test=39  web_test=140  field_test=8  pooled_test=187
+  zeroshot seed 10  lab_test      acc=0.6154  FNR=0.333
+  zeroshot seed 10  web_test      acc=0.4429  FNR=0.568
+  zeroshot seed 10  field_test    acc=0.3750  FNR=1.000
+  zeroshot seed 10  pooled_test   acc=0.4759  FNR=0.542
+  seed 10  epoch 001/250  train 2.996/0.095  val 2.858/0.198
+  seed 10  epoch 025/250  train 1.815/0.561  val 1.636/0.583
+  seed 10  epoch 050/250  train 1.541/0.662  val 1.439/0.656
+  seed 10  epoch 075/250  train 1.410/0.711  val 1.384/0.656
+  seed 10  epoch 100/250  train 1.318/0.720  val 1.366/0.661
+  seed 10  epoch 125/250  train 1.295/0.725  val 1.354/0.682
+  seed 10  epoch 150/250  train 1.259/0.728  val 1.349/0.688
+  seed 10  epoch 175/250  train 1.249/0.720  val 1.350/0.677
+  seed 10  epoch 200/250  train 1.266/0.714  val 1.348/0.672
+  seed 10  epoch 225/250  train 1.264/0.704  val 1.344/0.682
+  seed 10  epoch 250/250  train 1.228/0.753  val 1.345/0.682
+  seed 10  lab_test      acc=0.7179  FNR=0.333
+  seed 10  web_test      acc=0.6143  FNR=0.324
+  seed 10  field_test    acc=0.7500  FNR=0.500
+  seed 10  pooled_test   acc=0.6417  FNR=0.333
+
+Seed 11  split=F:\GitHub_Desktop\Aquatic_Plants_Classification\Yaman-Aquatic_Plants_Classification\data\splits\lab_web_field_seed11.csv
+Image bank loaded: F:\GitHub_Desktop\Aquatic_Plants_Classification\Yaman-Aquatic_Plants_Classification\data\cache\images_320_a4a6dc49d93f.pt  (1030 images at 320x320)
+Split  train=648  val=192  lab_test=39  web_test=143  field_test=8  pooled_test=190
+  zeroshot seed 11  lab_test      acc=0.4359  FNR=0.556
+  zeroshot seed 11  web_test      acc=0.4336  FNR=0.632
+  zeroshot seed 11  field_test    acc=0.5000  FNR=1.000
+  zeroshot seed 11  pooled_test   acc=0.4368  FNR=0.633
+  seed 11  epoch 001/250  train 2.998/0.086  val 2.860/0.167
+  seed 11  epoch 025/250  train 1.862/0.569  val 1.581/0.646
+  seed 11  epoch 050/250  train 1.535/0.642  val 1.347/0.667
+  seed 11  epoch 075/250  train 1.494/0.648  val 1.275/0.672
+  seed 11  epoch 100/250  train 1.396/0.685  val 1.246/0.677
+  seed 11  epoch 125/250  train 1.338/0.696  val 1.218/0.688
+  seed 11  epoch 150/250  train 1.330/0.699  val 1.216/0.688
+  seed 11  epoch 175/250  train 1.312/0.710  val 1.206/0.693
+  seed 11  epoch 200/250  train 1.275/0.715  val 1.202/0.693
+  seed 11  epoch 225/250  train 1.313/0.699  val 1.202/0.698
+  seed 11  epoch 250/250  train 1.213/0.744  val 1.202/0.698
+  seed 11  lab_test      acc=0.8205  FNR=0.222
+  seed 11  web_test      acc=0.6154  FNR=0.500
+  seed 11  field_test    acc=0.7500  FNR=1.000
+  seed 11  pooled_test   acc=0.6632  FNR=0.469
+
+Seed 12  split=F:\GitHub_Desktop\Aquatic_Plants_Classification\Yaman-Aquatic_Plants_Classification\data\splits\lab_web_field_seed12.csv
+Image bank loaded: F:\GitHub_Desktop\Aquatic_Plants_Classification\Yaman-Aquatic_Plants_Classification\data\cache\images_320_a4a6dc49d93f.pt  (1030 images at 320x320)
+Split  train=648  val=192  lab_test=39  web_test=143  field_test=8  pooled_test=190
+  zeroshot seed 12  lab_test      acc=0.5641  FNR=0.222
+  zeroshot seed 12  web_test      acc=0.4196  FNR=0.658
+  zeroshot seed 12  field_test    acc=0.3750  FNR=0.000
+  zeroshot seed 12  pooled_test   acc=0.4474  FNR=0.551
+  seed 12  epoch 001/250  train 3.018/0.091  val 2.864/0.214
+  seed 12  epoch 025/250  train 1.815/0.583  val 1.566/0.615
+  seed 12  epoch 050/250  train 1.529/0.654  val 1.344/0.661
+  seed 12  epoch 075/250  train 1.468/0.667  val 1.278/0.688
+  seed 12  epoch 100/250  train 1.390/0.701  val 1.250/0.708
+  seed 12  epoch 125/250  train 1.244/0.710  val 1.244/0.693
+  seed 12  epoch 150/250  train 1.283/0.716  val 1.235/0.688
+  seed 12  epoch 175/250  train 1.214/0.741  val 1.236/0.677
+  seed 12  epoch 200/250  train 1.252/0.711  val 1.238/0.677
+  seed 12  epoch 225/250  train 1.232/0.752  val 1.235/0.677
+  seed 12  epoch 250/250  train 1.248/0.722  val 1.235/0.677
+  seed 12  lab_test      acc=0.7949  FNR=0.222
+  seed 12  web_test      acc=0.5385  FNR=0.211
+  seed 12  field_test    acc=0.6250  FNR=0.000
+  seed 12  pooled_test   acc=0.5947  FNR=0.204
+
+Linear lab 77.9% +/- 3.9
+Linear web 60.7% +/- 4.7
+Linear pooled 64.9% +/- 4.0
+lab 77.9% is not above frozen ConvNeXt lab 80.0%; BioCLIP dropped
+Results: F:\GitHub_Desktop\Aquatic_Plants_Classification\Yaman-Aquatic_Plants_Classification\runs\models\20261118_154447_bioclip_linear_lab_web_field\results.json

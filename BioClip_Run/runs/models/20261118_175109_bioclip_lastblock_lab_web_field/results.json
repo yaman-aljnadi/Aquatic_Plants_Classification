@@ -1,0 +1,334 @@
+{
+  "model": "hf-hub:imageomics/bioclip",
+  "data": "lab+web+field",
+  "seeds": [
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "epochs": 250,
+  "batch_size": 32,
+  "lr": 0.0005,
+  "backbone_lr": 0.0001,
+  "unfreeze_last_block": true,
+  "label_smoothing": 0.05,
+  "weight_decay": 2e-05,
+  "normalization": "openai_clip",
+  "prompt": "a photo of {scientific name}",
+  "comparison": {
+    "frozen_convnext_linear_lab": 0.8,
+    "frozen_convnext_linear_pooled": 0.595,
+    "laststage_convnext_linear_pooled": 0.651,
+    "frozen_bioclip_lab": 0.779,
+    "frozen_bioclip_web": 0.607,
+    "frozen_bioclip_pooled": 0.649,
+    "keep_if": "lab > frozen ConvNeXt lab (80%), or pooled > last-stage ConvNeXt pooled (65.1%)"
+  },
+  "params": {
+    "visual": 86192640,
+    "clip_total": 149620737,
+    "linear_head": 10773
+  },
+  "ms_per_image_batch1": 10.374976663539806,
+  "device": "NVIDIA GeForce RTX 3070 Ti",
+  "zeroshot": [],
+  "linear": [
+    {
+      "seed": 8,
+      "best_epoch": 246,
+      "best_val_accuracy": 0.7513227513227513,
+      "train_minutes": 7.071174244085948,
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.9230769230769231,
+          "n": 39,
+          "binary_FNR": 0.0,
+          "confusion": {
+            "TP": 9,
+            "TN": 30,
+            "FP": 0,
+            "FN": 0
+          }
+        },
+        "web_test": {
+          "accuracy": 0.7194244604316546,
+          "n": 139,
+          "binary_FNR": 0.23529411764705882,
+          "confusion": {
+            "TP": 26,
+            "TN": 99,
+            "FP": 6,
+            "FN": 8
+          }
+        },
+        "field_test": {
+          "accuracy": 1.0,
+          "n": 8,
+          "binary_FNR": 0.0,
+          "confusion": {
+            "TP": 2,
+            "TN": 6,
+            "FP": 0,
+            "FN": 0
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.7741935483870968,
+          "n": 186,
+          "binary_FNR": 0.17777777777777778,
+          "confusion": {
+            "TP": 37,
+            "TN": 135,
+            "FP": 6,
+            "FN": 8
+          }
+        }
+      },
+      "unfreeze_last_block": true
+    },
+    {
+      "seed": 9,
+      "best_epoch": 25,
+      "best_val_accuracy": 0.7564766839378239,
+      "train_minutes": 8.095272318522136,
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.8717948717948718,
+          "n": 39,
+          "binary_FNR": 0.0,
+          "confusion": {
+            "TP": 9,
+            "TN": 30,
+            "FP": 0,
+            "FN": 0
+          }
+        },
+        "web_test": {
+          "accuracy": 0.7394366197183099,
+          "n": 142,
+          "binary_FNR": 0.24324324324324326,
+          "confusion": {
+            "TP": 28,
+            "TN": 96,
+            "FP": 9,
+            "FN": 9
+          }
+        },
+        "field_test": {
+          "accuracy": 0.875,
+          "n": 8,
+          "binary_FNR": 0.5,
+          "confusion": {
+            "TP": 1,
+            "TN": 6,
+            "FP": 0,
+            "FN": 1
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.7724867724867724,
+          "n": 189,
+          "binary_FNR": 0.20833333333333334,
+          "confusion": {
+            "TP": 38,
+            "TN": 132,
+            "FP": 9,
+            "FN": 10
+          }
+        }
+      },
+      "unfreeze_last_block": true
+    },
+    {
+      "seed": 10,
+      "best_epoch": 29,
+      "best_val_accuracy": 0.7447916666666666,
+      "train_minutes": 8.00747255484263,
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.8205128205128205,
+          "n": 39,
+          "binary_FNR": 0.3333333333333333,
+          "confusion": {
+            "TP": 6,
+            "TN": 29,
+            "FP": 1,
+            "FN": 3
+          }
+        },
+        "web_test": {
+          "accuracy": 0.6357142857142857,
+          "n": 140,
+          "binary_FNR": 0.2972972972972973,
+          "confusion": {
+            "TP": 26,
+            "TN": 88,
+            "FP": 15,
+            "FN": 11
+          }
+        },
+        "field_test": {
+          "accuracy": 0.75,
+          "n": 8,
+          "binary_FNR": 0.5,
+          "confusion": {
+            "TP": 1,
+            "TN": 6,
+            "FP": 0,
+            "FN": 1
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.679144385026738,
+          "n": 187,
+          "binary_FNR": 0.3125,
+          "confusion": {
+            "TP": 33,
+            "TN": 123,
+            "FP": 16,
+            "FN": 15
+          }
+        }
+      },
+      "unfreeze_last_block": true
+    },
+    {
+      "seed": 11,
+      "best_epoch": 19,
+      "best_val_accuracy": 0.7552083333333334,
+      "train_minutes": 6.210855094591777,
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.9487179487179487,
+          "n": 39,
+          "binary_FNR": 0.0,
+          "confusion": {
+            "TP": 9,
+            "TN": 30,
+            "FP": 0,
+            "FN": 0
+          }
+        },
+        "web_test": {
+          "accuracy": 0.6223776223776224,
+          "n": 143,
+          "binary_FNR": 0.2894736842105263,
+          "confusion": {
+            "TP": 27,
+            "TN": 93,
+            "FP": 12,
+            "FN": 11
+          }
+        },
+        "field_test": {
+          "accuracy": 0.875,
+          "n": 8,
+          "binary_FNR": 0.0,
+          "confusion": {
+            "TP": 2,
+            "TN": 6,
+            "FP": 0,
+            "FN": 0
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.7,
+          "n": 190,
+          "binary_FNR": 0.22448979591836735,
+          "confusion": {
+            "TP": 38,
+            "TN": 129,
+            "FP": 12,
+            "FN": 11
+          }
+        }
+      },
+      "unfreeze_last_block": true
+    },
+    {
+      "seed": 12,
+      "best_epoch": 50,
+      "best_val_accuracy": 0.765625,
+      "train_minutes": 6.215501085917155,
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.8974358974358975,
+          "n": 39,
+          "binary_FNR": 0.0,
+          "confusion": {
+            "TP": 9,
+            "TN": 28,
+            "FP": 2,
+            "FN": 0
+          }
+        },
+        "web_test": {
+          "accuracy": 0.6363636363636364,
+          "n": 143,
+          "binary_FNR": 0.2631578947368421,
+          "confusion": {
+            "TP": 28,
+            "TN": 93,
+            "FP": 12,
+            "FN": 10
+          }
+        },
+        "field_test": {
+          "accuracy": 0.875,
+          "n": 8,
+          "binary_FNR": 0.5,
+          "confusion": {
+            "TP": 1,
+            "TN": 6,
+            "FP": 0,
+            "FN": 1
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.7,
+          "n": 190,
+          "binary_FNR": 0.22448979591836735,
+          "confusion": {
+            "TP": 38,
+            "TN": 127,
+            "FP": 14,
+            "FN": 11
+          }
+        }
+      },
+      "unfreeze_last_block": true
+    }
+  ],
+  "five_shot": {
+    "ran": false,
+    "reason": "Last-block BioCLIP kept; 5-shot readout left for a follow-up if needed."
+  },
+  "linear_summary": {
+    "lab_test": {
+      "mean": 0.8923076923076924,
+      "std": 0.049321497594029096,
+      "n": 5
+    },
+    "web_test": {
+      "mean": 0.6706633249211018,
+      "std": 0.0543985924916221,
+      "n": 5
+    },
+    "pooled_test": {
+      "mean": 0.7251649411801214,
+      "std": 0.044798437921248074,
+      "n": 5
+    },
+    "pooled_FNR": {
+      "mean": 0.22951814058956915,
+      "std": 0.05015580398582247,
+      "n": 5
+    }
+  },
+  "decision": {
+    "keep_bioclip": true,
+    "reason": "lab 89.2% > frozen ConvNeXt lab 80.0% and pooled 72.5% > last-stage ConvNeXt pooled 65.1%; keep BioCLIP"
+  }
+}

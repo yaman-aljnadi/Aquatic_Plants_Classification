@@ -1,0 +1,4413 @@
+{
+  "run": "20261113_003317_protonet_episodic_lab_web_field_final_laststage",
+  "timestamp": "20261113_003317",
+  "method": "protonet_episodic",
+  "data": "lab+web+field",
+  "backbone_key": "convnextv2",
+  "backbone": "convnextv2_tiny.fcmae_ft_in22k_in1k",
+  "features": "final",
+  "texture_stage": null,
+  "proj_dim": 256,
+  "unfreeze_last_stage": true,
+  "epochs": 20,
+  "episodes_per_epoch": 30,
+  "k_shot": 5,
+  "q_query": 3,
+  "lr": 0.0005,
+  "backbone_lr": 0.0001,
+  "temperature": 1.0,
+  "seeds": [
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "shots": [
+    1,
+    5,
+    10
+  ],
+  "include_all": true,
+  "minutes": 16.12203654448191,
+  "per_seed": [
+    {
+      "seed": 8,
+      "n_train": 655,
+      "n_val": 189,
+      "best_epoch": 11,
+      "best_val_acc": 0.5820105671882629,
+      "trainable_params": 15683328,
+      "total_params": 28063104,
+      "checkpoint": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Yaman-Aquatic_Plants_Classification\\runs\\models\\20261113_003317_protonet_episodic_lab_web_field_final_laststage\\seed8_best.pth",
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss": 2.4803025166193646,
+          "train_acc": 0.4105820105820106,
+          "val_acc": 0.4973544776439667,
+          "seconds": 14.53838586807251
+        },
+        {
+          "epoch": 2,
+          "train_loss": 2.079396375020345,
+          "train_acc": 0.5470899470899471,
+          "val_acc": 0.5132275223731995,
+          "seconds": 9.017334938049316
+        },
+        {
+          "epoch": 3,
+          "train_loss": 1.9603637099266051,
+          "train_acc": 0.5814814814814815,
+          "val_acc": 0.5079364776611328,
+          "seconds": 8.96138620376587
+        },
+        {
+          "epoch": 4,
+          "train_loss": 1.8647656083106994,
+          "train_acc": 0.6439153439153439,
+          "val_acc": 0.5608465671539307,
+          "seconds": 8.959264278411865
+        },
+        {
+          "epoch": 5,
+          "train_loss": 1.7784541964530944,
+          "train_acc": 0.7052910052910053,
+          "val_acc": 0.5608465671539307,
+          "seconds": 8.947190284729004
+        },
+        {
+          "epoch": 6,
+          "train_loss": 1.7164077917734781,
+          "train_acc": 0.7592592592592593,
+          "val_acc": 0.5396825075149536,
+          "seconds": 8.958850860595703
+        },
+        {
+          "epoch": 7,
+          "train_loss": 1.6754828612009685,
+          "train_acc": 0.7793650793650794,
+          "val_acc": 0.5449735522270203,
+          "seconds": 9.025061130523682
+        },
+        {
+          "epoch": 8,
+          "train_loss": 1.6393842856089273,
+          "train_acc": 0.8042328042328042,
+          "val_acc": 0.5449735522270203,
+          "seconds": 8.970345973968506
+        },
+        {
+          "epoch": 9,
+          "train_loss": 1.5988139589627584,
+          "train_acc": 0.8396825396825397,
+          "val_acc": 0.5714285373687744,
+          "seconds": 8.951827049255371
+        },
+        {
+          "epoch": 10,
+          "train_loss": 1.5825877706209819,
+          "train_acc": 0.837037037037037,
+          "val_acc": 0.5608465671539307,
+          "seconds": 8.952919006347656
+        },
+        {
+          "epoch": 11,
+          "train_loss": 1.5625324845314026,
+          "train_acc": 0.8497354497354498,
+          "val_acc": 0.5820105671882629,
+          "seconds": 8.989760160446167
+        },
+        {
+          "epoch": 12,
+          "train_loss": 1.5327595273653667,
+          "train_acc": 0.8650793650793651,
+          "val_acc": 0.5714285373687744,
+          "seconds": 9.022897481918335
+        },
+        {
+          "epoch": 13,
+          "train_loss": 1.5101328810056052,
+          "train_acc": 0.8751322751322751,
+          "val_acc": 0.5820105671882629,
+          "seconds": 9.431796789169312
+        },
+        {
+          "epoch": 14,
+          "train_loss": 1.4990769465764364,
+          "train_acc": 0.8888888888888888,
+          "val_acc": 0.5661375522613525,
+          "seconds": 9.568922996520996
+        },
+        {
+          "epoch": 15,
+          "train_loss": 1.4956384539604186,
+          "train_acc": 0.8883597883597883,
+          "val_acc": 0.555555522441864,
+          "seconds": 9.431655883789062
+        },
+        {
+          "epoch": 16,
+          "train_loss": 1.48188183705012,
+          "train_acc": 0.8846560846560847,
+          "val_acc": 0.555555522441864,
+          "seconds": 9.333757162094116
+        },
+        {
+          "epoch": 17,
+          "train_loss": 1.4859067002932231,
+          "train_acc": 0.8841269841269841,
+          "val_acc": 0.555555522441864,
+          "seconds": 9.350895881652832
+        },
+        {
+          "epoch": 18,
+          "train_loss": 1.4639516035715738,
+          "train_acc": 0.9037037037037037,
+          "val_acc": 0.5661375522613525,
+          "seconds": 9.448129415512085
+        },
+        {
+          "epoch": 19,
+          "train_loss": 1.4645862062772115,
+          "train_acc": 0.9031746031746032,
+          "val_acc": 0.5714285373687744,
+          "seconds": 9.454886198043823
+        },
+        {
+          "epoch": 20,
+          "train_loss": 1.4692519903182983,
+          "train_acc": 0.8936507936507937,
+          "val_acc": 0.555555522441864,
+          "seconds": 9.362352848052979
+        }
+      ],
+      "shots": {
+        "1": {
+          "k": 1,
+          "n_support": 21,
+          "support_counts": {
+            "0": 1,
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 1,
+            "17": 1,
+            "18": 1,
+            "19": 1,
+            "20": 1
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.6410256410256411,
+              "n": 39,
+              "binary_FNR": 0.4444444444444444,
+              "confusion": {
+                "TP": 5,
+                "TN": 28,
+                "FP": 2,
+                "FN": 4
+              }
+            },
+            "web_test": {
+              "accuracy": 0.49640287769784175,
+              "n": 139,
+              "binary_FNR": 0.38235294117647056,
+              "confusion": {
+                "TP": 21,
+                "TN": 92,
+                "FP": 13,
+                "FN": 13
+              }
+            },
+            "field_test": {
+              "accuracy": 0.625,
+              "n": 8,
+              "binary_FNR": 0.5,
+              "confusion": {
+                "TP": 1,
+                "TN": 5,
+                "FP": 1,
+                "FN": 1
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.532258064516129,
+              "n": 186,
+              "binary_FNR": 0.4,
+              "confusion": {
+                "TP": 27,
+                "TN": 125,
+                "FP": 16,
+                "FN": 18
+              }
+            }
+          }
+        },
+        "5": {
+          "k": 5,
+          "n_support": 105,
+          "support_counts": {
+            "0": 5,
+            "1": 5,
+            "2": 5,
+            "3": 5,
+            "4": 5,
+            "5": 5,
+            "6": 5,
+            "7": 5,
+            "8": 5,
+            "9": 5,
+            "10": 5,
+            "11": 5,
+            "12": 5,
+            "13": 5,
+            "14": 5,
+            "15": 5,
+            "16": 5,
+            "17": 5,
+            "18": 5,
+            "19": 5,
+            "20": 5
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.6666666666666666,
+              "n": 39,
+              "binary_FNR": 0.2222222222222222,
+              "confusion": {
+                "TP": 7,
+                "TN": 28,
+                "FP": 2,
+                "FN": 2
+              }
+            },
+            "web_test": {
+              "accuracy": 0.5179856115107914,
+              "n": 139,
+              "binary_FNR": 0.29411764705882354,
+              "confusion": {
+                "TP": 24,
+                "TN": 93,
+                "FP": 12,
+                "FN": 10
+              }
+            },
+            "field_test": {
+              "accuracy": 0.75,
+              "n": 8,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 2,
+                "TN": 5,
+                "FP": 1,
+                "FN": 0
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5591397849462365,
+              "n": 186,
+              "binary_FNR": 0.26666666666666666,
+              "confusion": {
+                "TP": 33,
+                "TN": 126,
+                "FP": 15,
+                "FN": 12
+              }
+            }
+          }
+        },
+        "10": {
+          "k": 10,
+          "n_support": 209,
+          "support_counts": {
+            "0": 10,
+            "1": 10,
+            "2": 10,
+            "3": 9,
+            "4": 10,
+            "5": 10,
+            "6": 10,
+            "7": 10,
+            "8": 10,
+            "9": 10,
+            "10": 10,
+            "11": 10,
+            "12": 10,
+            "13": 10,
+            "14": 10,
+            "15": 10,
+            "16": 10,
+            "17": 10,
+            "18": 10,
+            "19": 10,
+            "20": 10
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.6923076923076923,
+              "n": 39,
+              "binary_FNR": 0.2222222222222222,
+              "confusion": {
+                "TP": 7,
+                "TN": 28,
+                "FP": 2,
+                "FN": 2
+              }
+            },
+            "web_test": {
+              "accuracy": 0.5179856115107914,
+              "n": 139,
+              "binary_FNR": 0.29411764705882354,
+              "confusion": {
+                "TP": 24,
+                "TN": 93,
+                "FP": 12,
+                "FN": 10
+              }
+            },
+            "field_test": {
+              "accuracy": 0.75,
+              "n": 8,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 2,
+                "TN": 5,
+                "FP": 1,
+                "FN": 0
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5698924731182796,
+              "n": 186,
+              "binary_FNR": 0.26666666666666666,
+              "confusion": {
+                "TP": 33,
+                "TN": 126,
+                "FP": 15,
+                "FN": 12
+              }
+            }
+          }
+        },
+        "all": {
+          "k": null,
+          "n_support": 655,
+          "support_counts": {
+            "0": 35,
+            "1": 30,
+            "2": 33,
+            "3": 9,
+            "4": 23,
+            "5": 18,
+            "6": 18,
+            "7": 35,
+            "8": 16,
+            "9": 31,
+            "10": 31,
+            "11": 22,
+            "12": 51,
+            "13": 75,
+            "14": 44,
+            "15": 29,
+            "16": 36,
+            "17": 24,
+            "18": 20,
+            "19": 44,
+            "20": 31
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.717948717948718,
+              "n": 39,
+              "binary_FNR": 0.1111111111111111,
+              "confusion": {
+                "TP": 8,
+                "TN": 28,
+                "FP": 2,
+                "FN": 1
+              }
+            },
+            "web_test": {
+              "accuracy": 0.5323741007194245,
+              "n": 139,
+              "binary_FNR": 0.3235294117647059,
+              "confusion": {
+                "TP": 23,
+                "TN": 93,
+                "FP": 12,
+                "FN": 11
+              }
+            },
+            "field_test": {
+              "accuracy": 0.75,
+              "n": 8,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 2,
+                "TN": 5,
+                "FP": 1,
+                "FN": 0
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5806451612903226,
+              "n": 186,
+              "binary_FNR": 0.26666666666666666,
+              "confusion": {
+                "TP": 33,
+                "TN": 126,
+                "FP": 15,
+                "FN": 12
+              }
+            }
+          }
+        }
+      },
+      "lookalikes": {
+        "1": {
+          "per_species": {
+            "Cabomba": {
+              "n": 10,
+              "correct": 6
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 6
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 3
+            },
+            "Myriophyllum spicatum": {
+              "n": 11,
+              "correct": 0
+            },
+            "Potamogeton crispus": {
+              "n": 12,
+              "correct": 4
+            },
+            "Potamogeton gramineus": {
+              "n": 20,
+              "correct": 10
+            },
+            "Potamogeton illinoensis": {
+              "n": 11,
+              "correct": 9
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 3
+            },
+            "Potamogeton praelongus": {
+              "n": 10,
+              "correct": 4
+            },
+            "Potamogeton richardsonii": {
+              "n": 6,
+              "correct": 4
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 4
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 4
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton illinoensis",
+              "n": 4
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Cabomba",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Myriophyllum sibiricum",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Vallisneria americana",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton natans",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton natans",
+              "pred": "Nuphar variegata",
+              "n": 3
+            },
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 2
+            }
+          ]
+        },
+        "5": {
+          "per_species": {
+            "Cabomba": {
+              "n": 10,
+              "correct": 6
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 6
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 3
+            },
+            "Myriophyllum spicatum": {
+              "n": 11,
+              "correct": 2
+            },
+            "Potamogeton crispus": {
+              "n": 12,
+              "correct": 5
+            },
+            "Potamogeton gramineus": {
+              "n": 20,
+              "correct": 11
+            },
+            "Potamogeton illinoensis": {
+              "n": 11,
+              "correct": 6
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 3
+            },
+            "Potamogeton praelongus": {
+              "n": 10,
+              "correct": 3
+            },
+            "Potamogeton richardsonii": {
+              "n": 6,
+              "correct": 4
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 4
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton illinoensis",
+              "n": 3
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton illinoensis",
+              "pred": "Potamogeton gramineus",
+              "n": 3
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Cabomba",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Myriophyllum spicatum",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Vallisneria americana",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton natans",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton illinoensis",
+              "n": 3
+            }
+          ]
+        },
+        "10": {
+          "per_species": {
+            "Cabomba": {
+              "n": 10,
+              "correct": 6
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 6
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 3
+            },
+            "Myriophyllum spicatum": {
+              "n": 11,
+              "correct": 3
+            },
+            "Potamogeton crispus": {
+              "n": 12,
+              "correct": 4
+            },
+            "Potamogeton gramineus": {
+              "n": 20,
+              "correct": 9
+            },
+            "Potamogeton illinoensis": {
+              "n": 11,
+              "correct": 6
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 3
+            },
+            "Potamogeton praelongus": {
+              "n": 10,
+              "correct": 4
+            },
+            "Potamogeton richardsonii": {
+              "n": 6,
+              "correct": 4
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 4
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Vallisneria americana",
+              "n": 5
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton illinoensis",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton illinoensis",
+              "pred": "Potamogeton gramineus",
+              "n": 3
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Cabomba",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Myriophyllum spicatum",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton natans",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton natans",
+              "pred": "Potamogeton gramineus",
+              "n": 2
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 2
+            }
+          ]
+        },
+        "all": {
+          "per_species": {
+            "Cabomba": {
+              "n": 10,
+              "correct": 6
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 6
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 3
+            },
+            "Myriophyllum spicatum": {
+              "n": 11,
+              "correct": 3
+            },
+            "Potamogeton crispus": {
+              "n": 12,
+              "correct": 5
+            },
+            "Potamogeton gramineus": {
+              "n": 20,
+              "correct": 9
+            },
+            "Potamogeton illinoensis": {
+              "n": 11,
+              "correct": 6
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 3
+            },
+            "Potamogeton praelongus": {
+              "n": 10,
+              "correct": 4
+            },
+            "Potamogeton richardsonii": {
+              "n": 6,
+              "correct": 4
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 4
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Vallisneria americana",
+              "n": 5
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton illinoensis",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton illinoensis",
+              "pred": "Potamogeton gramineus",
+              "n": 3
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Cabomba",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Myriophyllum spicatum",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton natans",
+              "n": 3
+            },
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton natans",
+              "pred": "Potamogeton gramineus",
+              "n": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seed": 9,
+      "n_train": 648,
+      "n_val": 193,
+      "best_epoch": 15,
+      "best_val_acc": 0.6217616200447083,
+      "trainable_params": 15683328,
+      "total_params": 28063104,
+      "checkpoint": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Yaman-Aquatic_Plants_Classification\\runs\\models\\20261113_003317_protonet_episodic_lab_web_field_final_laststage\\seed9_best.pth",
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss": 2.5235394636789956,
+          "train_acc": 0.39894179894179893,
+          "val_acc": 0.43523314595222473,
+          "seconds": 10.433768510818481
+        },
+        {
+          "epoch": 2,
+          "train_loss": 2.1334314862887065,
+          "train_acc": 0.5084656084656085,
+          "val_acc": 0.4818652868270874,
+          "seconds": 9.504537582397461
+        },
+        {
+          "epoch": 3,
+          "train_loss": 1.9920936346054077,
+          "train_acc": 0.5851851851851851,
+          "val_acc": 0.5025906562805176,
+          "seconds": 9.408756256103516
+        },
+        {
+          "epoch": 4,
+          "train_loss": 1.8841717918713887,
+          "train_acc": 0.6492063492063492,
+          "val_acc": 0.5388600826263428,
+          "seconds": 9.484724998474121
+        },
+        {
+          "epoch": 5,
+          "train_loss": 1.8261214335759481,
+          "train_acc": 0.7137566137566138,
+          "val_acc": 0.5284973978996277,
+          "seconds": 9.46828556060791
+        },
+        {
+          "epoch": 6,
+          "train_loss": 1.7427077531814574,
+          "train_acc": 0.7544973544973544,
+          "val_acc": 0.5336787700653076,
+          "seconds": 9.387145042419434
+        },
+        {
+          "epoch": 7,
+          "train_loss": 1.7023090362548827,
+          "train_acc": 0.78994708994709,
+          "val_acc": 0.5803108811378479,
+          "seconds": 9.377899646759033
+        },
+        {
+          "epoch": 8,
+          "train_loss": 1.6613228837649028,
+          "train_acc": 0.8063492063492064,
+          "val_acc": 0.5699481964111328,
+          "seconds": 9.348253965377808
+        },
+        {
+          "epoch": 9,
+          "train_loss": 1.6286577184995015,
+          "train_acc": 0.8365079365079365,
+          "val_acc": 0.575129508972168,
+          "seconds": 9.308011293411255
+        },
+        {
+          "epoch": 10,
+          "train_loss": 1.6018417954444886,
+          "train_acc": 0.8544973544973545,
+          "val_acc": 0.5544041395187378,
+          "seconds": 9.536741971969604
+        },
+        {
+          "epoch": 11,
+          "train_loss": 1.587860647837321,
+          "train_acc": 0.8698412698412699,
+          "val_acc": 0.5544041395187378,
+          "seconds": 9.432674407958984
+        },
+        {
+          "epoch": 12,
+          "train_loss": 1.5720823645591735,
+          "train_acc": 0.8899470899470899,
+          "val_acc": 0.5803108811378479,
+          "seconds": 9.460101842880249
+        },
+        {
+          "epoch": 13,
+          "train_loss": 1.5579660455385844,
+          "train_acc": 0.9126984126984127,
+          "val_acc": 0.5854921936988831,
+          "seconds": 9.401657819747925
+        },
+        {
+          "epoch": 14,
+          "train_loss": 1.5480496843655904,
+          "train_acc": 0.9105820105820106,
+          "val_acc": 0.606217622756958,
+          "seconds": 9.333975553512573
+        },
+        {
+          "epoch": 15,
+          "train_loss": 1.540695063273112,
+          "train_acc": 0.9142857142857143,
+          "val_acc": 0.6217616200447083,
+          "seconds": 9.3691565990448
+        },
+        {
+          "epoch": 16,
+          "train_loss": 1.5405585368474324,
+          "train_acc": 0.9264550264550264,
+          "val_acc": 0.6113989353179932,
+          "seconds": 9.444191217422485
+        },
+        {
+          "epoch": 17,
+          "train_loss": 1.5337521235148113,
+          "train_acc": 0.9285714285714286,
+          "val_acc": 0.6010362505912781,
+          "seconds": 9.347419738769531
+        },
+        {
+          "epoch": 18,
+          "train_loss": 1.5142092863718668,
+          "train_acc": 0.9365079365079365,
+          "val_acc": 0.6113989353179932,
+          "seconds": 9.291839361190796
+        },
+        {
+          "epoch": 19,
+          "train_loss": 1.519927696386973,
+          "train_acc": 0.9306878306878307,
+          "val_acc": 0.6165803074836731,
+          "seconds": 9.570831298828125
+        },
+        {
+          "epoch": 20,
+          "train_loss": 1.5020893851915995,
+          "train_acc": 0.9481481481481482,
+          "val_acc": 0.6010362505912781,
+          "seconds": 9.380414485931396
+        }
+      ],
+      "shots": {
+        "1": {
+          "k": 1,
+          "n_support": 21,
+          "support_counts": {
+            "0": 1,
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 1,
+            "17": 1,
+            "18": 1,
+            "19": 1,
+            "20": 1
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.8717948717948718,
+              "n": 39,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 9,
+                "TN": 30,
+                "FP": 0,
+                "FN": 0
+              }
+            },
+            "web_test": {
+              "accuracy": 0.5422535211267606,
+              "n": 142,
+              "binary_FNR": 0.3783783783783784,
+              "confusion": {
+                "TP": 23,
+                "TN": 92,
+                "FP": 13,
+                "FN": 14
+              }
+            },
+            "field_test": {
+              "accuracy": 0.625,
+              "n": 8,
+              "binary_FNR": 1.0,
+              "confusion": {
+                "TP": 0,
+                "TN": 6,
+                "FP": 0,
+                "FN": 2
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.6137566137566137,
+              "n": 189,
+              "binary_FNR": 0.3333333333333333,
+              "confusion": {
+                "TP": 32,
+                "TN": 128,
+                "FP": 13,
+                "FN": 16
+              }
+            }
+          }
+        },
+        "5": {
+          "k": 5,
+          "n_support": 105,
+          "support_counts": {
+            "0": 5,
+            "1": 5,
+            "2": 5,
+            "3": 5,
+            "4": 5,
+            "5": 5,
+            "6": 5,
+            "7": 5,
+            "8": 5,
+            "9": 5,
+            "10": 5,
+            "11": 5,
+            "12": 5,
+            "13": 5,
+            "14": 5,
+            "15": 5,
+            "16": 5,
+            "17": 5,
+            "18": 5,
+            "19": 5,
+            "20": 5
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.8974358974358975,
+              "n": 39,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 9,
+                "TN": 30,
+                "FP": 0,
+                "FN": 0
+              }
+            },
+            "web_test": {
+              "accuracy": 0.5563380281690141,
+              "n": 142,
+              "binary_FNR": 0.32432432432432434,
+              "confusion": {
+                "TP": 25,
+                "TN": 91,
+                "FP": 14,
+                "FN": 12
+              }
+            },
+            "field_test": {
+              "accuracy": 0.625,
+              "n": 8,
+              "binary_FNR": 1.0,
+              "confusion": {
+                "TP": 0,
+                "TN": 6,
+                "FP": 0,
+                "FN": 2
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.6296296296296297,
+              "n": 189,
+              "binary_FNR": 0.2916666666666667,
+              "confusion": {
+                "TP": 34,
+                "TN": 127,
+                "FP": 14,
+                "FN": 14
+              }
+            }
+          }
+        },
+        "10": {
+          "k": 10,
+          "n_support": 209,
+          "support_counts": {
+            "0": 10,
+            "1": 10,
+            "2": 10,
+            "3": 9,
+            "4": 10,
+            "5": 10,
+            "6": 10,
+            "7": 10,
+            "8": 10,
+            "9": 10,
+            "10": 10,
+            "11": 10,
+            "12": 10,
+            "13": 10,
+            "14": 10,
+            "15": 10,
+            "16": 10,
+            "17": 10,
+            "18": 10,
+            "19": 10,
+            "20": 10
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.8717948717948718,
+              "n": 39,
+              "binary_FNR": 0.1111111111111111,
+              "confusion": {
+                "TP": 8,
+                "TN": 30,
+                "FP": 0,
+                "FN": 1
+              }
+            },
+            "web_test": {
+              "accuracy": 0.5915492957746479,
+              "n": 142,
+              "binary_FNR": 0.2702702702702703,
+              "confusion": {
+                "TP": 27,
+                "TN": 93,
+                "FP": 12,
+                "FN": 10
+              }
+            },
+            "field_test": {
+              "accuracy": 0.5,
+              "n": 8,
+              "binary_FNR": 1.0,
+              "confusion": {
+                "TP": 0,
+                "TN": 6,
+                "FP": 0,
+                "FN": 2
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.6455026455026455,
+              "n": 189,
+              "binary_FNR": 0.2708333333333333,
+              "confusion": {
+                "TP": 35,
+                "TN": 129,
+                "FP": 12,
+                "FN": 13
+              }
+            }
+          }
+        },
+        "all": {
+          "k": null,
+          "n_support": 648,
+          "support_counts": {
+            "0": 35,
+            "1": 31,
+            "2": 34,
+            "3": 9,
+            "4": 23,
+            "5": 18,
+            "6": 18,
+            "7": 36,
+            "8": 17,
+            "9": 25,
+            "10": 31,
+            "11": 23,
+            "12": 49,
+            "13": 73,
+            "14": 44,
+            "15": 30,
+            "16": 33,
+            "17": 22,
+            "18": 20,
+            "19": 45,
+            "20": 32
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.8974358974358975,
+              "n": 39,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 9,
+                "TN": 30,
+                "FP": 0,
+                "FN": 0
+              }
+            },
+            "web_test": {
+              "accuracy": 0.5845070422535211,
+              "n": 142,
+              "binary_FNR": 0.32432432432432434,
+              "confusion": {
+                "TP": 25,
+                "TN": 93,
+                "FP": 12,
+                "FN": 12
+              }
+            },
+            "field_test": {
+              "accuracy": 0.5,
+              "n": 8,
+              "binary_FNR": 1.0,
+              "confusion": {
+                "TP": 0,
+                "TN": 6,
+                "FP": 0,
+                "FN": 2
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.6455026455026455,
+              "n": 189,
+              "binary_FNR": 0.2916666666666667,
+              "confusion": {
+                "TP": 34,
+                "TN": 129,
+                "FP": 12,
+                "FN": 14
+              }
+            }
+          }
+        }
+      },
+      "lookalikes": {
+        "1": {
+          "per_species": {
+            "Cabomba": {
+              "n": 9,
+              "correct": 8
+            },
+            "Ceratophyllum demersum": {
+              "n": 9,
+              "correct": 5
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 4
+            },
+            "Myriophyllum spicatum": {
+              "n": 10,
+              "correct": 2
+            },
+            "Potamogeton crispus": {
+              "n": 14,
+              "correct": 7
+            },
+            "Potamogeton gramineus": {
+              "n": 24,
+              "correct": 11
+            },
+            "Potamogeton illinoensis": {
+              "n": 12,
+              "correct": 6
+            },
+            "Potamogeton natans": {
+              "n": 7,
+              "correct": 6
+            },
+            "Potamogeton praelongus": {
+              "n": 10,
+              "correct": 5
+            },
+            "Potamogeton richardsonii": {
+              "n": 7,
+              "correct": 4
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 5
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton illinoensis",
+              "n": 4
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton robbinsii",
+              "n": 4
+            },
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 2
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Cabomba",
+              "n": 2
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Ceratophyllum demersum",
+              "n": 2
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Potamogeton crispus",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton praelongus",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Heteranthera dubia",
+              "n": 2
+            }
+          ]
+        },
+        "5": {
+          "per_species": {
+            "Cabomba": {
+              "n": 9,
+              "correct": 8
+            },
+            "Ceratophyllum demersum": {
+              "n": 9,
+              "correct": 4
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 4
+            },
+            "Myriophyllum spicatum": {
+              "n": 10,
+              "correct": 2
+            },
+            "Potamogeton crispus": {
+              "n": 14,
+              "correct": 7
+            },
+            "Potamogeton gramineus": {
+              "n": 24,
+              "correct": 13
+            },
+            "Potamogeton illinoensis": {
+              "n": 12,
+              "correct": 8
+            },
+            "Potamogeton natans": {
+              "n": 7,
+              "correct": 6
+            },
+            "Potamogeton praelongus": {
+              "n": 10,
+              "correct": 4
+            },
+            "Potamogeton richardsonii": {
+              "n": 7,
+              "correct": 3
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 5
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton illinoensis",
+              "n": 5
+            },
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton robbinsii",
+              "n": 3
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Cabomba",
+              "n": 2
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Ceratophyllum demersum",
+              "n": 2
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Potamogeton crispus",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Heteranthera dubia",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton richardsonii",
+              "n": 2
+            }
+          ]
+        },
+        "10": {
+          "per_species": {
+            "Cabomba": {
+              "n": 9,
+              "correct": 8
+            },
+            "Ceratophyllum demersum": {
+              "n": 9,
+              "correct": 5
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 4
+            },
+            "Myriophyllum spicatum": {
+              "n": 10,
+              "correct": 2
+            },
+            "Potamogeton crispus": {
+              "n": 14,
+              "correct": 7
+            },
+            "Potamogeton gramineus": {
+              "n": 24,
+              "correct": 12
+            },
+            "Potamogeton illinoensis": {
+              "n": 12,
+              "correct": 8
+            },
+            "Potamogeton natans": {
+              "n": 7,
+              "correct": 6
+            },
+            "Potamogeton praelongus": {
+              "n": 10,
+              "correct": 5
+            },
+            "Potamogeton richardsonii": {
+              "n": 7,
+              "correct": 3
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 5
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton illinoensis",
+              "n": 5
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton robbinsii",
+              "n": 4
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Cabomba",
+              "n": 3
+            },
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 2
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Potamogeton crispus",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Myriophyllum spicatum",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Heteranthera dubia",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton richardsonii",
+              "n": 2
+            }
+          ]
+        },
+        "all": {
+          "per_species": {
+            "Cabomba": {
+              "n": 9,
+              "correct": 8
+            },
+            "Ceratophyllum demersum": {
+              "n": 9,
+              "correct": 5
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 4
+            },
+            "Myriophyllum spicatum": {
+              "n": 10,
+              "correct": 2
+            },
+            "Potamogeton crispus": {
+              "n": 14,
+              "correct": 7
+            },
+            "Potamogeton gramineus": {
+              "n": 24,
+              "correct": 12
+            },
+            "Potamogeton illinoensis": {
+              "n": 12,
+              "correct": 8
+            },
+            "Potamogeton natans": {
+              "n": 7,
+              "correct": 6
+            },
+            "Potamogeton praelongus": {
+              "n": 10,
+              "correct": 5
+            },
+            "Potamogeton richardsonii": {
+              "n": 7,
+              "correct": 3
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 5
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton illinoensis",
+              "n": 6
+            },
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 3
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Cabomba",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton robbinsii",
+              "n": 3
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Potamogeton crispus",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Heteranthera dubia",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton richardsonii",
+              "pred": "Potamogeton crispus",
+              "n": 2
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Potamogeton richardsonii",
+              "n": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seed": 10,
+      "n_train": 651,
+      "n_val": 192,
+      "best_epoch": 13,
+      "best_val_acc": 0.578125,
+      "trainable_params": 15683328,
+      "total_params": 28063104,
+      "checkpoint": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Yaman-Aquatic_Plants_Classification\\runs\\models\\20261113_003317_protonet_episodic_lab_web_field_final_laststage\\seed10_best.pth",
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss": 2.4829837958017986,
+          "train_acc": 0.41798941798941797,
+          "val_acc": 0.4479166865348816,
+          "seconds": 9.529154062271118
+        },
+        {
+          "epoch": 2,
+          "train_loss": 2.0853289286295573,
+          "train_acc": 0.5275132275132275,
+          "val_acc": 0.5416666865348816,
+          "seconds": 9.403964519500732
+        },
+        {
+          "epoch": 3,
+          "train_loss": 1.95517049630483,
+          "train_acc": 0.6052910052910053,
+          "val_acc": 0.515625,
+          "seconds": 9.498509645462036
+        },
+        {
+          "epoch": 4,
+          "train_loss": 1.8830321590105692,
+          "train_acc": 0.6365079365079365,
+          "val_acc": 0.5625,
+          "seconds": 9.486199378967285
+        },
+        {
+          "epoch": 5,
+          "train_loss": 1.7925615429878234,
+          "train_acc": 0.7026455026455026,
+          "val_acc": 0.546875,
+          "seconds": 9.579309701919556
+        },
+        {
+          "epoch": 6,
+          "train_loss": 1.7297345995903015,
+          "train_acc": 0.7301587301587301,
+          "val_acc": 0.5208333730697632,
+          "seconds": 9.204784870147705
+        },
+        {
+          "epoch": 7,
+          "train_loss": 1.6793813149134318,
+          "train_acc": 0.7746031746031746,
+          "val_acc": 0.5364583730697632,
+          "seconds": 9.352967977523804
+        },
+        {
+          "epoch": 8,
+          "train_loss": 1.6406420509020487,
+          "train_acc": 0.7883597883597884,
+          "val_acc": 0.5520833730697632,
+          "seconds": 9.691162824630737
+        },
+        {
+          "epoch": 9,
+          "train_loss": 1.6156176527341206,
+          "train_acc": 0.8058201058201058,
+          "val_acc": 0.5520833730697632,
+          "seconds": 9.35896110534668
+        },
+        {
+          "epoch": 10,
+          "train_loss": 1.5850376923878988,
+          "train_acc": 0.819047619047619,
+          "val_acc": 0.53125,
+          "seconds": 9.587184429168701
+        },
+        {
+          "epoch": 11,
+          "train_loss": 1.560176972548167,
+          "train_acc": 0.8486772486772487,
+          "val_acc": 0.5416666865348816,
+          "seconds": 9.365878582000732
+        },
+        {
+          "epoch": 12,
+          "train_loss": 1.547221565246582,
+          "train_acc": 0.8497354497354498,
+          "val_acc": 0.5572916865348816,
+          "seconds": 9.320486068725586
+        },
+        {
+          "epoch": 13,
+          "train_loss": 1.5447208484013875,
+          "train_acc": 0.8560846560846561,
+          "val_acc": 0.578125,
+          "seconds": 9.432207584381104
+        },
+        {
+          "epoch": 14,
+          "train_loss": 1.5272613565127056,
+          "train_acc": 0.8608465608465609,
+          "val_acc": 0.5625,
+          "seconds": 9.287970781326294
+        },
+        {
+          "epoch": 15,
+          "train_loss": 1.5160022616386413,
+          "train_acc": 0.8560846560846561,
+          "val_acc": 0.5572916865348816,
+          "seconds": 9.378951072692871
+        },
+        {
+          "epoch": 16,
+          "train_loss": 1.4937228679656982,
+          "train_acc": 0.8777777777777778,
+          "val_acc": 0.5677083730697632,
+          "seconds": 9.339329957962036
+        },
+        {
+          "epoch": 17,
+          "train_loss": 1.5016934434572855,
+          "train_acc": 0.8608465608465609,
+          "val_acc": 0.5729166865348816,
+          "seconds": 9.38101863861084
+        },
+        {
+          "epoch": 18,
+          "train_loss": 1.4976915955543517,
+          "train_acc": 0.873015873015873,
+          "val_acc": 0.5677083730697632,
+          "seconds": 9.252617597579956
+        },
+        {
+          "epoch": 19,
+          "train_loss": 1.4928120215733847,
+          "train_acc": 0.8656084656084656,
+          "val_acc": 0.5572916865348816,
+          "seconds": 9.441082000732422
+        },
+        {
+          "epoch": 20,
+          "train_loss": 1.481516130765279,
+          "train_acc": 0.8973544973544973,
+          "val_acc": 0.5677083730697632,
+          "seconds": 9.506458282470703
+        }
+      ],
+      "shots": {
+        "1": {
+          "k": 1,
+          "n_support": 21,
+          "support_counts": {
+            "0": 1,
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 1,
+            "17": 1,
+            "18": 1,
+            "19": 1,
+            "20": 1
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.6666666666666666,
+              "n": 39,
+              "binary_FNR": 0.4444444444444444,
+              "confusion": {
+                "TP": 5,
+                "TN": 29,
+                "FP": 1,
+                "FN": 4
+              }
+            },
+            "web_test": {
+              "accuracy": 0.5,
+              "n": 140,
+              "binary_FNR": 0.5945945945945946,
+              "confusion": {
+                "TP": 15,
+                "TN": 96,
+                "FP": 7,
+                "FN": 22
+              }
+            },
+            "field_test": {
+              "accuracy": 0.5,
+              "n": 8,
+              "binary_FNR": 0.5,
+              "confusion": {
+                "TP": 1,
+                "TN": 6,
+                "FP": 0,
+                "FN": 1
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5347593582887701,
+              "n": 187,
+              "binary_FNR": 0.5625,
+              "confusion": {
+                "TP": 21,
+                "TN": 131,
+                "FP": 8,
+                "FN": 27
+              }
+            }
+          }
+        },
+        "5": {
+          "k": 5,
+          "n_support": 105,
+          "support_counts": {
+            "0": 5,
+            "1": 5,
+            "2": 5,
+            "3": 5,
+            "4": 5,
+            "5": 5,
+            "6": 5,
+            "7": 5,
+            "8": 5,
+            "9": 5,
+            "10": 5,
+            "11": 5,
+            "12": 5,
+            "13": 5,
+            "14": 5,
+            "15": 5,
+            "16": 5,
+            "17": 5,
+            "18": 5,
+            "19": 5,
+            "20": 5
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.6666666666666666,
+              "n": 39,
+              "binary_FNR": 0.4444444444444444,
+              "confusion": {
+                "TP": 5,
+                "TN": 29,
+                "FP": 1,
+                "FN": 4
+              }
+            },
+            "web_test": {
+              "accuracy": 0.4928571428571429,
+              "n": 140,
+              "binary_FNR": 0.5405405405405406,
+              "confusion": {
+                "TP": 17,
+                "TN": 90,
+                "FP": 13,
+                "FN": 20
+              }
+            },
+            "field_test": {
+              "accuracy": 0.75,
+              "n": 8,
+              "binary_FNR": 0.5,
+              "confusion": {
+                "TP": 1,
+                "TN": 6,
+                "FP": 0,
+                "FN": 1
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5401069518716578,
+              "n": 187,
+              "binary_FNR": 0.5208333333333334,
+              "confusion": {
+                "TP": 23,
+                "TN": 125,
+                "FP": 14,
+                "FN": 25
+              }
+            }
+          }
+        },
+        "10": {
+          "k": 10,
+          "n_support": 209,
+          "support_counts": {
+            "0": 10,
+            "1": 10,
+            "2": 10,
+            "3": 9,
+            "4": 10,
+            "5": 10,
+            "6": 10,
+            "7": 10,
+            "8": 10,
+            "9": 10,
+            "10": 10,
+            "11": 10,
+            "12": 10,
+            "13": 10,
+            "14": 10,
+            "15": 10,
+            "16": 10,
+            "17": 10,
+            "18": 10,
+            "19": 10,
+            "20": 10
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.6666666666666666,
+              "n": 39,
+              "binary_FNR": 0.3333333333333333,
+              "confusion": {
+                "TP": 6,
+                "TN": 28,
+                "FP": 2,
+                "FN": 3
+              }
+            },
+            "web_test": {
+              "accuracy": 0.4785714285714286,
+              "n": 140,
+              "binary_FNR": 0.5405405405405406,
+              "confusion": {
+                "TP": 17,
+                "TN": 87,
+                "FP": 16,
+                "FN": 20
+              }
+            },
+            "field_test": {
+              "accuracy": 0.75,
+              "n": 8,
+              "binary_FNR": 0.5,
+              "confusion": {
+                "TP": 1,
+                "TN": 6,
+                "FP": 0,
+                "FN": 1
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5294117647058824,
+              "n": 187,
+              "binary_FNR": 0.5,
+              "confusion": {
+                "TP": 24,
+                "TN": 121,
+                "FP": 18,
+                "FN": 24
+              }
+            }
+          }
+        },
+        "all": {
+          "k": null,
+          "n_support": 651,
+          "support_counts": {
+            "0": 35,
+            "1": 33,
+            "2": 33,
+            "3": 9,
+            "4": 23,
+            "5": 18,
+            "6": 19,
+            "7": 36,
+            "8": 17,
+            "9": 27,
+            "10": 32,
+            "11": 23,
+            "12": 47,
+            "13": 76,
+            "14": 43,
+            "15": 29,
+            "16": 33,
+            "17": 24,
+            "18": 19,
+            "19": 44,
+            "20": 31
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.6923076923076923,
+              "n": 39,
+              "binary_FNR": 0.3333333333333333,
+              "confusion": {
+                "TP": 6,
+                "TN": 29,
+                "FP": 1,
+                "FN": 3
+              }
+            },
+            "web_test": {
+              "accuracy": 0.4857142857142857,
+              "n": 140,
+              "binary_FNR": 0.5405405405405406,
+              "confusion": {
+                "TP": 17,
+                "TN": 90,
+                "FP": 13,
+                "FN": 20
+              }
+            },
+            "field_test": {
+              "accuracy": 0.75,
+              "n": 8,
+              "binary_FNR": 0.5,
+              "confusion": {
+                "TP": 1,
+                "TN": 6,
+                "FP": 0,
+                "FN": 1
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5401069518716578,
+              "n": 187,
+              "binary_FNR": 0.5,
+              "confusion": {
+                "TP": 24,
+                "TN": 125,
+                "FP": 14,
+                "FN": 24
+              }
+            }
+          }
+        }
+      },
+      "lookalikes": {
+        "1": {
+          "per_species": {
+            "Cabomba": {
+              "n": 8,
+              "correct": 3
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 2
+            },
+            "Myriophyllum sibiricum": {
+              "n": 5,
+              "correct": 1
+            },
+            "Myriophyllum spicatum": {
+              "n": 10,
+              "correct": 4
+            },
+            "Potamogeton crispus": {
+              "n": 16,
+              "correct": 0
+            },
+            "Potamogeton gramineus": {
+              "n": 19,
+              "correct": 11
+            },
+            "Potamogeton illinoensis": {
+              "n": 13,
+              "correct": 7
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 7
+            },
+            "Potamogeton praelongus": {
+              "n": 11,
+              "correct": 6
+            },
+            "Potamogeton richardsonii": {
+              "n": 6,
+              "correct": 5
+            },
+            "Potamogeton robbinsii": {
+              "n": 6,
+              "correct": 5
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 5
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton richardsonii",
+              "n": 5
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton richardsonii",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Myriophyllum spicatum",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton praelongus",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Vallisneria americana",
+              "n": 2
+            },
+            {
+              "true": "Cabomba",
+              "pred": "Myriophyllum sibiricum",
+              "n": 2
+            }
+          ]
+        },
+        "5": {
+          "per_species": {
+            "Cabomba": {
+              "n": 8,
+              "correct": 3
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 3
+            },
+            "Myriophyllum sibiricum": {
+              "n": 5,
+              "correct": 2
+            },
+            "Myriophyllum spicatum": {
+              "n": 10,
+              "correct": 1
+            },
+            "Potamogeton crispus": {
+              "n": 16,
+              "correct": 4
+            },
+            "Potamogeton gramineus": {
+              "n": 19,
+              "correct": 12
+            },
+            "Potamogeton illinoensis": {
+              "n": 13,
+              "correct": 7
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 7
+            },
+            "Potamogeton praelongus": {
+              "n": 11,
+              "correct": 6
+            },
+            "Potamogeton richardsonii": {
+              "n": 6,
+              "correct": 4
+            },
+            "Potamogeton robbinsii": {
+              "n": 6,
+              "correct": 5
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 6
+            },
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 4
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton richardsonii",
+              "n": 2
+            },
+            {
+              "true": "Cabomba",
+              "pred": "Myriophyllum spicatum",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Cabomba",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton crispus",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton illinoensis",
+              "pred": "Potamogeton gramineus",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton crispus",
+              "n": 2
+            }
+          ]
+        },
+        "10": {
+          "per_species": {
+            "Cabomba": {
+              "n": 8,
+              "correct": 3
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 3
+            },
+            "Myriophyllum sibiricum": {
+              "n": 5,
+              "correct": 1
+            },
+            "Myriophyllum spicatum": {
+              "n": 10,
+              "correct": 2
+            },
+            "Potamogeton crispus": {
+              "n": 16,
+              "correct": 4
+            },
+            "Potamogeton gramineus": {
+              "n": 19,
+              "correct": 11
+            },
+            "Potamogeton illinoensis": {
+              "n": 13,
+              "correct": 7
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 7
+            },
+            "Potamogeton praelongus": {
+              "n": 11,
+              "correct": 4
+            },
+            "Potamogeton richardsonii": {
+              "n": 6,
+              "correct": 4
+            },
+            "Potamogeton robbinsii": {
+              "n": 6,
+              "correct": 5
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 5
+            },
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 4
+            },
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton crispus",
+              "n": 4
+            },
+            {
+              "true": "Myriophyllum sibiricum",
+              "pred": "Myriophyllum spicatum",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton richardsonii",
+              "n": 2
+            },
+            {
+              "true": "Cabomba",
+              "pred": "Myriophyllum spicatum",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Cabomba",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton crispus",
+              "n": 2
+            }
+          ]
+        },
+        "all": {
+          "per_species": {
+            "Cabomba": {
+              "n": 8,
+              "correct": 3
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 3
+            },
+            "Myriophyllum sibiricum": {
+              "n": 5,
+              "correct": 1
+            },
+            "Myriophyllum spicatum": {
+              "n": 10,
+              "correct": 2
+            },
+            "Potamogeton crispus": {
+              "n": 16,
+              "correct": 4
+            },
+            "Potamogeton gramineus": {
+              "n": 19,
+              "correct": 11
+            },
+            "Potamogeton illinoensis": {
+              "n": 13,
+              "correct": 7
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 7
+            },
+            "Potamogeton praelongus": {
+              "n": 11,
+              "correct": 6
+            },
+            "Potamogeton richardsonii": {
+              "n": 6,
+              "correct": 5
+            },
+            "Potamogeton robbinsii": {
+              "n": 6,
+              "correct": 5
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 5
+            },
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 4
+            },
+            {
+              "true": "Myriophyllum sibiricum",
+              "pred": "Myriophyllum spicatum",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton richardsonii",
+              "n": 2
+            },
+            {
+              "true": "Cabomba",
+              "pred": "Myriophyllum spicatum",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Cabomba",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton crispus",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton illinoensis",
+              "pred": "Potamogeton gramineus",
+              "n": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seed": 11,
+      "n_train": 648,
+      "n_val": 192,
+      "best_epoch": 16,
+      "best_val_acc": 0.5677083730697632,
+      "trainable_params": 15683328,
+      "total_params": 28063104,
+      "checkpoint": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Yaman-Aquatic_Plants_Classification\\runs\\models\\20261113_003317_protonet_episodic_lab_web_field_final_laststage\\seed11_best.pth",
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss": 2.4916044950485228,
+          "train_acc": 0.4052910052910053,
+          "val_acc": 0.5,
+          "seconds": 9.38894772529602
+        },
+        {
+          "epoch": 2,
+          "train_loss": 2.107568641503652,
+          "train_acc": 0.5047619047619047,
+          "val_acc": 0.515625,
+          "seconds": 9.393503665924072
+        },
+        {
+          "epoch": 3,
+          "train_loss": 1.9739869594573975,
+          "train_acc": 0.5724867724867725,
+          "val_acc": 0.5208333730697632,
+          "seconds": 9.344887495040894
+        },
+        {
+          "epoch": 4,
+          "train_loss": 1.8648035128911336,
+          "train_acc": 0.656084656084656,
+          "val_acc": 0.5208333730697632,
+          "seconds": 9.35435175895691
+        },
+        {
+          "epoch": 5,
+          "train_loss": 1.8027085383733115,
+          "train_acc": 0.7142857142857143,
+          "val_acc": 0.53125,
+          "seconds": 9.213766813278198
+        },
+        {
+          "epoch": 6,
+          "train_loss": 1.7290806253751119,
+          "train_acc": 0.7513227513227513,
+          "val_acc": 0.4739583432674408,
+          "seconds": 9.353603839874268
+        },
+        {
+          "epoch": 7,
+          "train_loss": 1.696402617295583,
+          "train_acc": 0.7693121693121693,
+          "val_acc": 0.5052083730697632,
+          "seconds": 9.361013412475586
+        },
+        {
+          "epoch": 8,
+          "train_loss": 1.6519063671429952,
+          "train_acc": 0.808994708994709,
+          "val_acc": 0.5,
+          "seconds": 9.588984489440918
+        },
+        {
+          "epoch": 9,
+          "train_loss": 1.632727595170339,
+          "train_acc": 0.8158730158730159,
+          "val_acc": 0.5104166865348816,
+          "seconds": 9.424723863601685
+        },
+        {
+          "epoch": 10,
+          "train_loss": 1.591426972548167,
+          "train_acc": 0.8555555555555555,
+          "val_acc": 0.484375,
+          "seconds": 9.545516014099121
+        },
+        {
+          "epoch": 11,
+          "train_loss": 1.5792979319890341,
+          "train_acc": 0.8576719576719577,
+          "val_acc": 0.5104166865348816,
+          "seconds": 9.397823572158813
+        },
+        {
+          "epoch": 12,
+          "train_loss": 1.5686431090037027,
+          "train_acc": 0.8613756613756614,
+          "val_acc": 0.53125,
+          "seconds": 9.275349140167236
+        },
+        {
+          "epoch": 13,
+          "train_loss": 1.547416913509369,
+          "train_acc": 0.8714285714285714,
+          "val_acc": 0.5364583730697632,
+          "seconds": 9.281726360321045
+        },
+        {
+          "epoch": 14,
+          "train_loss": 1.545923149585724,
+          "train_acc": 0.8788359788359789,
+          "val_acc": 0.5364583730697632,
+          "seconds": 9.55664610862732
+        },
+        {
+          "epoch": 15,
+          "train_loss": 1.525818685690562,
+          "train_acc": 0.873015873015873,
+          "val_acc": 0.5416666865348816,
+          "seconds": 9.36714792251587
+        },
+        {
+          "epoch": 16,
+          "train_loss": 1.5212424079577127,
+          "train_acc": 0.8888888888888888,
+          "val_acc": 0.5677083730697632,
+          "seconds": 9.257929801940918
+        },
+        {
+          "epoch": 17,
+          "train_loss": 1.5214140295982361,
+          "train_acc": 0.8947089947089947,
+          "val_acc": 0.5572916865348816,
+          "seconds": 9.243035554885864
+        },
+        {
+          "epoch": 18,
+          "train_loss": 1.515029795964559,
+          "train_acc": 0.8857142857142857,
+          "val_acc": 0.5416666865348816,
+          "seconds": 9.301536560058594
+        },
+        {
+          "epoch": 19,
+          "train_loss": 1.498472511768341,
+          "train_acc": 0.9042328042328043,
+          "val_acc": 0.5625,
+          "seconds": 9.357716798782349
+        },
+        {
+          "epoch": 20,
+          "train_loss": 1.493217114607493,
+          "train_acc": 0.9153439153439153,
+          "val_acc": 0.5625,
+          "seconds": 9.326191186904907
+        }
+      ],
+      "shots": {
+        "1": {
+          "k": 1,
+          "n_support": 21,
+          "support_counts": {
+            "0": 1,
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 1,
+            "17": 1,
+            "18": 1,
+            "19": 1,
+            "20": 1
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.8205128205128205,
+              "n": 39,
+              "binary_FNR": 0.2222222222222222,
+              "confusion": {
+                "TP": 7,
+                "TN": 29,
+                "FP": 1,
+                "FN": 2
+              }
+            },
+            "web_test": {
+              "accuracy": 0.4965034965034965,
+              "n": 143,
+              "binary_FNR": 0.42105263157894735,
+              "confusion": {
+                "TP": 22,
+                "TN": 87,
+                "FP": 18,
+                "FN": 16
+              }
+            },
+            "field_test": {
+              "accuracy": 0.75,
+              "n": 8,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 2,
+                "TN": 5,
+                "FP": 1,
+                "FN": 0
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5736842105263158,
+              "n": 190,
+              "binary_FNR": 0.3673469387755102,
+              "confusion": {
+                "TP": 31,
+                "TN": 121,
+                "FP": 20,
+                "FN": 18
+              }
+            }
+          }
+        },
+        "5": {
+          "k": 5,
+          "n_support": 105,
+          "support_counts": {
+            "0": 5,
+            "1": 5,
+            "2": 5,
+            "3": 5,
+            "4": 5,
+            "5": 5,
+            "6": 5,
+            "7": 5,
+            "8": 5,
+            "9": 5,
+            "10": 5,
+            "11": 5,
+            "12": 5,
+            "13": 5,
+            "14": 5,
+            "15": 5,
+            "16": 5,
+            "17": 5,
+            "18": 5,
+            "19": 5,
+            "20": 5
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.7435897435897436,
+              "n": 39,
+              "binary_FNR": 0.4444444444444444,
+              "confusion": {
+                "TP": 5,
+                "TN": 30,
+                "FP": 0,
+                "FN": 4
+              }
+            },
+            "web_test": {
+              "accuracy": 0.4825174825174825,
+              "n": 143,
+              "binary_FNR": 0.4473684210526316,
+              "confusion": {
+                "TP": 21,
+                "TN": 90,
+                "FP": 15,
+                "FN": 17
+              }
+            },
+            "field_test": {
+              "accuracy": 1.0,
+              "n": 8,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 2,
+                "TN": 6,
+                "FP": 0,
+                "FN": 0
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5578947368421052,
+              "n": 190,
+              "binary_FNR": 0.42857142857142855,
+              "confusion": {
+                "TP": 28,
+                "TN": 126,
+                "FP": 15,
+                "FN": 21
+              }
+            }
+          }
+        },
+        "10": {
+          "k": 10,
+          "n_support": 209,
+          "support_counts": {
+            "0": 10,
+            "1": 10,
+            "2": 10,
+            "3": 9,
+            "4": 10,
+            "5": 10,
+            "6": 10,
+            "7": 10,
+            "8": 10,
+            "9": 10,
+            "10": 10,
+            "11": 10,
+            "12": 10,
+            "13": 10,
+            "14": 10,
+            "15": 10,
+            "16": 10,
+            "17": 10,
+            "18": 10,
+            "19": 10,
+            "20": 10
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.7948717948717948,
+              "n": 39,
+              "binary_FNR": 0.3333333333333333,
+              "confusion": {
+                "TP": 6,
+                "TN": 30,
+                "FP": 0,
+                "FN": 3
+              }
+            },
+            "web_test": {
+              "accuracy": 0.4825174825174825,
+              "n": 143,
+              "binary_FNR": 0.42105263157894735,
+              "confusion": {
+                "TP": 22,
+                "TN": 87,
+                "FP": 18,
+                "FN": 16
+              }
+            },
+            "field_test": {
+              "accuracy": 1.0,
+              "n": 8,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 2,
+                "TN": 6,
+                "FP": 0,
+                "FN": 0
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5684210526315789,
+              "n": 190,
+              "binary_FNR": 0.3877551020408163,
+              "confusion": {
+                "TP": 30,
+                "TN": 123,
+                "FP": 18,
+                "FN": 19
+              }
+            }
+          }
+        },
+        "all": {
+          "k": null,
+          "n_support": 648,
+          "support_counts": {
+            "0": 35,
+            "1": 30,
+            "2": 33,
+            "3": 9,
+            "4": 23,
+            "5": 18,
+            "6": 18,
+            "7": 35,
+            "8": 17,
+            "9": 28,
+            "10": 31,
+            "11": 23,
+            "12": 47,
+            "13": 72,
+            "14": 45,
+            "15": 29,
+            "16": 34,
+            "17": 25,
+            "18": 20,
+            "19": 45,
+            "20": 31
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.7948717948717948,
+              "n": 39,
+              "binary_FNR": 0.3333333333333333,
+              "confusion": {
+                "TP": 6,
+                "TN": 30,
+                "FP": 0,
+                "FN": 3
+              }
+            },
+            "web_test": {
+              "accuracy": 0.4825174825174825,
+              "n": 143,
+              "binary_FNR": 0.42105263157894735,
+              "confusion": {
+                "TP": 22,
+                "TN": 86,
+                "FP": 19,
+                "FN": 16
+              }
+            },
+            "field_test": {
+              "accuracy": 1.0,
+              "n": 8,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 2,
+                "TN": 6,
+                "FP": 0,
+                "FN": 0
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5684210526315789,
+              "n": 190,
+              "binary_FNR": 0.3877551020408163,
+              "confusion": {
+                "TP": 30,
+                "TN": 122,
+                "FP": 19,
+                "FN": 19
+              }
+            }
+          }
+        }
+      },
+      "lookalikes": {
+        "1": {
+          "per_species": {
+            "Cabomba": {
+              "n": 10,
+              "correct": 6
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 6
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 3
+            },
+            "Myriophyllum spicatum": {
+              "n": 11,
+              "correct": 5
+            },
+            "Potamogeton crispus": {
+              "n": 15,
+              "correct": 4
+            },
+            "Potamogeton gramineus": {
+              "n": 23,
+              "correct": 9
+            },
+            "Potamogeton illinoensis": {
+              "n": 12,
+              "correct": 9
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 5
+            },
+            "Potamogeton praelongus": {
+              "n": 10,
+              "correct": 3
+            },
+            "Potamogeton richardsonii": {
+              "n": 5,
+              "correct": 1
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 4
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton natans",
+              "n": 6
+            },
+            {
+              "true": "Potamogeton richardsonii",
+              "pred": "Potamogeton crispus",
+              "n": 4
+            },
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton illinoensis",
+              "n": 4
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 3
+            },
+            {
+              "true": "Cabomba",
+              "pred": "Ranunculus aquatilis",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton crispus",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton illinoensis",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton illinoensis",
+              "n": 2
+            }
+          ]
+        },
+        "5": {
+          "per_species": {
+            "Cabomba": {
+              "n": 10,
+              "correct": 6
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 6
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 2
+            },
+            "Myriophyllum spicatum": {
+              "n": 11,
+              "correct": 4
+            },
+            "Potamogeton crispus": {
+              "n": 15,
+              "correct": 3
+            },
+            "Potamogeton gramineus": {
+              "n": 23,
+              "correct": 10
+            },
+            "Potamogeton illinoensis": {
+              "n": 12,
+              "correct": 7
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 5
+            },
+            "Potamogeton praelongus": {
+              "n": 10,
+              "correct": 3
+            },
+            "Potamogeton richardsonii": {
+              "n": 5,
+              "correct": 2
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 5
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton natans",
+              "n": 6
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 4
+            },
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton illinoensis",
+              "n": 4
+            },
+            {
+              "true": "Cabomba",
+              "pred": "Ranunculus aquatilis",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton natans",
+              "pred": "Nuphar variegata",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton illinoensis",
+              "n": 2
+            },
+            {
+              "true": "Myriophyllum sibiricum",
+              "pred": "Nitellopsis obtusa",
+              "n": 2
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Cabomba",
+              "n": 2
+            }
+          ]
+        },
+        "10": {
+          "per_species": {
+            "Cabomba": {
+              "n": 10,
+              "correct": 6
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 6
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 2
+            },
+            "Myriophyllum spicatum": {
+              "n": 11,
+              "correct": 5
+            },
+            "Potamogeton crispus": {
+              "n": 15,
+              "correct": 3
+            },
+            "Potamogeton gramineus": {
+              "n": 23,
+              "correct": 11
+            },
+            "Potamogeton illinoensis": {
+              "n": 12,
+              "correct": 8
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 5
+            },
+            "Potamogeton praelongus": {
+              "n": 10,
+              "correct": 3
+            },
+            "Potamogeton richardsonii": {
+              "n": 5,
+              "correct": 3
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 5
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton natans",
+              "n": 6
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton illinoensis",
+              "n": 3
+            },
+            {
+              "true": "Cabomba",
+              "pred": "Ranunculus aquatilis",
+              "n": 3
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Cabomba",
+              "n": 3
+            },
+            {
+              "true": "Myriophyllum sibiricum",
+              "pred": "Nitellopsis obtusa",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Ceratophyllum demersum",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Heteranthera dubia",
+              "n": 2
+            }
+          ]
+        },
+        "all": {
+          "per_species": {
+            "Cabomba": {
+              "n": 10,
+              "correct": 6
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 6
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 2
+            },
+            "Myriophyllum spicatum": {
+              "n": 11,
+              "correct": 5
+            },
+            "Potamogeton crispus": {
+              "n": 15,
+              "correct": 3
+            },
+            "Potamogeton gramineus": {
+              "n": 23,
+              "correct": 11
+            },
+            "Potamogeton illinoensis": {
+              "n": 12,
+              "correct": 8
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 5
+            },
+            "Potamogeton praelongus": {
+              "n": 10,
+              "correct": 3
+            },
+            "Potamogeton richardsonii": {
+              "n": 5,
+              "correct": 2
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 5
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton natans",
+              "n": 6
+            },
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton illinoensis",
+              "n": 4
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Myriophyllum sibiricum",
+              "n": 3
+            },
+            {
+              "true": "Cabomba",
+              "pred": "Ranunculus aquatilis",
+              "n": 3
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Cabomba",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton richardsonii",
+              "pred": "Potamogeton crispus",
+              "n": 3
+            },
+            {
+              "true": "Myriophyllum sibiricum",
+              "pred": "Nitellopsis obtusa",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Ceratophyllum demersum",
+              "n": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seed": 12,
+      "n_train": 648,
+      "n_val": 192,
+      "best_epoch": 20,
+      "best_val_acc": 0.6510416865348816,
+      "trainable_params": 15683328,
+      "total_params": 28063104,
+      "checkpoint": "F:\\GitHub_Desktop\\Aquatic_Plants_Classification\\Yaman-Aquatic_Plants_Classification\\runs\\models\\20261113_003317_protonet_episodic_lab_web_field_final_laststage\\seed12_best.pth",
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss": 2.5002257744471232,
+          "train_acc": 0.4354497354497355,
+          "val_acc": 0.4635416865348816,
+          "seconds": 9.453734636306763
+        },
+        {
+          "epoch": 2,
+          "train_loss": 2.100802799065908,
+          "train_acc": 0.5354497354497354,
+          "val_acc": 0.4739583432674408,
+          "seconds": 9.22814679145813
+        },
+        {
+          "epoch": 3,
+          "train_loss": 1.9475267291069032,
+          "train_acc": 0.6074074074074074,
+          "val_acc": 0.4947916865348816,
+          "seconds": 9.261533737182617
+        },
+        {
+          "epoch": 4,
+          "train_loss": 1.860487973690033,
+          "train_acc": 0.662962962962963,
+          "val_acc": 0.5364583730697632,
+          "seconds": 9.212385416030884
+        },
+        {
+          "epoch": 5,
+          "train_loss": 1.7995998938878377,
+          "train_acc": 0.7148148148148148,
+          "val_acc": 0.5572916865348816,
+          "seconds": 9.419458150863647
+        },
+        {
+          "epoch": 6,
+          "train_loss": 1.7367531736691793,
+          "train_acc": 0.7984126984126985,
+          "val_acc": 0.5104166865348816,
+          "seconds": 9.338296175003052
+        },
+        {
+          "epoch": 7,
+          "train_loss": 1.680015540122986,
+          "train_acc": 0.8142857142857143,
+          "val_acc": 0.546875,
+          "seconds": 9.161668300628662
+        },
+        {
+          "epoch": 8,
+          "train_loss": 1.6247199694315593,
+          "train_acc": 0.8449735449735449,
+          "val_acc": 0.546875,
+          "seconds": 9.248238563537598
+        },
+        {
+          "epoch": 9,
+          "train_loss": 1.6012412230173747,
+          "train_acc": 0.8544973544973545,
+          "val_acc": 0.5833333730697632,
+          "seconds": 9.403384923934937
+        },
+        {
+          "epoch": 10,
+          "train_loss": 1.5642247160275777,
+          "train_acc": 0.8814814814814815,
+          "val_acc": 0.59375,
+          "seconds": 9.33492660522461
+        },
+        {
+          "epoch": 11,
+          "train_loss": 1.547062834103902,
+          "train_acc": 0.8936507936507937,
+          "val_acc": 0.5989583730697632,
+          "seconds": 9.397805213928223
+        },
+        {
+          "epoch": 12,
+          "train_loss": 1.5259164929389955,
+          "train_acc": 0.9111111111111111,
+          "val_acc": 0.6145833730697632,
+          "seconds": 9.531464576721191
+        },
+        {
+          "epoch": 13,
+          "train_loss": 1.5156913201014202,
+          "train_acc": 0.9121693121693122,
+          "val_acc": 0.6197916865348816,
+          "seconds": 9.267127752304077
+        },
+        {
+          "epoch": 14,
+          "train_loss": 1.5036802649497987,
+          "train_acc": 0.91005291005291,
+          "val_acc": 0.6302083730697632,
+          "seconds": 9.358554363250732
+        },
+        {
+          "epoch": 15,
+          "train_loss": 1.4934343496958415,
+          "train_acc": 0.9132275132275133,
+          "val_acc": 0.6354166865348816,
+          "seconds": 9.56636905670166
+        },
+        {
+          "epoch": 16,
+          "train_loss": 1.4897991220156352,
+          "train_acc": 0.9216931216931217,
+          "val_acc": 0.6354166865348816,
+          "seconds": 9.448443174362183
+        },
+        {
+          "epoch": 17,
+          "train_loss": 1.4826208710670472,
+          "train_acc": 0.9285714285714286,
+          "val_acc": 0.625,
+          "seconds": 9.37478756904602
+        },
+        {
+          "epoch": 18,
+          "train_loss": 1.4803903142611186,
+          "train_acc": 0.935978835978836,
+          "val_acc": 0.6354166865348816,
+          "seconds": 9.438381433486938
+        },
+        {
+          "epoch": 19,
+          "train_loss": 1.4764276385307311,
+          "train_acc": 0.919047619047619,
+          "val_acc": 0.6302083730697632,
+          "seconds": 9.508249521255493
+        },
+        {
+          "epoch": 20,
+          "train_loss": 1.4816260536511738,
+          "train_acc": 0.9306878306878307,
+          "val_acc": 0.6510416865348816,
+          "seconds": 9.294950008392334
+        }
+      ],
+      "shots": {
+        "1": {
+          "k": 1,
+          "n_support": 21,
+          "support_counts": {
+            "0": 1,
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1,
+            "6": 1,
+            "7": 1,
+            "8": 1,
+            "9": 1,
+            "10": 1,
+            "11": 1,
+            "12": 1,
+            "13": 1,
+            "14": 1,
+            "15": 1,
+            "16": 1,
+            "17": 1,
+            "18": 1,
+            "19": 1,
+            "20": 1
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.5384615384615384,
+              "n": 39,
+              "binary_FNR": 0.6666666666666666,
+              "confusion": {
+                "TP": 3,
+                "TN": 28,
+                "FP": 2,
+                "FN": 6
+              }
+            },
+            "web_test": {
+              "accuracy": 0.5034965034965035,
+              "n": 143,
+              "binary_FNR": 0.3684210526315789,
+              "confusion": {
+                "TP": 24,
+                "TN": 97,
+                "FP": 8,
+                "FN": 14
+              }
+            },
+            "field_test": {
+              "accuracy": 0.875,
+              "n": 8,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 2,
+                "TN": 5,
+                "FP": 1,
+                "FN": 0
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5263157894736842,
+              "n": 190,
+              "binary_FNR": 0.40816326530612246,
+              "confusion": {
+                "TP": 29,
+                "TN": 130,
+                "FP": 11,
+                "FN": 20
+              }
+            }
+          }
+        },
+        "5": {
+          "k": 5,
+          "n_support": 105,
+          "support_counts": {
+            "0": 5,
+            "1": 5,
+            "2": 5,
+            "3": 5,
+            "4": 5,
+            "5": 5,
+            "6": 5,
+            "7": 5,
+            "8": 5,
+            "9": 5,
+            "10": 5,
+            "11": 5,
+            "12": 5,
+            "13": 5,
+            "14": 5,
+            "15": 5,
+            "16": 5,
+            "17": 5,
+            "18": 5,
+            "19": 5,
+            "20": 5
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.6410256410256411,
+              "n": 39,
+              "binary_FNR": 0.2222222222222222,
+              "confusion": {
+                "TP": 7,
+                "TN": 28,
+                "FP": 2,
+                "FN": 2
+              }
+            },
+            "web_test": {
+              "accuracy": 0.5104895104895105,
+              "n": 143,
+              "binary_FNR": 0.3684210526315789,
+              "confusion": {
+                "TP": 24,
+                "TN": 96,
+                "FP": 9,
+                "FN": 14
+              }
+            },
+            "field_test": {
+              "accuracy": 0.75,
+              "n": 8,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 2,
+                "TN": 4,
+                "FP": 2,
+                "FN": 0
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5473684210526316,
+              "n": 190,
+              "binary_FNR": 0.32653061224489793,
+              "confusion": {
+                "TP": 33,
+                "TN": 128,
+                "FP": 13,
+                "FN": 16
+              }
+            }
+          }
+        },
+        "10": {
+          "k": 10,
+          "n_support": 209,
+          "support_counts": {
+            "0": 10,
+            "1": 10,
+            "2": 10,
+            "3": 9,
+            "4": 10,
+            "5": 10,
+            "6": 10,
+            "7": 10,
+            "8": 10,
+            "9": 10,
+            "10": 10,
+            "11": 10,
+            "12": 10,
+            "13": 10,
+            "14": 10,
+            "15": 10,
+            "16": 10,
+            "17": 10,
+            "18": 10,
+            "19": 10,
+            "20": 10
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.6410256410256411,
+              "n": 39,
+              "binary_FNR": 0.2222222222222222,
+              "confusion": {
+                "TP": 7,
+                "TN": 28,
+                "FP": 2,
+                "FN": 2
+              }
+            },
+            "web_test": {
+              "accuracy": 0.5244755244755245,
+              "n": 143,
+              "binary_FNR": 0.34210526315789475,
+              "confusion": {
+                "TP": 25,
+                "TN": 95,
+                "FP": 10,
+                "FN": 13
+              }
+            },
+            "field_test": {
+              "accuracy": 0.75,
+              "n": 8,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 2,
+                "TN": 4,
+                "FP": 2,
+                "FN": 0
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5578947368421052,
+              "n": 190,
+              "binary_FNR": 0.30612244897959184,
+              "confusion": {
+                "TP": 34,
+                "TN": 127,
+                "FP": 14,
+                "FN": 15
+              }
+            }
+          }
+        },
+        "all": {
+          "k": null,
+          "n_support": 648,
+          "support_counts": {
+            "0": 36,
+            "1": 30,
+            "2": 33,
+            "3": 9,
+            "4": 23,
+            "5": 18,
+            "6": 18,
+            "7": 35,
+            "8": 17,
+            "9": 26,
+            "10": 32,
+            "11": 23,
+            "12": 49,
+            "13": 75,
+            "14": 43,
+            "15": 29,
+            "16": 33,
+            "17": 24,
+            "18": 20,
+            "19": 44,
+            "20": 31
+          },
+          "metrics": {
+            "lab_test": {
+              "accuracy": 0.6410256410256411,
+              "n": 39,
+              "binary_FNR": 0.2222222222222222,
+              "confusion": {
+                "TP": 7,
+                "TN": 28,
+                "FP": 2,
+                "FN": 2
+              }
+            },
+            "web_test": {
+              "accuracy": 0.5034965034965035,
+              "n": 143,
+              "binary_FNR": 0.3684210526315789,
+              "confusion": {
+                "TP": 24,
+                "TN": 96,
+                "FP": 9,
+                "FN": 14
+              }
+            },
+            "field_test": {
+              "accuracy": 0.75,
+              "n": 8,
+              "binary_FNR": 0.0,
+              "confusion": {
+                "TP": 2,
+                "TN": 4,
+                "FP": 2,
+                "FN": 0
+              }
+            },
+            "pooled_test": {
+              "accuracy": 0.5421052631578948,
+              "n": 190,
+              "binary_FNR": 0.32653061224489793,
+              "confusion": {
+                "TP": 33,
+                "TN": 128,
+                "FP": 13,
+                "FN": 16
+              }
+            }
+          }
+        }
+      },
+      "lookalikes": {
+        "1": {
+          "per_species": {
+            "Cabomba": {
+              "n": 10,
+              "correct": 3
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 4
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 3
+            },
+            "Myriophyllum spicatum": {
+              "n": 11,
+              "correct": 4
+            },
+            "Potamogeton crispus": {
+              "n": 14,
+              "correct": 2
+            },
+            "Potamogeton gramineus": {
+              "n": 22,
+              "correct": 10
+            },
+            "Potamogeton illinoensis": {
+              "n": 13,
+              "correct": 9
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 3
+            },
+            "Potamogeton praelongus": {
+              "n": 11,
+              "correct": 4
+            },
+            "Potamogeton richardsonii": {
+              "n": 6,
+              "correct": 3
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 3
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton richardsonii",
+              "n": 7
+            },
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton richardsonii",
+              "n": 5
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Ceratophyllum demersum",
+              "n": 4
+            },
+            {
+              "true": "Cabomba",
+              "pred": "Myriophyllum spicatum",
+              "n": 3
+            },
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum spicatum",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Heteranthera dubia",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton natans",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton illinoensis",
+              "n": 2
+            }
+          ]
+        },
+        "5": {
+          "per_species": {
+            "Cabomba": {
+              "n": 10,
+              "correct": 3
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 4
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 3
+            },
+            "Myriophyllum spicatum": {
+              "n": 11,
+              "correct": 5
+            },
+            "Potamogeton crispus": {
+              "n": 14,
+              "correct": 6
+            },
+            "Potamogeton gramineus": {
+              "n": 22,
+              "correct": 10
+            },
+            "Potamogeton illinoensis": {
+              "n": 13,
+              "correct": 9
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 3
+            },
+            "Potamogeton praelongus": {
+              "n": 11,
+              "correct": 4
+            },
+            "Potamogeton richardsonii": {
+              "n": 6,
+              "correct": 2
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 3
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton richardsonii",
+              "n": 5
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Ceratophyllum demersum",
+              "n": 4
+            },
+            {
+              "true": "Cabomba",
+              "pred": "Myriophyllum spicatum",
+              "n": 3
+            },
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum spicatum",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton richardsonii",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Heteranthera dubia",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton natans",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton richardsonii",
+              "pred": "Potamogeton crispus",
+              "n": 2
+            }
+          ]
+        },
+        "10": {
+          "per_species": {
+            "Cabomba": {
+              "n": 10,
+              "correct": 3
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 4
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 3
+            },
+            "Myriophyllum spicatum": {
+              "n": 11,
+              "correct": 5
+            },
+            "Potamogeton crispus": {
+              "n": 14,
+              "correct": 7
+            },
+            "Potamogeton gramineus": {
+              "n": 22,
+              "correct": 10
+            },
+            "Potamogeton illinoensis": {
+              "n": 13,
+              "correct": 9
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 3
+            },
+            "Potamogeton praelongus": {
+              "n": 11,
+              "correct": 4
+            },
+            "Potamogeton richardsonii": {
+              "n": 6,
+              "correct": 2
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 3
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton richardsonii",
+              "n": 5
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Ceratophyllum demersum",
+              "n": 4
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton illinoensis",
+              "n": 3
+            },
+            {
+              "true": "Cabomba",
+              "pred": "Myriophyllum spicatum",
+              "n": 3
+            },
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum spicatum",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Heteranthera dubia",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton richardsonii",
+              "pred": "Potamogeton crispus",
+              "n": 2
+            },
+            {
+              "true": "Potamogeton natans",
+              "pred": "Potamogeton gramineus",
+              "n": 2
+            }
+          ]
+        },
+        "all": {
+          "per_species": {
+            "Cabomba": {
+              "n": 10,
+              "correct": 3
+            },
+            "Ceratophyllum demersum": {
+              "n": 10,
+              "correct": 4
+            },
+            "Myriophyllum sibiricum": {
+              "n": 6,
+              "correct": 3
+            },
+            "Myriophyllum spicatum": {
+              "n": 11,
+              "correct": 5
+            },
+            "Potamogeton crispus": {
+              "n": 14,
+              "correct": 6
+            },
+            "Potamogeton gramineus": {
+              "n": 22,
+              "correct": 9
+            },
+            "Potamogeton illinoensis": {
+              "n": 13,
+              "correct": 9
+            },
+            "Potamogeton natans": {
+              "n": 8,
+              "correct": 3
+            },
+            "Potamogeton praelongus": {
+              "n": 11,
+              "correct": 4
+            },
+            "Potamogeton richardsonii": {
+              "n": 6,
+              "correct": 2
+            },
+            "Potamogeton robbinsii": {
+              "n": 5,
+              "correct": 3
+            }
+          },
+          "top_confusions": [
+            {
+              "true": "Potamogeton praelongus",
+              "pred": "Potamogeton richardsonii",
+              "n": 5
+            },
+            {
+              "true": "Myriophyllum spicatum",
+              "pred": "Ceratophyllum demersum",
+              "n": 4
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton illinoensis",
+              "n": 3
+            },
+            {
+              "true": "Cabomba",
+              "pred": "Myriophyllum spicatum",
+              "n": 3
+            },
+            {
+              "true": "Ceratophyllum demersum",
+              "pred": "Myriophyllum spicatum",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton crispus",
+              "pred": "Potamogeton richardsonii",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Heteranthera dubia",
+              "n": 3
+            },
+            {
+              "true": "Potamogeton gramineus",
+              "pred": "Potamogeton natans",
+              "n": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "summary": {
+    "1": {
+      "lab_test": {
+        "accuracy_mean": 0.7076923076923076,
+        "accuracy_std": 0.136404472597645,
+        "binary_FNR_mean": 0.3555555555555555,
+        "binary_FNR_std": 0.2533723166886973
+      },
+      "web_test": {
+        "accuracy_mean": 0.5077312797649205,
+        "accuracy_std": 0.019518497482203054,
+        "binary_FNR_mean": 0.428959919671994,
+        "binary_FNR_std": 0.09472727686411
+      },
+      "field_test": {
+        "accuracy_mean": 0.675,
+        "accuracy_std": 0.14252192813739223,
+        "binary_FNR_mean": 0.4,
+        "binary_FNR_std": 0.4183300132670378
+      },
+      "pooled_test": {
+        "accuracy_mean": 0.5561548073123026,
+        "accuracy_std": 0.0372304801991788,
+        "binary_FNR_mean": 0.4142687074829932,
+        "binary_FNR_std": 0.08798519148989893
+      }
+    },
+    "5": {
+      "lab_test": {
+        "accuracy_mean": 0.7230769230769231,
+        "accuracy_std": 0.10478367559847462,
+        "binary_FNR_mean": 0.2666666666666667,
+        "binary_FNR_std": 0.18592445034090566
+      },
+      "web_test": {
+        "accuracy_mean": 0.5120375551087883,
+        "accuracy_std": 0.02845887660468835,
+        "binary_FNR_mean": 0.3949543971215798,
+        "binary_FNR_std": 0.09975373523913844
+      },
+      "field_test": {
+        "accuracy_mean": 0.775,
+        "accuracy_std": 0.13693063937629152,
+        "binary_FNR_mean": 0.3,
+        "binary_FNR_std": 0.4472135954999579
+      },
+      "pooled_test": {
+        "accuracy_mean": 0.5668279048684521,
+        "accuracy_std": 0.035970981885886454,
+        "binary_FNR_mean": 0.3668537414965986,
+        "binary_FNR_std": 0.10587172490469728
+      }
+    },
+    "10": {
+      "lab_test": {
+        "accuracy_mean": 0.7333333333333333,
+        "accuracy_std": 0.09696241231378992,
+        "binary_FNR_mean": 0.24444444444444446,
+        "binary_FNR_std": 0.09296222517045283
+      },
+      "web_test": {
+        "accuracy_mean": 0.519019868569975,
+        "accuracy_std": 0.0454418644135102,
+        "binary_FNR_mean": 0.3736172705212953,
+        "binary_FNR_std": 0.10966687142457704
+      },
+      "field_test": {
+        "accuracy_mean": 0.75,
+        "accuracy_std": 0.1767766952966369,
+        "binary_FNR_mean": 0.3,
+        "binary_FNR_std": 0.4472135954999579
+      },
+      "pooled_test": {
+        "accuracy_mean": 0.5742245345600983,
+        "accuracy_std": 0.043034471339514276,
+        "binary_FNR_mean": 0.34627551020408165,
+        "binary_FNR_std": 0.09873339562683063
+      }
+    },
+    "all": {
+      "lab_test": {
+        "accuracy_mean": 0.7487179487179486,
+        "accuracy_std": 0.09996712148522013,
+        "binary_FNR_mean": 0.19999999999999998,
+        "binary_FNR_std": 0.14487116456005886
+      },
+      "web_test": {
+        "accuracy_mean": 0.5177218829402435,
+        "accuracy_std": 0.042252640449953055,
+        "binary_FNR_mean": 0.3955735921680194,
+        "binary_FNR_std": 0.09037239632663088
+      },
+      "field_test": {
+        "accuracy_mean": 0.75,
+        "accuracy_std": 0.1767766952966369,
+        "binary_FNR_mean": 0.3,
+        "binary_FNR_std": 0.4472135954999579
+      },
+      "pooled_test": {
+        "accuracy_mean": 0.5753562148908199,
+        "accuracy_std": 0.042850692793984846,
+        "binary_FNR_mean": 0.3545238095238095,
+        "binary_FNR_std": 0.09316807104756364
+      }
+    }
+  },
+  "lookalike_summary": {
+    "5": {
+      "per_species": [
+        {
+          "species": "Cabomba",
+          "n": 47,
+          "correct": 26,
+          "recall": 0.5531914893617021
+        },
+        {
+          "species": "Ceratophyllum demersum",
+          "n": 49,
+          "correct": 23,
+          "recall": 0.46938775510204084
+        },
+        {
+          "species": "Myriophyllum sibiricum",
+          "n": 29,
+          "correct": 14,
+          "recall": 0.4827586206896552
+        },
+        {
+          "species": "Myriophyllum spicatum",
+          "n": 53,
+          "correct": 14,
+          "recall": 0.2641509433962264
+        },
+        {
+          "species": "Potamogeton crispus",
+          "n": 71,
+          "correct": 25,
+          "recall": 0.352112676056338
+        },
+        {
+          "species": "Potamogeton gramineus",
+          "n": 108,
+          "correct": 56,
+          "recall": 0.5185185185185185
+        },
+        {
+          "species": "Potamogeton illinoensis",
+          "n": 61,
+          "correct": 37,
+          "recall": 0.6065573770491803
+        },
+        {
+          "species": "Potamogeton natans",
+          "n": 39,
+          "correct": 24,
+          "recall": 0.6153846153846154
+        },
+        {
+          "species": "Potamogeton praelongus",
+          "n": 52,
+          "correct": 20,
+          "recall": 0.38461538461538464
+        },
+        {
+          "species": "Potamogeton richardsonii",
+          "n": 30,
+          "correct": 15,
+          "recall": 0.5
+        },
+        {
+          "species": "Potamogeton robbinsii",
+          "n": 26,
+          "correct": 22,
+          "recall": 0.8461538461538461
+        }
+      ],
+      "top_confusions": [
+        {
+          "true": "Myriophyllum spicatum",
+          "pred": "Myriophyllum sibiricum",
+          "n": 13
+        },
+        {
+          "true": "Potamogeton gramineus",
+          "pred": "Potamogeton natans",
+          "n": 12
+        },
+        {
+          "true": "Potamogeton gramineus",
+          "pred": "Potamogeton illinoensis",
+          "n": 8
+        },
+        {
+          "true": "Myriophyllum spicatum",
+          "pred": "Cabomba",
+          "n": 7
+        },
+        {
+          "true": "Potamogeton praelongus",
+          "pred": "Potamogeton illinoensis",
+          "n": 7
+        },
+        {
+          "true": "Ceratophyllum demersum",
+          "pred": "Myriophyllum sibiricum",
+          "n": 7
+        },
+        {
+          "true": "Potamogeton praelongus",
+          "pred": "Potamogeton richardsonii",
+          "n": 7
+        },
+        {
+          "true": "Myriophyllum spicatum",
+          "pred": "Ceratophyllum demersum",
+          "n": 6
+        }
+      ]
+    },
+    "all": {
+      "per_species": [
+        {
+          "species": "Cabomba",
+          "n": 47,
+          "correct": 26,
+          "recall": 0.5531914893617021
+        },
+        {
+          "species": "Ceratophyllum demersum",
+          "n": 49,
+          "correct": 24,
+          "recall": 0.4897959183673469
+        },
+        {
+          "species": "Myriophyllum sibiricum",
+          "n": 29,
+          "correct": 13,
+          "recall": 0.4482758620689655
+        },
+        {
+          "species": "Myriophyllum spicatum",
+          "n": 53,
+          "correct": 17,
+          "recall": 0.32075471698113206
+        },
+        {
+          "species": "Potamogeton crispus",
+          "n": 71,
+          "correct": 25,
+          "recall": 0.352112676056338
+        },
+        {
+          "species": "Potamogeton gramineus",
+          "n": 108,
+          "correct": 52,
+          "recall": 0.48148148148148145
+        },
+        {
+          "species": "Potamogeton illinoensis",
+          "n": 61,
+          "correct": 38,
+          "recall": 0.6229508196721312
+        },
+        {
+          "species": "Potamogeton natans",
+          "n": 39,
+          "correct": 24,
+          "recall": 0.6153846153846154
+        },
+        {
+          "species": "Potamogeton praelongus",
+          "n": 52,
+          "correct": 22,
+          "recall": 0.4230769230769231
+        },
+        {
+          "species": "Potamogeton richardsonii",
+          "n": 30,
+          "correct": 16,
+          "recall": 0.5333333333333333
+        },
+        {
+          "species": "Potamogeton robbinsii",
+          "n": 26,
+          "correct": 22,
+          "recall": 0.8461538461538461
+        }
+      ],
+      "top_confusions": [
+        {
+          "true": "Potamogeton gramineus",
+          "pred": "Potamogeton illinoensis",
+          "n": 12
+        },
+        {
+          "true": "Potamogeton gramineus",
+          "pred": "Potamogeton natans",
+          "n": 12
+        },
+        {
+          "true": "Myriophyllum spicatum",
+          "pred": "Cabomba",
+          "n": 9
+        },
+        {
+          "true": "Ceratophyllum demersum",
+          "pred": "Myriophyllum sibiricum",
+          "n": 9
+        },
+        {
+          "true": "Myriophyllum spicatum",
+          "pred": "Myriophyllum sibiricum",
+          "n": 8
+        },
+        {
+          "true": "Potamogeton gramineus",
+          "pred": "Vallisneria americana",
+          "n": 5
+        },
+        {
+          "true": "Potamogeton illinoensis",
+          "pred": "Potamogeton gramineus",
+          "n": 5
+        },
+        {
+          "true": "Potamogeton gramineus",
+          "pred": "Heteranthera dubia",
+          "n": 5
+        }
+      ]
+    }
+  },
+  "prior_pooled_accuracy": {
+    "frozen_protonet_all_support": 0.423,
+    "frozen_linear_head": 0.595,
+    "last_stage_linear_head": 0.651,
+    "note": "Means from the earlier frozen ProtoNet run and the linear-head papers runs on this same pooled collection. Not recomputed here."
+  }
+}

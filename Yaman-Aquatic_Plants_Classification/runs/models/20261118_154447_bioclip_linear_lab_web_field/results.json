@@ -1,0 +1,706 @@
+{
+  "model": "hf-hub:imageomics/bioclip",
+  "data": "lab+web+field",
+  "seeds": [
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "epochs": 250,
+  "batch_size": 32,
+  "lr": 0.0005,
+  "label_smoothing": 0.05,
+  "weight_decay": 2e-05,
+  "normalization": "openai_clip",
+  "prompt": "a photo of {scientific name}",
+  "comparison": {
+    "frozen_convnext_linear_lab": 0.8,
+    "frozen_convnext_linear_pooled": 0.595,
+    "keep_if": "bioclip lab mean > frozen convnext lab mean"
+  },
+  "params": {
+    "visual": 86192640,
+    "clip_total": 149620737,
+    "linear_head": 10773
+  },
+  "ms_per_image_batch1": 8.667900001940628,
+  "device": "NVIDIA GeForce RTX 3070 Ti",
+  "zeroshot": [
+    {
+      "seed": 8,
+      "prompts": [
+        "a photo of Brasenia schreberi",
+        "a photo of Cabomba",
+        "a photo of Ceratophyllum demersum",
+        "a photo of Elodea canadensis",
+        "a photo of Heteranthera dubia",
+        "a photo of Hydrocharis morsus-ranae",
+        "a photo of Myriophyllum sibiricum",
+        "a photo of Myriophyllum spicatum",
+        "a photo of Najas flexilis",
+        "a photo of Nitellopsis obtusa",
+        "a photo of Nuphar variegata",
+        "a photo of Nymphaea odorata",
+        "a photo of Potamogeton crispus",
+        "a photo of Potamogeton gramineus",
+        "a photo of Potamogeton illinoensis",
+        "a photo of Potamogeton natans",
+        "a photo of Potamogeton praelongus",
+        "a photo of Potamogeton richardsonii",
+        "a photo of Potamogeton robbinsii",
+        "a photo of Ranunculus aquatilis",
+        "a photo of Vallisneria americana"
+      ],
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.5384615384615384,
+          "n": 39,
+          "binary_FNR": 0.3333333333333333,
+          "confusion": {
+            "TP": 6,
+            "TN": 27,
+            "FP": 3,
+            "FN": 3
+          }
+        },
+        "web_test": {
+          "accuracy": 0.5107913669064749,
+          "n": 139,
+          "binary_FNR": 0.5882352941176471,
+          "confusion": {
+            "TP": 14,
+            "TN": 95,
+            "FP": 10,
+            "FN": 20
+          }
+        },
+        "field_test": {
+          "accuracy": 0.5,
+          "n": 8,
+          "binary_FNR": 0.5,
+          "confusion": {
+            "TP": 1,
+            "TN": 5,
+            "FP": 1,
+            "FN": 1
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.5161290322580645,
+          "n": 186,
+          "binary_FNR": 0.5333333333333333,
+          "confusion": {
+            "TP": 21,
+            "TN": 127,
+            "FP": 14,
+            "FN": 24
+          }
+        }
+      }
+    },
+    {
+      "seed": 9,
+      "prompts": [
+        "a photo of Brasenia schreberi",
+        "a photo of Cabomba",
+        "a photo of Ceratophyllum demersum",
+        "a photo of Elodea canadensis",
+        "a photo of Heteranthera dubia",
+        "a photo of Hydrocharis morsus-ranae",
+        "a photo of Myriophyllum sibiricum",
+        "a photo of Myriophyllum spicatum",
+        "a photo of Najas flexilis",
+        "a photo of Nitellopsis obtusa",
+        "a photo of Nuphar variegata",
+        "a photo of Nymphaea odorata",
+        "a photo of Potamogeton crispus",
+        "a photo of Potamogeton gramineus",
+        "a photo of Potamogeton illinoensis",
+        "a photo of Potamogeton natans",
+        "a photo of Potamogeton praelongus",
+        "a photo of Potamogeton richardsonii",
+        "a photo of Potamogeton robbinsii",
+        "a photo of Ranunculus aquatilis",
+        "a photo of Vallisneria americana"
+      ],
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.46153846153846156,
+          "n": 39,
+          "binary_FNR": 0.4444444444444444,
+          "confusion": {
+            "TP": 5,
+            "TN": 29,
+            "FP": 1,
+            "FN": 4
+          }
+        },
+        "web_test": {
+          "accuracy": 0.4154929577464789,
+          "n": 142,
+          "binary_FNR": 0.5945945945945946,
+          "confusion": {
+            "TP": 15,
+            "TN": 92,
+            "FP": 13,
+            "FN": 22
+          }
+        },
+        "field_test": {
+          "accuracy": 0.25,
+          "n": 8,
+          "binary_FNR": 1.0,
+          "confusion": {
+            "TP": 0,
+            "TN": 6,
+            "FP": 0,
+            "FN": 2
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.41798941798941797,
+          "n": 189,
+          "binary_FNR": 0.5833333333333334,
+          "confusion": {
+            "TP": 20,
+            "TN": 127,
+            "FP": 14,
+            "FN": 28
+          }
+        }
+      }
+    },
+    {
+      "seed": 10,
+      "prompts": [
+        "a photo of Brasenia schreberi",
+        "a photo of Cabomba",
+        "a photo of Ceratophyllum demersum",
+        "a photo of Elodea canadensis",
+        "a photo of Heteranthera dubia",
+        "a photo of Hydrocharis morsus-ranae",
+        "a photo of Myriophyllum sibiricum",
+        "a photo of Myriophyllum spicatum",
+        "a photo of Najas flexilis",
+        "a photo of Nitellopsis obtusa",
+        "a photo of Nuphar variegata",
+        "a photo of Nymphaea odorata",
+        "a photo of Potamogeton crispus",
+        "a photo of Potamogeton gramineus",
+        "a photo of Potamogeton illinoensis",
+        "a photo of Potamogeton natans",
+        "a photo of Potamogeton praelongus",
+        "a photo of Potamogeton richardsonii",
+        "a photo of Potamogeton robbinsii",
+        "a photo of Ranunculus aquatilis",
+        "a photo of Vallisneria americana"
+      ],
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.6153846153846154,
+          "n": 39,
+          "binary_FNR": 0.3333333333333333,
+          "confusion": {
+            "TP": 6,
+            "TN": 28,
+            "FP": 2,
+            "FN": 3
+          }
+        },
+        "web_test": {
+          "accuracy": 0.44285714285714284,
+          "n": 140,
+          "binary_FNR": 0.5675675675675675,
+          "confusion": {
+            "TP": 16,
+            "TN": 90,
+            "FP": 13,
+            "FN": 21
+          }
+        },
+        "field_test": {
+          "accuracy": 0.375,
+          "n": 8,
+          "binary_FNR": 1.0,
+          "confusion": {
+            "TP": 0,
+            "TN": 4,
+            "FP": 2,
+            "FN": 2
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.47593582887700536,
+          "n": 187,
+          "binary_FNR": 0.5416666666666666,
+          "confusion": {
+            "TP": 22,
+            "TN": 122,
+            "FP": 17,
+            "FN": 26
+          }
+        }
+      }
+    },
+    {
+      "seed": 11,
+      "prompts": [
+        "a photo of Brasenia schreberi",
+        "a photo of Cabomba",
+        "a photo of Ceratophyllum demersum",
+        "a photo of Elodea canadensis",
+        "a photo of Heteranthera dubia",
+        "a photo of Hydrocharis morsus-ranae",
+        "a photo of Myriophyllum sibiricum",
+        "a photo of Myriophyllum spicatum",
+        "a photo of Najas flexilis",
+        "a photo of Nitellopsis obtusa",
+        "a photo of Nuphar variegata",
+        "a photo of Nymphaea odorata",
+        "a photo of Potamogeton crispus",
+        "a photo of Potamogeton gramineus",
+        "a photo of Potamogeton illinoensis",
+        "a photo of Potamogeton natans",
+        "a photo of Potamogeton praelongus",
+        "a photo of Potamogeton richardsonii",
+        "a photo of Potamogeton robbinsii",
+        "a photo of Ranunculus aquatilis",
+        "a photo of Vallisneria americana"
+      ],
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.4358974358974359,
+          "n": 39,
+          "binary_FNR": 0.5555555555555556,
+          "confusion": {
+            "TP": 4,
+            "TN": 29,
+            "FP": 1,
+            "FN": 5
+          }
+        },
+        "web_test": {
+          "accuracy": 0.43356643356643354,
+          "n": 143,
+          "binary_FNR": 0.631578947368421,
+          "confusion": {
+            "TP": 14,
+            "TN": 93,
+            "FP": 12,
+            "FN": 24
+          }
+        },
+        "field_test": {
+          "accuracy": 0.5,
+          "n": 8,
+          "binary_FNR": 1.0,
+          "confusion": {
+            "TP": 0,
+            "TN": 6,
+            "FP": 0,
+            "FN": 2
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.4368421052631579,
+          "n": 190,
+          "binary_FNR": 0.6326530612244898,
+          "confusion": {
+            "TP": 18,
+            "TN": 128,
+            "FP": 13,
+            "FN": 31
+          }
+        }
+      }
+    },
+    {
+      "seed": 12,
+      "prompts": [
+        "a photo of Brasenia schreberi",
+        "a photo of Cabomba",
+        "a photo of Ceratophyllum demersum",
+        "a photo of Elodea canadensis",
+        "a photo of Heteranthera dubia",
+        "a photo of Hydrocharis morsus-ranae",
+        "a photo of Myriophyllum sibiricum",
+        "a photo of Myriophyllum spicatum",
+        "a photo of Najas flexilis",
+        "a photo of Nitellopsis obtusa",
+        "a photo of Nuphar variegata",
+        "a photo of Nymphaea odorata",
+        "a photo of Potamogeton crispus",
+        "a photo of Potamogeton gramineus",
+        "a photo of Potamogeton illinoensis",
+        "a photo of Potamogeton natans",
+        "a photo of Potamogeton praelongus",
+        "a photo of Potamogeton richardsonii",
+        "a photo of Potamogeton robbinsii",
+        "a photo of Ranunculus aquatilis",
+        "a photo of Vallisneria americana"
+      ],
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.5641025641025641,
+          "n": 39,
+          "binary_FNR": 0.2222222222222222,
+          "confusion": {
+            "TP": 7,
+            "TN": 28,
+            "FP": 2,
+            "FN": 2
+          }
+        },
+        "web_test": {
+          "accuracy": 0.4195804195804196,
+          "n": 143,
+          "binary_FNR": 0.6578947368421053,
+          "confusion": {
+            "TP": 13,
+            "TN": 95,
+            "FP": 10,
+            "FN": 25
+          }
+        },
+        "field_test": {
+          "accuracy": 0.375,
+          "n": 8,
+          "binary_FNR": 0.0,
+          "confusion": {
+            "TP": 2,
+            "TN": 4,
+            "FP": 2,
+            "FN": 0
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.4473684210526316,
+          "n": 190,
+          "binary_FNR": 0.5510204081632653,
+          "confusion": {
+            "TP": 22,
+            "TN": 127,
+            "FP": 14,
+            "FN": 27
+          }
+        }
+      }
+    }
+  ],
+  "linear": [
+    {
+      "seed": 8,
+      "best_epoch": 75,
+      "best_val_accuracy": 0.6825396418571472,
+      "train_minutes": 14.593326457341512,
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.7692307692307693,
+          "n": 39,
+          "binary_FNR": 0.1111111111111111,
+          "confusion": {
+            "TP": 8,
+            "TN": 29,
+            "FP": 1,
+            "FN": 1
+          }
+        },
+        "web_test": {
+          "accuracy": 0.5971223021582733,
+          "n": 139,
+          "binary_FNR": 0.23529411764705882,
+          "confusion": {
+            "TP": 26,
+            "TN": 93,
+            "FP": 12,
+            "FN": 8
+          }
+        },
+        "field_test": {
+          "accuracy": 0.75,
+          "n": 8,
+          "binary_FNR": 0.0,
+          "confusion": {
+            "TP": 2,
+            "TN": 5,
+            "FP": 1,
+            "FN": 0
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.6397849462365591,
+          "n": 186,
+          "binary_FNR": 0.2,
+          "confusion": {
+            "TP": 36,
+            "TN": 127,
+            "FP": 14,
+            "FN": 9
+          }
+        }
+      }
+    },
+    {
+      "seed": 9,
+      "best_epoch": 114,
+      "best_val_accuracy": 0.6994818449020386,
+      "train_minutes": 13.52694536447525,
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.7948717948717948,
+          "n": 39,
+          "binary_FNR": 0.0,
+          "confusion": {
+            "TP": 9,
+            "TN": 27,
+            "FP": 3,
+            "FN": 0
+          }
+        },
+        "web_test": {
+          "accuracy": 0.6690140845070423,
+          "n": 142,
+          "binary_FNR": 0.2702702702702703,
+          "confusion": {
+            "TP": 27,
+            "TN": 99,
+            "FP": 6,
+            "FN": 10
+          }
+        },
+        "field_test": {
+          "accuracy": 0.875,
+          "n": 8,
+          "binary_FNR": 0.5,
+          "confusion": {
+            "TP": 1,
+            "TN": 6,
+            "FP": 0,
+            "FN": 1
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.7037037037037037,
+          "n": 189,
+          "binary_FNR": 0.22916666666666666,
+          "confusion": {
+            "TP": 37,
+            "TN": 132,
+            "FP": 9,
+            "FN": 11
+          }
+        }
+      }
+    },
+    {
+      "seed": 10,
+      "best_epoch": 233,
+      "best_val_accuracy": 0.6875,
+      "train_minutes": 12.538097981611887,
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.717948717948718,
+          "n": 39,
+          "binary_FNR": 0.3333333333333333,
+          "confusion": {
+            "TP": 6,
+            "TN": 27,
+            "FP": 3,
+            "FN": 3
+          }
+        },
+        "web_test": {
+          "accuracy": 0.6142857142857143,
+          "n": 140,
+          "binary_FNR": 0.32432432432432434,
+          "confusion": {
+            "TP": 25,
+            "TN": 91,
+            "FP": 12,
+            "FN": 12
+          }
+        },
+        "field_test": {
+          "accuracy": 0.75,
+          "n": 8,
+          "binary_FNR": 0.5,
+          "confusion": {
+            "TP": 1,
+            "TN": 5,
+            "FP": 1,
+            "FN": 1
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.6417112299465241,
+          "n": 187,
+          "binary_FNR": 0.3333333333333333,
+          "confusion": {
+            "TP": 32,
+            "TN": 123,
+            "FP": 16,
+            "FN": 16
+          }
+        }
+      }
+    },
+    {
+      "seed": 11,
+      "best_epoch": 168,
+      "best_val_accuracy": 0.7083333730697632,
+      "train_minutes": 14.491609930992126,
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.8205128205128205,
+          "n": 39,
+          "binary_FNR": 0.2222222222222222,
+          "confusion": {
+            "TP": 7,
+            "TN": 30,
+            "FP": 0,
+            "FN": 2
+          }
+        },
+        "web_test": {
+          "accuracy": 0.6153846153846154,
+          "n": 143,
+          "binary_FNR": 0.5,
+          "confusion": {
+            "TP": 19,
+            "TN": 96,
+            "FP": 9,
+            "FN": 19
+          }
+        },
+        "field_test": {
+          "accuracy": 0.75,
+          "n": 8,
+          "binary_FNR": 1.0,
+          "confusion": {
+            "TP": 0,
+            "TN": 6,
+            "FP": 0,
+            "FN": 2
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.6631578947368421,
+          "n": 190,
+          "binary_FNR": 0.46938775510204084,
+          "confusion": {
+            "TP": 26,
+            "TN": 132,
+            "FP": 9,
+            "FN": 23
+          }
+        }
+      }
+    },
+    {
+      "seed": 12,
+      "best_epoch": 111,
+      "best_val_accuracy": 0.7083333730697632,
+      "train_minutes": 12.417246067523957,
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.7948717948717948,
+          "n": 39,
+          "binary_FNR": 0.2222222222222222,
+          "confusion": {
+            "TP": 7,
+            "TN": 27,
+            "FP": 3,
+            "FN": 2
+          }
+        },
+        "web_test": {
+          "accuracy": 0.5384615384615384,
+          "n": 143,
+          "binary_FNR": 0.21052631578947367,
+          "confusion": {
+            "TP": 30,
+            "TN": 92,
+            "FP": 13,
+            "FN": 8
+          }
+        },
+        "field_test": {
+          "accuracy": 0.625,
+          "n": 8,
+          "binary_FNR": 0.0,
+          "confusion": {
+            "TP": 2,
+            "TN": 4,
+            "FP": 2,
+            "FN": 0
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.5947368421052631,
+          "n": 190,
+          "binary_FNR": 0.20408163265306123,
+          "confusion": {
+            "TP": 39,
+            "TN": 123,
+            "FP": 18,
+            "FN": 10
+          }
+        }
+      }
+    }
+  ],
+  "five_shot": {
+    "ran": false,
+    "reason": "Lab accuracy did not beat the frozen ConvNeXt linear head, so the 5-shot readout was not run."
+  },
+  "linear_summary": {
+    "lab_test": {
+      "mean": 0.7794871794871794,
+      "std": 0.03888654073872588,
+      "n": 5
+    },
+    "web_test": {
+      "mean": 0.6068536509594368,
+      "std": 0.04680841970081565,
+      "n": 5
+    },
+    "pooled_test": {
+      "mean": 0.6486189233457783,
+      "std": 0.03960665592632393,
+      "n": 5
+    },
+    "pooled_FNR": {
+      "mean": 0.28719387755102044,
+      "std": 0.11532674574263137,
+      "n": 5
+    }
+  },
+  "decision": {
+    "keep_bioclip": false,
+    "reason": "lab 77.9% is not above frozen ConvNeXt lab 80.0%; BioCLIP dropped"
+  },
+  "zeroshot_summary": {
+    "lab_test": {
+      "mean": 0.523076923076923,
+      "std": 0.07387107841480992,
+      "n": 5
+    },
+    "web_test": {
+      "mean": 0.44445766413138993,
+      "std": 0.038662553614041584,
+      "n": 5
+    },
+    "pooled_test": {
+      "mean": 0.45885296108805546,
+      "std": 0.03827066203082515,
+      "n": 5
+    },
+    "pooled_FNR": {
+      "mean": 0.5684013605442176,
+      "std": 0.040613583769906356,
+      "n": 5
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "model": "hf-hub:imageomics/bioclip",
+  "data": "lab+web+field",
+  "seeds": [
+    9
+  ],
+  "epochs": 2,
+  "batch_size": 16,
+  "lr": 0.0005,
+  "backbone_lr": 0.0001,
+  "unfreeze_last_block": true,
+  "label_smoothing": 0.05,
+  "weight_decay": 2e-05,
+  "normalization": "openai_clip",
+  "prompt": "a photo of {scientific name}",
+  "comparison": {
+    "frozen_convnext_linear_lab": 0.8,
+    "frozen_convnext_linear_pooled": 0.595,
+    "laststage_convnext_linear_pooled": 0.651,
+    "frozen_bioclip_lab": 0.779,
+    "frozen_bioclip_web": 0.607,
+    "frozen_bioclip_pooled": 0.649,
+    "keep_if": "lab > frozen ConvNeXt lab (80%), or pooled > last-stage ConvNeXt pooled (65.1%)"
+  },
+  "params": {
+    "visual": 86192640,
+    "clip_total": 149620737,
+    "linear_head": 10773
+  },
+  "ms_per_image_batch1": 10.477146661529938,
+  "device": "NVIDIA GeForce RTX 3070 Ti",
+  "zeroshot": [],
+  "linear": [
+    {
+      "seed": 9,
+      "best_epoch": 2,
+      "best_val_accuracy": 0.5803108808290155,
+      "train_minutes": 0.0820510466893514,
+      "metrics": {
+        "lab_test": {
+          "accuracy": 0.5641025641025641,
+          "n": 39,
+          "binary_FNR": 0.3333333333333333,
+          "confusion": {
+            "TP": 6,
+            "TN": 25,
+            "FP": 5,
+            "FN": 3
+          }
+        },
+        "web_test": {
+          "accuracy": 0.5985915492957746,
+          "n": 142,
+          "binary_FNR": 0.32432432432432434,
+          "confusion": {
+            "TP": 25,
+            "TN": 91,
+            "FP": 14,
+            "FN": 12
+          }
+        },
+        "field_test": {
+          "accuracy": 0.625,
+          "n": 8,
+          "binary_FNR": 0.5,
+          "confusion": {
+            "TP": 1,
+            "TN": 6,
+            "FP": 0,
+            "FN": 1
+          }
+        },
+        "pooled_test": {
+          "accuracy": 0.5925925925925926,
+          "n": 189,
+          "binary_FNR": 0.3333333333333333,
+          "confusion": {
+            "TP": 32,
+            "TN": 122,
+            "FP": 19,
+            "FN": 16
+          }
+        }
+      },
+      "unfreeze_last_block": true
+    }
+  ],
+  "five_shot": null
+}
